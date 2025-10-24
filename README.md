@@ -80,8 +80,31 @@
 # Capítulo I: Introducción
 
 ## 1.1 Startup Profile (Cliente)
-- Descripción de la empresa PyME  
-- Expectativas del cliente  
+### Descripción de la PyME 
+
+SkillSwap Inc. es una startup tecnológica conformada por un equipo estudiantes de la carrera de Ingeniería de Software de la Universidad Peruana de Ciencias Aplicadas (UPC). Su principal iniciativa es TutorMatch, una plataforma digital orientada a mejorar el acceso y la gestión de tutorías académicas dentro del entorno universitario. El objetivo de la solución es facilitar la conexión entre estudiantes que buscan apoyo académico y tutores calificados, promoviendo una experiencia de aprendizaje colaborativa y flexible. </br>
+La empresa se enmarca en el sector EdTech, un rubro que integra tecnologías digitales con metodologías educativas innovadoras, contribuyendo a la transformación digital del ámbito académico. TutorMatch representa el principal activo digital de la organización y constituye el eje central de su modelo de negocio.
+
+**Servicios digitales ofrecidos**
+
+La solución TutorMatch está compuesta por un ecosistema tecnológico distribuido en tres capas principales:
+- **Frontend Web:** Portal de acceso principal desarrollado para navegadores, desde el cual los estudiantes pueden registrarse, buscar tutores, agendar sesiones, chatear en tiempo real y acceder a recursos académicos compartidos.
+- **Backend:** API central que gestiona la autenticación de usuarios, el manejo de perfiles, el registro de tutorías, la comunicación en tiempo real y la administración de la base de datos.
+- **Aplicación Móvil:** Complemento multiplataforma que ofrece las mismas funcionalidades del portal web, con un enfoque en la usabilidad y la accesibilidad desde dispositivos móviles.
+
+Estas plataformas integran funcionalidades como videollamadas, chat en tiempo real, transferencia de archivos y gestión de disponibilidad y horarios, lo que permite una experiencia académica fluida y personalizada.
+
+**Misión y visión**
+- **Misión:** Facilitar la conexión entre estudiantes y tutores universitarios, optimizando la experiencia de aprendizaje mediante el uso de tecnologías colaborativas que permitan acceder a apoyo académico en tiempo real, de manera flexible y efectiva.
+- **Visión:** Convertirse en la principal plataforma universitaria de tutorías académicas en un plazo de cinco años, promoviendo una educación más accesible, personalizada y eficiente mediante el uso de herramientas digitales innovadoras que fortalezcan el rendimiento académico y la autonomía del estudiante.
+
+**Mercado objetivo**
+
+El mercado objetivo de TutorMatch está compuesto principalmente por estudiantes universitarios de la carrera de Ingeniería de Software de la UPC, con proyección de expandirse a otras carreras y universidades del país. La plataforma busca posicionarse como un punto de encuentro confiable y ágil entre tutores y alumnos dentro del entorno académico digital.
+
+### Expectativas del cliente  
+
+Las expectativas del cliente se centran en obtener una evaluación de seguridad práctica y accionable que permita identificar y priorizar riesgos reales para TutorMatch. Específicamente, el cliente espera que el ejercicio de pentesting detecte vulnerabilidades críticas y de alto impacto (riesgo de takeover de cuentas, exposición de datos sensibles, ejecución remota o acceso no autorizado a la base de datos), que se entregue un informe técnico detallado con hallazgos reproducibles y evidencia (pruebas, logs, capturas) y que se proponga un plan de remediación con mitigaciones concretas, estimación de esfuerzo y prioridades para corregir los problemas detectados. Además, el cliente valora recibir un resumen ejecutivo comprensible para áreas no técnicas y recomendaciones para mejorar prácticas de desarrollo seguro (DevSecOps) y políticas operativas.
 
 ## 1.2 Consultora de Ciberseguridad (Equipo)
 - Descripción de la consultora  
