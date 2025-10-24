@@ -36,29 +36,29 @@
 
 # Tabla de Contenidos
 
-- Student Outcome  
-- Capítulo I: Introducción  
-  - 1.1 Startup Profile (Cliente)  
-  - 1.2 Consultora de Ciberseguridad (Equipo)  
-  - 1.3 Solution Profile  
-  - 1.4 Aceptación del Servicio de Pentesting (Rules of Engagement)  
-- Capítulo II: Metodología Ágil y de Pentesting  
-  - 2.1 Marco de referencia  
-  - 2.2 Backlog inicial: User Stories de seguridad  
-  - 2.3 Planificación de sprints (Sprint Planning)  
-  - 2.4 Definición de Done (DoD)  
-  - 2.5 Herramientas  
-- Capítulo III: Desarrollo del Proyecto por Sprints  
-  - Sprint 1 – Reconocimiento y Escaneo  
-  - Sprint 2 – Enumeración y Vulnerabilidades  
-  - Sprint 3 – Explotación  
-  - Sprint 4 – Post-explotación y Persistencia  
-  - Sprint 5 – Informe Final y Recomendaciones  
-- Capítulo IV: Resultados Consolidados  
-- Capítulo V: Recomendaciones y Plan de Mitigación  
-- Capítulo VI: Conclusiones y Recomendaciones  
-- Bibliografía  
-- Anexos  
+- [Student Outcome](#student-outcome)  
+- [Capítulo I: Introducción](#capítulo-i-introducción)  
+  - [1.1 Startup Profile (Cliente)](#11-startup-profile-cliente)  
+  - [1.2 Consultora de Ciberseguridad (Equipo)](#12-consultora-de-ciberseguridad-equipo)  
+  - [1.3 Solution Profile](#13-solution-profile)  
+  - [1.4 Aceptación del Servicio de Pentesting (Rules of Engagement)](#14-aceptación-del-servicio-de-pentesting-rules-of-engagement)  
+- [Capítulo II: Metodología Ágil y de Pentesting](#capítulo-ii-metodología-ágil-y-de-pentesting)  
+  - [2.1 Marco de referencia](#21-marco-de-referencia)  
+  - [2.2 Backlog inicial: User Stories de seguridad](#22-backlog-inicial-user-stories-de-seguridad)  
+  - [2.3 Planificación de sprints (Sprint Planning)](#23-planificación-de-sprints-sprint-planning)  
+  - [2.4 Definición de Done (DoD)](#24-definición-de-done-dod)  
+  - [2.5 Herramientas](#25-herramientas)  
+- [Capítulo III: Desarrollo del Proyecto por Sprints](#capítulo-iii-desarrollo-del-proyecto-por-sprints)  
+  - [Sprint 1 – Reconocimiento y Escaneo](#sprint-1--reconocimiento--escaneo-inicial-1-semana)  
+  - [Sprint 2 – Enumeración y Vulnerabilidades](#sprint-2--enumeración-y-vulnerabilidades-preliminares)  
+  - [Sprint 3 – Explotación](#sprint-3--explotación-controlada-web-apis)  
+  - [Sprint 4 – Post-explotación y Persistencia](#sprint-4--post-explotación-y-persistencia)  
+  - [Sprint 5 – Informe Final y Recomendaciones](#sprint-5--informe-final-y-recomendaciones)  
+- [Capítulo IV: Resultados Consolidados](#capítulo-iv-resultados-consolidados)  
+- [Capítulo V: Recomendaciones y Plan de Mitigación](#capítulo-v-recomendaciones-y-plan-de-mitigación)  
+- [Capítulo VI: Conclusiones y Recomendaciones](#capítulo-vi-conclusiones-y-recomendaciones)  
+- [Bibliografía](#bibliografía)  
+- [Anexos](#anexos) 
 
 ---
 
