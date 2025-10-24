@@ -14,16 +14,25 @@
 
 | Versión | Fecha | Cambios Realizados | Responsable |
 |:--:|:--:|:--|:--|
-|  |  |  |  |
+| 1.0 | 2025-10-24 | Entrega TP1 (Semana 9): Documento de Alcance y primer paquete de entregables. Se completaron: **Student Outcome** (borrador sobre contribución al Outcome 2); **Capítulo I** (1.1 Startup Profile — descripción PYME y expectativas; 1.2 Consultora — descripción y perfiles/roles SCRUM; 1.3 Solution Profile — antecedentes, problemática y objetivos del pentesting; 1.4 ROE — alcance y condiciones iniciales). **Capítulo II**: 2.1 Marco de referencia (Scrum, PTES, OWASP), 2.2 Backlog inicial (User Stories priorizadas) y 2.3 Planificación de sprints (detalle Sprint 1). **Capítulo III (Sprint 1)**: Objetivo, actividades técnicas (configuración Kali, OSINT, nmap, gobuster, TLS checks), entregables (`prep_evidence.txt`, `discovery.txt`, carpeta OSINT, lista de endpoints, screenshots) y PoC inicial. **Capítulo IV**: Matriz de vulnerabilidades (entradas preliminares) y evidencias adjuntas. Incluye checklist DoD parcial y evidencia subida al repositorio. | SecuraLabs — Harold Miguel Elías Sánchez (PO); Fabio M. Nicolich Alvis (Scrum Master); Leonardo J. Aquino Cruz (Pentester & Analyst); Piero A. Velarde Luyo (Technical Writer) |
 
 ---
 
 # Project Report Collaboration Insights
 
 ## Roles Scrum
-- Product Owner (líder de consultora)
-- Scrum Master (coordinador de procesos)
-- Development Team (pentesters, documentadores, analistas)
+- **Product Owner (líder de consultora):**  
+  **Harold Miguel Elías Sánchez**  
+  Responsable de definir el alcance del servicio de pentesting, gestionar la comunicación con el cliente (TutorMatch), priorizar el Product Backlog y validar los entregables de cada sprint. Supervisa la aplicación de las reglas del **ROE (Rules of Engagement)** y asegura que las pruebas se desarrollen bajo lineamientos éticos y legales.
+
+- **Scrum Master (coordinador de procesos):**  
+  **Fabio Maurizio Nicolich Alvis**  
+  Encargado de coordinar las reuniones de planificación y retrospectiva, facilitar la comunicación entre los miembros del equipo, garantizar la correcta aplicación del marco **Scrum** y el cumplimiento del **Definition of Done (DoD)**. También vela por la trazabilidad y organización del repositorio (GitHub, Trello).
+
+- **Development Team (pentesters, documentadores, analistas):**  
+  **Leonardo José Aquino Cruz** – Pentester y analista técnico, responsable de la ejecución de pruebas de reconocimiento, escaneo, explotación controlada y recolección de evidencias.  
+  **Piero Alberto Velarde Luyo** – Documentador y analista, encargado de registrar hallazgos, elaborar el informe técnico y consolidar las recomendaciones de seguridad.  
+  El equipo colabora en la planificación de sprints, priorización de User Stories y documentación de vulnerabilidades conforme al estándar **PTES/OWASP**.
 
 ## Herramientas de colaboración usadas
 - Trello  
