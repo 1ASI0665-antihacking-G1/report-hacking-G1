@@ -361,7 +361,19 @@ Informe y paquete de evidencia entregados y verificados; checklist DoD completo 
 
 
 ## 2.4 Definición de Done (DoD)
-- Evidencia clara, reproducible y con PoC  
+
+La **Definición de Hecho (Definition of Done)** establece los criterios que determinan cuándo una tarea, user story o sprint se considera finalizado de manera satisfactoria.  
+Su aplicación asegura que todos los entregables del proyecto cumplan estándares técnicos, éticos y de documentación coherentes con los objetivos del pentesting.
+
+| Categoría | Criterio de cumplimiento | Evidencia esperada |
+|------------|--------------------------|--------------------|
+| **Técnico** | Las pruebas se ejecutaron en entornos autorizados y con metodologías reproducibles. | Capturas de terminal, logs o PoC controladas. |
+| **Validación** | Cada hallazgo ha sido verificado al menos dos veces y clasificado según CVSS v3. | Registro en matriz de vulnerabilidades con puntaje y nivel de riesgo. |
+| **Documentación** | El resultado de cada sprint está documentado con fecha, responsable y descripción de hallazgos. | Informe parcial y resumen técnico. |
+| **Trazabilidad** | Se conserva el historial de comandos, herramientas y configuraciones usadas. | Carpeta `/evidence` o `/tools_log`. |
+| **Seguridad y ética** | No se realizaron ataques destructivos, DoS ni acceso no autorizado a datos reales. | Declaración de conformidad firmada por el equipo. |
+| **Revisión** | El Product Owner validó que la evidencia sea clara y comprensible. | Comentario o firma de validación. |
+
 
 ## 2.5 Herramientas
 - Kali Linux  
