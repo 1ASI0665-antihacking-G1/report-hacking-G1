@@ -431,7 +431,16 @@ Estas herramientas fueron seleccionadas conforme a las fases del estándar **PTE
 # Capítulo IV: Resultados Consolidados
 
 ## 4.1 Matriz de vulnerabilidades
-- ID, descripción, CVSS, impacto  
+
+| ID | Descripción | CVSS (Base estimado) | Impacto |
+|----|-------------|----------------------:|---------|
+| VULN-001 | Exposición de archivos sensibles (`.bashrc`, `.bash_history`, `.archive`, `.assets`) accesibles públicamente detectados por fuzzing (`ffuf`). | **5.3** | Divulgación de información sensible que facilita reconocimiento y pivoteo; posible revelación de endpoints, rutas o secretos que aumentan la probabilidad de ataques posteriores. |
+| VULN-002 | Cross-Site Scripting (XSS) reflejado: entradas que devuelven contenido sin sanitizar (PoC documentada). | **6.1** | Robo de cookies/tokens, ejecución de acciones en nombre del usuario autenticado y pérdida de confianza en la plataforma. |
+| VULN-003 | API / endpoints expuestos sin controles claros de autenticación/autorization detectados por enumeración (Postman / ffuf / spider). | **8.0** | Exposición de PII, posibilidad de IDOR y operaciones no autorizadas; facilita ataques encadenados y puede comprometer la plataforma. |
+| VULN-004 | Cabeceras de seguridad y TLS incompletas o mal configuradas (ausencia/deficiencia de CSP, HSTS, X-Frame-Options; parámetros TLS a revisar). | **4.3** | Incrementa riesgo de ataques complementarios (clickjacking, downgrade, facilitan XSS); afecta cumplimiento y confianza del sitio. |
+
+
+
 
 ## 4.2 Evidencias técnicas
 - Pantallazos, logs, outputs  
