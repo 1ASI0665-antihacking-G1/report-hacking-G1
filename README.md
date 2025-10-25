@@ -376,13 +376,20 @@ Su aplicación asegura que todos los entregables del proyecto cumplan estándare
 
 
 ## 2.5 Herramientas
-- Kali Linux  
-- Metasploit  
-- Burp Suite  
-- Nmap  
-- sqlmap  
-- Wireshark  
-- Otras herramientas relevantes  
+
+Durante la ejecución del proyecto se empleará un conjunto de herramientas de uso profesional incluidas en la distribución **Kali Linux**, complementadas con utilitarios especializados para cada fase del pentesting.  
+Estas herramientas fueron seleccionadas conforme a las fases del estándar **PTES** y a las prácticas recomendadas por **OWASP**.
+
+| Fase PTES / OWASP | Herramienta | Propósito / Uso principal |
+|--------------------|-------------|---------------------------|
+| **Reconocimiento y mapeo de activos** | `Nmap`, `Netdiscover`, `WhatWeb`, `Wappalyzer` | Identificación de hosts, puertos, servicios y tecnologías en uso. |
+| **Enumeración de recursos y subdominios** | `Gobuster`, `ffuf`, `Dirb`, `Sublist3r` | Descubrimiento de rutas ocultas, endpoints y archivos sensibles. |
+| **Análisis de vulnerabilidades web** | `Burp Suite`, `Nikto`, `OWASP ZAP` | Interceptar peticiones HTTP, detectar fallos de seguridad y validar respuestas. |
+| **Explotación de vulnerabilidades** | `sqlmap`, `Hydra`, `Metasploit Framework` | Pruebas de inyección SQL, fuerza bruta y explotación controlada. |
+| **Tráfico y protocolos** | `Wireshark`, `tcpdump` | Captura y análisis de paquetes de red, validación de cifrado y sesiones. |
+| **Pruebas complementarias / scripts** | `Python`, `curl`, `bash` | Automatización de pruebas, generación de PoC y validación de payloads. |
+| **Gestión de evidencia** | `Obsidian`, `CherryTree`, `Excel/Sheets` | Organización de hallazgos, logs, y generación de reportes intermedios. |
+
 
 ---
 
