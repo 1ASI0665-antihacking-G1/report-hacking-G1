@@ -161,10 +161,33 @@ Realizar una evaluación integral de seguridad ofensiva (pentesting) sobre las p
 # Capítulo II: Metodología Ágil y de Pentesting
 
 ## 2.1 Marco de referencia
-- Scrum aplicado a pentesting  
-- PTES  
-- OWASP  
-- Otros marcos o normas complementarias  
+
+El presente proyecto adopta un enfoque ágil basado en **Scrum**, adaptado al contexto del **pentesting corporativo**. Esta integración permite gestionar de forma iterativa y controlada las actividades técnicas, priorizando la entrega continua de valor en cada sprint y la mejora constante del producto.  
+El marco Scrum, tradicionalmente orientado al desarrollo de software, se ajusta aquí para guiar los ciclos de **planificación, ejecución, validación y documentación** de las pruebas de penetración. El equipo se organiza en roles específicos:  
+- **Product Owner (PO)**: responsable de definir el alcance, objetivos y criterios de aceptación del pentest.  
+- **Scrum Master**: vela por el cumplimiento del marco Scrum, la gestión de impedimentos y la comunicación efectiva del equipo.  
+- **Equipo de Pentesters**: encargados de ejecutar las tareas técnicas, documentar hallazgos y proponer medidas de mitigación.  
+
+Cada sprint de pentesting está alineado con las fases de los estándares reconocidos en la industria, especialmente **PTES (Penetration Testing Execution Standard)** y **OWASP Testing Guide (v5)**. Estas metodologías proporcionan la estructura técnica sobre la cual Scrum define su dinámica de trabajo. La correspondencia se resume así:
+
+| Fase PTES | Fase OWASP | Sprint Scrum asociado | Objetivo principal |
+|------------|-------------|-----------------------|--------------------|
+| Pre-engagement Interactions | Information Gathering | Sprint 1: Reconocimiento y Escaneo inicial | Identificar el alcance, activos y vectores de ataque |
+| Intelligence Gathering | Threat Modeling | Sprint 2: Enumeración y vulnerabilidades preliminares | Descubrir servicios, endpoints y posibles vulnerabilidades |
+| Vulnerability Analysis | Testing for OWASP Top 10 | Sprint 3: Explotación controlada | Validar vulnerabilidades críticas mediante PoC seguras |
+| Exploitation | Post-Exploitation | Sprint 4: Persistencia y escalamiento controlado | Verificar impacto y acceso a información sensible |
+| Reporting | Remediation Verification | Sprint 5: Informe final y recomendaciones | Documentar hallazgos, riesgos e impactos al negocio |
+
+Además, se complementa con las guías de:
+- **OSSTMM (Open Source Security Testing Methodology Manual)**: como referencia para la evaluación objetiva de seguridad y métricas.  
+- **NIST SP 800-115**: para estructurar la documentación y trazabilidad de pruebas.  
+- **MITRE ATT&CK Framework**: como apoyo en la identificación de técnicas y tácticas de adversarios reales.
+
+Este marco integrado garantiza que el proceso sea **repetible, medible y verificable**, manteniendo la ética profesional y la conformidad con buenas prácticas internacionales.  
+
+La ejecución de cada sprint incluye reuniones de **Sprint Planning**, **Daily Scrums**, **Sprint Review** y **Retrospective**, donde se evalúan los avances técnicos, los obstáculos y las oportunidades de mejora.  
+De esta manera, se asegura que cada iteración aporte resultados concretos (evidencias, PoC, registros) y que las decisiones técnicas se documenten oportunamente en función de la evolución del pentest.
+
 
 ## 2.2 Backlog inicial: User Stories de seguridad
 
