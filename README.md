@@ -128,8 +128,31 @@ Nuestra misión es ayudar a las organizaciones a descubrir y mitigar vulnerabili
 
 
 ## 1.3 Solution Profile
-- Antecedentes y problemática  
-- Objetivos del pentesting (General y específicos)  
+### Antecedentes y problemática  
+
+Las startups de tecnología educativa, como TutorMatch, están altamente expuestas a riesgos de seguridad informática debido al manejo de grandes volúmenes de datos sensibles (credenciales, historiales académicos, etc.) a través de plataformas, webs y aplicaciones móviles. TutorMatch, en su fase de desarrollo, es un objetivo atractivo para ciberatacantes que buscan explotar vulnerabilidades en sistemas emergentes. El análisis preliminar de su entorno ha revelado múltiples deficiencias de seguridad que amplían su superficie de ataque, incluyendo la carencia de controles robustos de autenticación y gestión de sesiones, la potencial exposición de APIs, validación insuficiente de entradas de usuario (formularios, chat) y archivos subidos. Adicionalmente, se detectaron fallos en la configuración de seguridad (TLS, encabezados HTTP) y en la gestión de credenciales, lo que justifica de manera urgente la realización de una auditoría de seguridad ofensiva.
+
+Ante el contexto de ataques recientes en plataformas educativas similares, que han resultado en filtraciones masivas por la explotación de vulnerabilidades como inyecciones SQL o XSS, SkillSwap Inc. reconoce la necesidad crítica de actuar proactivamente. El objetivo principal es llevar a cabo una evaluación integral de ciberseguridad para TutorMatch. Esto permitirá identificar las brechas de seguridad más críticas, fortalecer la protección de los activos digitales de la plataforma y establecer un plan de mejora continua que siga las mejores prácticas de seguridad ofensiva.
+
+### Objetivos del pentesting (General y específicos)  
+
+**Objetivo general**
+
+Realizar una evaluación integral de seguridad ofensiva (pentesting) sobre las plataformas web, backend y aplicación móvil de TutorMatch, con el fin de identificar vulnerabilidades técnicas, riesgos de exposición de datos y configuraciones inseguras, proporcionando un informe técnico y un plan de remediación que permitan fortalecer la postura de seguridad y la resiliencia del sistema ante potenciales ataques.
+
+**Objetivos específicos**
+1.	Identificar vulnerabilidades críticas en los componentes principales de TutorMatch (frontend, APIs, backend y app móvil) mediante la ejecución de pruebas de inyección, validación de entradas y análisis de permisos.
+
+2.	Evaluar la robustez de los mecanismos de autenticación, gestión de sesiones y recuperación de cuentas, comprobando la resistencia del sistema frente a ataques de fuerza bruta y suplantación de identidad.
+
+3.	Detectar exposición de información sensible (tokens, correos, datos personales o claves embebidas) en las respuestas del sistema, repositorios de código y pipelines de integración continua.
+
+4.	Analizar la configuración de seguridad de la infraestructura y servicios asociados, incluyendo protocolos de cifrado (TLS/HTTPS), encabezados de seguridad HTTP y políticas de acceso a servidores y bases de datos.
+
+5.	Ejecutar pruebas de explotación controlada (Proof of Concept) sobre las vulnerabilidades encontradas, validando su impacto y nivel de riesgo de acuerdo con metodologías OWASP y CVSS.
+
+6.	Elaborar un informe técnico detallado y un plan de remediación, priorizando las acciones correctivas y recomendaciones para mitigar riesgos y fortalecer la seguridad del ciclo de desarrollo (DevSecOps).
+
 
 ## 1.4 Aceptación del Servicio de Pentesting (Rules of Engagement)
 
