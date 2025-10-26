@@ -191,7 +191,7 @@ De esta manera, se asegura que cada iteración aporte resultados concretos (evid
 
 ## 2.2 Backlog inicial: User Stories de seguridad
 
-Una vez redactadas todas las User Stories (US), es fundamental priorizarlas. El Product Backlog organiza las historias de usuario de acuerdo con su importancia y el valor que aportan al proyecto. Para ello, los Story Points se asignaron usando la escala de Fibonacci (1, 2, 3, 5, 8, 13). Las historias con más puntos se desarrollarán antes, al representar un mayor impacto en la seguridad del sistema.
+Una vez redactadas todas las User Stories (US), es fundamental priorizarlas. El Product Backlog organiza las historias de usuario de acuerdo con el valor que aportan al proyecto. Para ello, los Story Points se asignaron usando la escala de Fibonacci (1, 2, 3, 5, 8, 13). Las historias con más puntos representan un mayor impacto en la seguridad del sistema.
 
 | Orden | User Story ID | Título | Descripción (Historia de Usuario) | Story Points |
 |:--:|:--:|:--|:--|:--:|
