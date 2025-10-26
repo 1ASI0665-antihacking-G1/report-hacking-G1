@@ -497,17 +497,192 @@ Estas herramientas fueron seleccionadas conforme a las fases del estándar **PTE
 # Capítulo III: Desarrollo del Proyecto por Sprints
 
 ## Sprint 1 – Reconocimiento y Escaneo
-- Objetivos del sprint  
-- Historias de usuario atendidas  
-- Actividades realizadas  
-- Resultados y evidencias  
-- Retrospectiva del sprint  
+### Objetivos del sprint  
+
+Identificar y documentar de manera reproducible la superficie de ataque pública del cliente **TutorMatch** (entorno de staging o host/VM autorizado), incluyendo dominios, subdominios, hosts, puertos, servicios y endpoints de autenticación.  
+Generar un inventario que guíe la fase de enumeración en el siguiente sprint y garantizar el cumplimiento de las **Rules of Engagement (ROE)** antes de cualquier explotación.
+
+### Historias de usuario atendidas  
+
+- **US-01** – *Reconocimiento inicial y mapeo de superficie (2 SP)*  
+  Como atacante externo, quiero identificar dominios/subdominios, rutas de login y formularios públicos de TutorMatch para delimitar la superficie de ataque.
+
+- **US-12** – *Escaneo de puertos y servicios de red (5 SP)*  
+  Como atacante, quiero mapear hosts, puertos y servicios detrás del despliegue de TutorMatch (servidor web, base de datos, servicios auxiliares).
+
+- **US-08** – *Verificación de TLS y headers de seguridad (5 SP)*  
+  Como auditor, quiero comprobar los mecanismos HTTPS/TLS y cabeceras de seguridad para asegurar el transporte y la mitigación de ataques web.
+
+- **US-04** – *Enumeración de endpoints API (8 SP)*  
+  Como atacante, quiero identificar endpoints REST y métodos HTTP expuestos por TutorMatch para detectar recursos sin protección.
+
+### Actividades realizadas  
+
+Todas las actividades se ejecutaron **únicamente en el entorno autorizado** y tras la confirmación del **ROE**.  
+Las salidas sensibles fueron sanitizadas antes de su almacenamiento público.
+
+1. **Preparación del entorno de pruebas**  
+   - Configuración de Kali Linux y estructura de trabajo (`~/securalabs/tutormatch/sprint1/`).
+   - Creación de cuentas de prueba (roles *student* / *tutor*).  
+   - Captura de evidencia (`prep_evidence.txt` con hostname, IP, uname -a).
+
+2. **OSINT para TutorMatch**  
+   - Búsqueda de dominios/subdominios con *theHarvester*, *Google Dorks*, *Archive.org*, *crt.sh*, *whois*.  
+   - Identificación de endpoints externos (landing, api, CDN).  
+   - Evidencias en `evidence/osint/`.
+
+3. **Descubrimiento de red y hosts**  
+   - *netdiscover / arp-scan* (si aplica) y `nmap -sn`.  
+   - Evidencias: `evidence/discovery/discovery.txt`.
+
+4. **Escaneo de puertos y servicios**  
+   - `nmap -p- -T4 <target>` → puertos abiertos.  
+   - `nmap -sV` → versiones y fingerprinting.  
+   - Archivos: `nmap_full_ports.txt`, `nmap_sV.txt`.
+
+5. **Descubrimiento web**
+   - *gobuster* o *ffuf* → rutas públicas.  
+   - *whatweb* → fingerprint tecnológico.  
+   - Resultados en `evidence/web/`.
+
+6. **Verificación TLS y cabeceras HTTP**  
+   - *testssl.sh* + `curl -I`.  
+   - Resultados: `tls_headers.txt`, `testssl_tutormatch.log`.
+
+### Resultados y evidencias  
+
+#### Resultados:
+Durante el Sprint 1 se logró identificar la superficie de ataque inicial del entorno de pruebas de TutorMatch, delimitando los activos expuestos y generando el inventario técnico base para la fase de enumeración.
+Los escaneos OSINT y de red permitieron mapear correctamente los hosts accesibles y reconocer la estructura pública de la aplicación web. A través del uso de herramientas como theHarvester, dnsenum y Google Dorks, se detectaron subdominios válidos y endpoints potenciales asociados al dominio principal tutormatch-server-test.netlify.app, confirmando que el despliegue activo correspondía a una instancia de staging alojada en la infraestructura de Netlify.
+
+El escaneo de red con Nmap reveló la presencia de servicios HTTP/HTTPS activos en los puertos estándar (80 y 443), con respuesta positiva a los paquetes ICMP y detección correcta del sistema operativo basado en Linux. No se evidenciaron servicios adicionales en ejecución ni puertos de bases de datos o servicios internos expuestos públicamente, lo que sugiere una configuración de red básica y relativamente segura.
+
+Mediante el análisis web con WhatWeb y Gobuster, se identificaron directorios accesibles como /api, /login y /uploads, que posteriormente servirán para las pruebas de enumeración y vulnerabilidades del Sprint 2. Los resultados del análisis TLS, realizados con testssl.sh, confirmaron la presencia de certificados válidos y un canal HTTPS funcional, aunque se observaron ausencias de cabeceras de seguridad complementarias (como Content-Security-Policy y X-Frame-Options), que representan vectores de riesgo bajo a medio.
+
+En general, el sprint permitió establecer las bases técnicas del pentest, generando un mapa claro de dominios, servicios y tecnologías utilizadas por la plataforma. Toda la información obtenida se consolidó en la carpeta /evidence/sprint1/, sirviendo como punto de partida para la identificación de vulnerabilidades específicas en el siguiente sprint.
+
+#### Evidencias:
+- **Preparación del entorno de pruebas:**
+<img src="assets/sprint_1/preparacion.PNG" alt="preparacion-sprint1"/>
+**archivo prep_evidence.txt:**
+kali
+Sat Oct 25 01:03:54 AM EDT 2025
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host noprefixroute 
+       valid_lft forever preferred_lft forever
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:bd:33:13 brd ff:ff:ff:ff:ff:ff
+    inet 10.0.2.15/24 brd 10.0.2.255 scope global dynamic noprefixroute eth0
+       valid_lft 86222sec preferred_lft 86222sec
+    inet6 fd17:625c:f037:2:bd49:dd53:85fd:1a5/64 scope global dynamic noprefixroute 
+       valid_lft 86223sec preferred_lft 14223sec
+    inet6 fe80::3db5:fa19:bff:d25f/64 scope link noprefixroute 
+       valid_lft forever preferred_lft forever
+3: eth1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:54:e2:11 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.194.101/24 brd 192.168.194.255 scope global dynamic noprefixroute eth1
+       valid_lft 422sec preferred_lft 422sec
+    inet6 fe80::4e7d:987b:bee:77c0/64 scope link noprefixroute 
+       valid_lft forever preferred_lft forever
+Linux kali 6.12.38+kali-amd64 #1 SMP PREEMPT_DYNAMIC Kali 6.12.38-1kali1 (2025-08-12) x86_64 GNU/Linux
+kali
+
+- **OSINT para TutorMatch:**
+  - theHarvester:
+  <img src="assets/sprint_1/theHarvester.PNG" alt="theHarvester"/>
+
+  - Dnsenum:
+  <img src="assets/sprint_1/dnsenum.PNG" alt="Dnsenum"/>
+
+- **Descubrimiento de red y hosts:**
+  - netdiscover: Se usa Host por el hecho de que es una web pública y no netdiscover/arp-scan que son para redes locales
+  <img src="assets/sprint_1/host.PNG" alt="Host"/>
+
+  Host_resolution.txt:
+  tutormatch-server-test.netlify.app has address 54.232.119.62
+  tutormatch-server-test.netlify.app has IPv6 address 2600:1f1e:7c1:c300::258
+  tutormatch-server-test.netlify.app has HTTP service bindings 1 . alpn="h2"
+
+- **Escaneo inicial de puertos/servicios:**
+  - Ping / host discovery (útil si objetivo responde ICMP): nmap -Pn -sn -oN evidence/discovery/nmap_ping_scan.txt tutormatch-server-test.netlify.app
+  <img src="assets/sprint_1/nmap.PNG" alt="Nmap"/>
+
+  - Escaneo rápido de puertos (top 1000 + versión): nmap -Pn -sS -T4 --top-ports 1000 -oN evidence/scans/nmap_top1000.txt tutormatch-server-test.netlify.app
+  <img src="assets/sprint_1/nmap2.PNG" alt="Nmap2"/>
+
+  - Escaneo de todos los puertos (más lento) + detección de versiones + OS fingerprint (si aplica): nmap -Pn -p- -T4 -sV -O -oA evidence/scans/nmap_full tutormatch-server-test.netlify.app
+  <img src="assets/sprint_1/nmap3.PNG" alt="Nmap3"/>
+
+- **Descubrimiento web:**
+  - Gobuster (directorios): gobuster dir -u https://tutormatch-server-test.netlify.app -w /usr/share/wordlists/dirb/common.txt -t 50 -o evidence/web/gobuster_dirs.txt
+  <img src="assets/sprint_1/gobuster.PNG" alt="Gobuster"/>
+
+  - ffuf: ffuf -u https://tutormatch-server-test.netlify.app/FUZZ -w /usr/share/wordlists/dirb/common.txt -o evidence/web/ffuf_dirs.json
+  <img src="assets/sprint_1/ffuf.PNG" alt="Ffuf"/>
+
+- **Primera versión TLS/cabeceras HTTP:**
+  - Revisar cabeceras HTTP: curl -I -L https://tutormatch-server-test.netlify.app/login > evidence/web/tls_headers.txt
+  <img src="assets/sprint_1/curl1.PNG" alt="Curl"/>
+
+  - Test TLS: ./testssl.sh --logfile evidence/web/testssl_tutormatch.log https://tutormatch-server-test.netlify.app
+  <img src="assets/sprint_1/testssl.PNG" alt="TestSSL"/>
+
+### Retrospectiva del sprint 
+
+**Lo que funcionó**
+- Preparación del entorno organizada y reproducible.  
+- Cobertura OSINT completa.  
+- Escaneos bien documentados.  
+- Flujo colaborativo entre los miembros vía GitHub.
+
+**Qué no funcionó**
+- Inconsistencia en nombres de archivos.  
+- Dudas sobre el alcance de Netlify.  
+- Formato de evidencia no estandarizado (faltaron XML/CSV).  
+- Escaneos demorados y evidencias visuales desiguales.
+
+**Lecciones aprendidas**
+- Aplicar estrategia escalonada para *Nmap*.  
+- Registrar autorizaciones ROE antes de pruebas agresivas.  
+- Estandarizar nombres desde el inicio (`YYYYMMDD_tool_target.ext`).  
+- Automatizar tareas repetitivas con scripts.
+
+**Acciones de mejora**
+| Acción | Responsable | Plazo | Entregable |
+|--------|--------------|--------|-------------|
+| Estandarizar convención de nombres | Piero | 3 días | `EVIDENCE_CONVENTION.md` |
+| Crear scripts de automatización (OSINT / Nmap) | Leonardo & Fabio | 5 días | `scripts/run_nmap_safe.sh` |
+| Formalizar autorización y alcance (ROE) | Harold | Inmediato | `authorization_email.txt` |
+| Plantilla PoC y guía de capturas | Piero | 4 días | `templates/poc_template.md` |
+| Optimizar estrategia de escaneo | Leonardo | 5 días | `run_nmap_safe.sh` |
+| Peer-review de hallazgos | Fabio | Sprint 2 | Checklist de revisión |
+
+**Métricas del sprint**
+- ≥ 1 commit por integrante.  
+- ≥ 90 % de evidencias renombradas según convención.  
+- Scripts automatizados en repositorio.  
+- Plantilla PoC adoptada.
 
 ## Sprint 2 – Enumeración y Vulnerabilidades
-- Historias de usuario atendidas  
-- Actividades (Nessus, Nikto, análisis de endpoints API)  
-- Resultados y evidencias  
-- Retrospectiva  
+
+### Historias de usuario atendidas  
+
+
+
+### Actividades (Nessus, Nikto, análisis de endpoints API)  
+
+
+
+### Resultados y evidencias  
+
+
+
+### Retrospectiva  
+
+
 
 ## Sprint 3 – Explotación
 - Historias de usuario atendidas  
