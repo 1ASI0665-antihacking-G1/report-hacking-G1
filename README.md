@@ -245,7 +245,7 @@ El checklist de reproducción está completado y verificado por un segundo revis
 
 Todas estas actividades técnicas se ejecutarán sobre el proyecto TutorMatch (entorno de staging o el host/VM autorizado por el propietario). Antes de cualquier prueba de explotación, se deberá firmar/confirmar el ROE (reglas de compromiso): entornos permitidos, cuentas de prueba, límites de extracción de datos y ventanas de ejecución.
 
-# Sprint 1: Reconocimiento & Escaneo inicial (1 semana)
+# Sprint 1: Reconocimiento & Escaneo inicial
 
 **Sprint Backlog 1**
 
