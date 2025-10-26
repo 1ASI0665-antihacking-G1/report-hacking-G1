@@ -531,7 +531,7 @@ Estas herramientas fueron seleccionadas conforme a las fases del estándar **PTE
 
 # Capítulo IV: Resultados Consolidados
 
-## 4.1 Matriz de vulnerabilidades
+## 4.1. Matriz de vulnerabilidades
 
 | ID | Descripción | CVSS (Base estimado) | Impacto |
 |----|-------------|----------------------:|---------|
@@ -540,13 +540,11 @@ Estas herramientas fueron seleccionadas conforme a las fases del estándar **PTE
 | VULN-003 | API / endpoints expuestos sin controles claros de autenticación/autorization detectados por enumeración (Postman / ffuf / spider). | **8.0** | Exposición de PII, posibilidad de IDOR y operaciones no autorizadas; facilita ataques encadenados y puede comprometer la plataforma. |
 | VULN-004 | Cabeceras de seguridad y TLS incompletas o mal configuradas (ausencia/deficiencia de CSP, HSTS, X-Frame-Options; parámetros TLS a revisar). | **4.3** | Incrementa riesgo de ataques complementarios (clickjacking, downgrade, facilitan XSS); afecta cumplimiento y confianza del sitio. |
 
+## 4.2. Evidencias técnicas (pantallazos, logs, outputs)
 
+## 4.3. Impacto en el negocio
 
-
-## 4.2 Evidencias técnicas
-- Pantallazos, logs, outputs  
-
-## 4.3 Impacto en el negocio
+Los hallazgos identificados durante las pruebas representan riesgos relevantes para TutorMatch en aspectos técnicos y reputacionales. La exposición de endpoints y APIs sin controles de acceso (**VULN-003**) supone el riesgo más alto, ya que podría permitir el acceso o modificación de información de usuarios, afectando la confidencialidad y generando pérdida de confianza en la plataforma. El **XSS reflejado (VULN-002)** también representa un impacto importante, pues podría ser aprovechado para robar sesiones o ejecutar código malicioso en los navegadores de los usuarios. Por otro lado, la **exposición de archivos sensibles (.bash_history o .bashrc) (VULN-001)** facilita el reconocimiento del entorno y la obtención de información útil para otros ataques. Finalmente, la **falta de cabeceras de seguridad y configuraciones TLS adecuadas (VULN-004)** incrementa la superficie de ataque ante técnicas como clickjacking o degradación de conexión. En conjunto, estas vulnerabilidades pueden afectar la integridad y confidencialidad de los datos, comprometer la estabilidad del servicio y disminuir la percepción de seguridad de los usuarios. Se recomienda priorizar la protección de APIs, la corrección del XSS y el aseguramiento de los archivos y cabeceras para reducir el riesgo general del sistema.
 
 ---
 
