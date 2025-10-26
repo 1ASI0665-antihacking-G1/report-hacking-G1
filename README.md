@@ -247,6 +247,18 @@ Todas estas actividades técnicas se ejecutarán sobre el proyecto TutorMatch (e
 
 # Sprint 1: Reconocimiento & Escaneo inicial (1 semana)
 
+**Sprint Backlog 1**
+
+| User Story Id | User Story Title | Work Item Id | Work Item Title | Description | Estimation | Assigned To | Status |
+|---:|---|---:|---|---|:--:|:--|:--|
+| US-01 | Reconocimiento inicial y mapeo de superficie | 1.1 | Preparación del entorno | Configurar Kali, crear cuentas de prueba, capturar hostname / `ip a` / `uname -a`. | (1h) | Leonardo | Done |
+| US-01 | Reconocimiento inicial y mapeo de superficie | 1.2 | OSINT | Búsqueda dominios/subdominios y assets públicos (theHarvester, Google Dorks, Archive.org). | (2h) | Leonardo | Done |
+| US-12 | Escaneo de puertos y servicios de red | 1.3 | Descubrimiento de red | `netdiscover` / `arp-scan`, `nmap -sn` para hosts autorizados. | (1h) | Leonardo | Done |
+| US-12 | Escaneo de puertos y servicios de red | 1.4 | Escaneo inicial de puertos | `nmap -p- -T4 <target>`, `nmap -sV` (inventario de puertos/servicios). | (1h) | Leonardo | Done |
+| US-04 | Escaneo y enumeración de endpoints API | 1.5 | Descubrimiento web | `gobuster`/`ffuf`, `whatweb` para directorios y fingerprinting. | (1h) | Leonardo | Done |
+| US-08 | Verificación de TLS y headers | 1.6 | Revisión TLS / Headers | `testssl.sh` y captura de cabeceras HTTP (primera revisión). | (2h) | Leonardo / Piero | Done |
+| US-01 | Reconocimiento inicial y mapeo de superficie | 1.7 | Documentación inicial | `prep_evidence.txt`, `discovery.txt`, carpeta OSINT, lista endpoints (CSV). | (1h) | Piero | Done |
+
 **Objetivo:**  
 Identificar y documentar la superficie de ataque pública de TutorMatch: dominios, subdominios, hosts, puertos, servicios web y endpoints de autenticación. Generar inventario reproducible que guíe la enumeración.
 
@@ -272,6 +284,19 @@ Inventario reproducible de hosts y endpoints de TutorMatch; evidencias (outputs 
 
 # Sprint 2: Enumeración y vulnerabilidades preliminares
 
+**Sprint Backlog 2**
+
+| User Story Id | User Story Title | Work Item Id | Work Item Title | Description | Estimation | Assigned To | Status |
+|---:|---|---:|---|---|:--:|:--|:--|
+| US-04 | Escaneo y enumeración de endpoints API | 2.1 | Nmap avanzado & Scripting | `nmap -p- -sS -sV -O --script=vuln <target>`, generar `nmap_full.txt`. | (2h) | Leonardo | Done |
+| US-04 | Escaneo y enumeración de endpoints API | 2.2 | Reconocimiento web profundo | `whatweb -v`, `gobuster dir -u <url> -w common.txt` (gobuster outputs). | (1h) | Leonardo | Done |
+| US-02 | Pruebas de inyección SQL | 2.3 | Identificación de parámetros vulnerables (no explotación) | Búsqueda manual de parámetros y pruebas ligeras (no destructivas) para marcar candidatos SQLi. | (1h) | Leonardo | Done |
+| US-03 | Pruebas de XSS | 2.4 | Pruebas XSS preliminares | Payloads reflejados simples, validación/sanitización en campos chat/comentarios. | (1h) | Leonardo | Done |
+| US-08 | Verificación de TLS y headers | 2.5 | Confirmación y listado de cabeceras | Verificar HSTS, CSP, X-Frame-Options, X-XSS-Protection en endpoints críticos. | (1h) | Piero / Leonardo | Done |
+| US-13 | Auditoría de repositorios y pipelines | 2.6 | Revisión SCA / CI | `npm audit`, `mvn dependency:tree`, revisión rápida de pipelines por secretos. | (1h) | Fabio / Leonardo | Done |
+| US-04 | Escaneo y enumeración de endpoints API | 2.7 | Generar ZAP report & colección Postman | OWASP ZAP spider + scan → `ZAP_report.html`; construir colección Postman/Burp. | (1h) | Leonardo / Piero | Done |
+| US-01 | Reconocimiento inicial y mapeo de superficie | 2.8 | Filtrado y documentación | Filtrar falsos positivos, documentar hallazgos preliminares con CVSS estimado. | (1h) | Piero | Done |
+
 **Objetivo:**  
 Enumerar en detalle servicios, versiones y endpoints API/WEB de TutorMatch; identificar vulnerabilidades de superficie (OWASP Top 10) en modo no destructivo y priorizar hallazgos.
 
@@ -296,6 +321,17 @@ Hallazgos preliminares documentados y validados (falsos positivos filtrados); ba
 
 # Sprint 3: Explotación controlada (web, APIs)
 
+**Sprint Backlog 3**
+
+| User Story Id | User Story Title | Work Item Id | Work Item Title | Description | Estimation | Assigned To | Status |
+|---:|---|---:|---|---|:--:|:--|:--|
+| US-02 | Pruebas de inyección SQL en APIs y formularios | 3.1 | SQLi controlado (PoC) | Ejecutar `sqlmap` con flags limitantes en parámetros identificados; capturar error/metadata si ROE lo exige. | (2h) | Leonardo | Done |
+| US-03 | Pruebas de Cross-Site Scripting (XSS) | 3.2 | Confirmación XSS & PoC | Confirmar XSS (reflejado/almacenado) con Burp Repeater; grabar GIF/video ≤30s. | (1h) | Leonardo | Done |
+| US-06 | Prueba de subida de archivos inseguros | 3.3 | File upload testing (PoC) | Subir archivos renombrados (.php rename) y verificar acceso/ejecución. | (2h) | Leonardo | Done |
+| US-10 | Pruebas CSRF en acciones críticas | 3.4 | Verificación CSRF | Probar tokens, endpoints state-changing y construir PoC si aplica. | (1h) | Leonardo / Piero | Done |
+| US-04 | Escaneo y enumeración de endpoints API | 3.5 | Explotación de endpoints API | Probar IDOR, parámetros y controles de autorización en APIs (usar cuentas de prueba). | (2h) | Leonardo | Done |
+| US-02 | Pruebas de inyección SQL en APIs y formularios | 3.6 | Documentación PoC | Capturas, comandos reproducibles, colecciones y matrices CVSS. | (1h) | Piero | Done |
+
 **Objetivo:**  
 Explotar de forma controlada las vulnerabilidades prioritarias identificadas en Sprint 2 (por ejemplo SQLi, XSS, IDOR, credenciales), usando cuentas y datos de prueba y respetando ROE.
 
@@ -317,6 +353,17 @@ PoC reproducibles y revisados por el responsable del entorno; compromisos/soft-f
 ---
 
 # Sprint 4: Post-explotación y persistencia
+
+**Sprint Backlog 4**
+
+| User Story Id | User Story Title | Work Item Id | Work Item Title | Description | Estimation | Assigned To | Status |
+|---:|---|---:|---|---|:--:|:--|:--|
+| US-05 | Explotación de credenciales débiles & recuperación de cuenta | 4.1 | Testing de credenciales & account recovery | Evaluar políticas de contraseña, bloqueo e intentar flujos de reset en cuentas de prueba. | (2h) | Leonardo | Done |
+| US-09 | Detección de exposición de datos sensibles | 4.2 | Revisión de respuestas API para PII | Analizar respuestas por tokens, correos, datos no enmascarados; documentar evidencia. | (2h) | Piero / Leonardo | Done |
+| US-12 | Escaneo de puertos y servicios de red | 4.3 | Re-evaluación de servicios internos | Mapear servicios internos accesibles desde punto de compromiso (teórico). | (2h) | Leonardo | Done |
+| US-02 / US-03 | — | 4.4 | Escalamiento y persistencia (controlado) | Intentar escalamiento local/DB en entornos de prueba y documentar artefactos (metadata). | (2h) | Leonardo | Done |
+| US-08 | Verificación de TLS y headers | 4.5 | Detección / logging | Verificar logs, reglas y alertas; proponer reglas SIEM/IDS. | (1h) | Fabio / Piero | Done |
+| US-09 | Detección de exposición de datos sensibles | 4.6 | Checklist de remediación | Propuestas inmediatas (rotación credenciales prueba, cierre endpoints, permisos). | (2h) | Piero | Done |
 
 **Objetivo:**  
 Evaluar el impacto real tras una explotación autorizada sobre TutorMatch (limitado por ROE): comprobar escalamiento, artefactos accesibles, posibilidad de persistencia y mapeo de movimiento lateral teórico; además validar detección/monitoring.
