@@ -1,12 +1,58 @@
-# Carátula
 
-- Logo de la UPC  
-- Nombre de la universidad, carrera, ciclo, código y nombre del curso, NRC  
-- Nombre del profesor  
-- **Título:** Informe de Trabajo Final – Anti-Hacking y Nuevas Tendencias de Seguridad  
-- Nombre de la consultora  
-- Relación de integrantes (código, apellidos y nombres)  
-- Mes y año  
+
+<p align="center">
+  <img src="assets/UPC_logo.png" alt="Logo UPC" width="140"/>
+</p>
+
+<h1 align="center">UNIVERSIDAD PERUANA DE CIENCIAS APLICADAS</h1>
+<h2 align="center">Ingeniería de Software - Ciclo 08</h2>
+
+---
+
+<h2 align="center">Anti Hacking y Nuevas Tendencias de Seguridad</h2>
+<p align="center"><strong>Código del curso:</strong> 1ASI0665-2520-14423</p>
+
+<h3 align="center">Profesor</h3>
+<p align="center"><strong>David Carlos Vera Olivera</strong></p>
+
+---
+
+<h2 align="center">INFORME DEL TRABAJO FINAL</h2>
+<p align="center"><strong>Consultora:</strong> SecuraLabs</p>
+<p align="center"><strong>Empresa:</strong> Tutormatch</p>
+
+---
+
+<h3 align="center">Integrantes</h3>
+
+<div align="center">
+
+<table>
+  <tr>
+    <th>Nombre y Apellido</th>
+    <th>Código</th>
+  </tr>
+  <tr>
+    <td>Leonardo José Aquino Cruz</td>
+    <td>u20201b949</td>
+  </tr>
+  <tr>
+    <td>Fabio Maurizio Nicolich Alvis</td>
+    <td>u202218791</td>
+  </tr>
+  <tr>
+    <td>Harold Miguel Elías Sánchez</td>
+    <td>u202212684</td>
+  </tr>
+  <tr>
+    <td>Piero Alberto Velarde Luyo</td>
+    <td>u20211a620</td>
+  </tr>
+</table>
+
+</div>
+
+<p align="center"><strong>Octubre 2025</strong></p>
 
 ---
 
@@ -35,11 +81,19 @@
   El equipo colabora en la planificación de sprints, priorización de User Stories y documentación de vulnerabilidades conforme al estándar **PTES/OWASP**.
 
 ## Herramientas de colaboración usadas
-- Trello  
 - Jira  
 - GitHub  
 - Microsoft Teams / WhatsApp  
 - Otras herramientas técnicas (Burp Suite, Metasploit, etc.)
+
+## Repositorio del informe
+
+El informe final se desarrollará en un repositorio público bajo la organización 1ASI0665-antihacking-G1, donde se documentará todo el ciclo de vida del proyecto, incluyendo commits, versiones y entregables.
+Repositorio oficial: [https://github.com/1ASI0665-antihacking-G1/report-hacking-G1](https://github.com/1ASI0665-antihacking-G1/report-hacking-G1) 
+
+## Evidencia de colaboración
+
+asdas
 
 ---
 
