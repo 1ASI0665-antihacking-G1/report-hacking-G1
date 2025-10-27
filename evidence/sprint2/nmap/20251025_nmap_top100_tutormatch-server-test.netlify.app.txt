@@ -1,0 +1,74 @@
+# Nmap 7.95 scan initiated Sun Oct 26 16:33:08 2025 as: /usr/lib/nmap/nmap --privileged --top-ports 100 -sV --open -oN /home/kali/securalabs/tutormatch/evidence/sprint2/nmap/20251025_nmap_top100_tutormatch-server-test.netlify.app.txt tutormatch-server-test.netlify.app
+Nmap scan report for tutormatch-server-test.netlify.app (54.232.119.62)
+Host is up (0.020s latency).
+Other addresses for tutormatch-server-test.netlify.app (not scanned): 2600:1f1e:7c1:c300::258
+rDNS record for 54.232.119.62: ec2-54-232-119-62.sa-east-1.compute.amazonaws.com
+Not shown: 98 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT    STATE SERVICE  VERSION
+80/tcp  open  http     Golang net/http server
+443/tcp open  ssl/http Golang net/http server
+2 services unrecognized despite returning data. If you know the service/version, please submit the following fingerprints at https://nmap.org/cgi-bin/submit.cgi?new-service :
+==============NEXT SERVICE FINGERPRINT (SUBMIT INDIVIDUALLY)==============
+SF-Port80-TCP:V=7.95%I=7%D=10/26%Time=68FE858C%P=x86_64-pc-linux-gnu%r(Get
+SF:Request,92,"HTTP/1\.0\x20400\x20Bad\x20Request\r\nDate:\x20Sun,\x2026\x
+SF:20Oct\x202025\x2020:33:16\x20GMT\r\nServer:\x20Netlify\r\nX-Nf-Request-
+SF:Id:\x2001K8H3KB30JQQSMFJX4FNEHJ4N\r\nContent-Length:\x200\r\n\r\n")%r(H
+SF:TTPOptions,92,"HTTP/1\.0\x20400\x20Bad\x20Request\r\nDate:\x20Sun,\x202
+SF:6\x20Oct\x202025\x2020:33:16\x20GMT\r\nServer:\x20Netlify\r\nX-Nf-Reque
+SF:st-Id:\x2001K8H3KB9EKE47B4T3A21D82XA\r\nContent-Length:\x200\r\n\r\n")%
+SF:r(RTSPRequest,67,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nContent-Type:\x
+SF:20text/plain;\x20charset=utf-8\r\nConnection:\x20close\r\n\r\n400\x20Ba
+SF:d\x20Request")%r(FourOhFourRequest,92,"HTTP/1\.0\x20400\x20Bad\x20Reque
+SF:st\r\nDate:\x20Sun,\x2026\x20Oct\x202025\x2020:33:16\x20GMT\r\nServer:\
+SF:x20Netlify\r\nX-Nf-Request-Id:\x2001K8H3KBMGED4HAMWP6298XYDQ\r\nContent
+SF:-Length:\x200\r\n\r\n")%r(GenericLines,67,"HTTP/1\.1\x20400\x20Bad\x20R
+SF:equest\r\nContent-Type:\x20text/plain;\x20charset=utf-8\r\nConnection:\
+SF:x20close\r\n\r\n400\x20Bad\x20Request")%r(Help,67,"HTTP/1\.1\x20400\x20
+SF:Bad\x20Request\r\nContent-Type:\x20text/plain;\x20charset=utf-8\r\nConn
+SF:ection:\x20close\r\n\r\n400\x20Bad\x20Request")%r(SSLSessionReq,67,"HTT
+SF:P/1\.1\x20400\x20Bad\x20Request\r\nContent-Type:\x20text/plain;\x20char
+SF:set=utf-8\r\nConnection:\x20close\r\n\r\n400\x20Bad\x20Request")%r(LPDS
+SF:tring,67,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nContent-Type:\x20text/p
+SF:lain;\x20charset=utf-8\r\nConnection:\x20close\r\n\r\n400\x20Bad\x20Req
+SF:uest")%r(SIPOptions,67,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nContent-T
+SF:ype:\x20text/plain;\x20charset=utf-8\r\nConnection:\x20close\r\n\r\n400
+SF:\x20Bad\x20Request")%r(Socks5,67,"HTTP/1\.1\x20400\x20Bad\x20Request\r\
+SF:nContent-Type:\x20text/plain;\x20charset=utf-8\r\nConnection:\x20close\
+SF:r\n\r\n400\x20Bad\x20Request")%r(OfficeScan,A3,"HTTP/1\.1\x20400\x20Bad
+SF:\x20Request:\x20missing\x20required\x20Host\x20header\r\nContent-Type:\
+SF:x20text/plain;\x20charset=utf-8\r\nConnection:\x20close\r\n\r\n400\x20B
+SF:ad\x20Request:\x20missing\x20required\x20Host\x20header");
+==============NEXT SERVICE FINGERPRINT (SUBMIT INDIVIDUALLY)==============
+SF-Port443-TCP:V=7.95%T=SSL%I=7%D=10/26%Time=68FE8592%P=x86_64-pc-linux-gn
+SF:u%r(GetRequest,92,"HTTP/1\.0\x20400\x20Bad\x20Request\r\nDate:\x20Sun,\
+SF:x2026\x20Oct\x202025\x2020:33:21\x20GMT\r\nServer:\x20Netlify\r\nX-Nf-R
+SF:equest-Id:\x2001K8H3KGGREBJ664HRQ1XKQ8XP\r\nContent-Length:\x200\r\n\r\
+SF:n")%r(HTTPOptions,92,"HTTP/1\.0\x20400\x20Bad\x20Request\r\nDate:\x20Su
+SF:n,\x2026\x20Oct\x202025\x2020:33:22\x20GMT\r\nServer:\x20Netlify\r\nX-N
+SF:f-Request-Id:\x2001K8H3KGRTNVJGTTDBB14H7MMB\r\nContent-Length:\x200\r\n
+SF:\r\n")%r(FourOhFourRequest,92,"HTTP/1\.0\x20400\x20Bad\x20Request\r\nDa
+SF:te:\x20Sun,\x2026\x20Oct\x202025\x2020:33:22\x20GMT\r\nServer:\x20Netli
+SF:fy\r\nX-Nf-Request-Id:\x2001K8H3KH19CXA3RGT31BJS747H\r\nContent-Length:
+SF:\x200\r\n\r\n")%r(GenericLines,67,"HTTP/1\.1\x20400\x20Bad\x20Request\r
+SF:\nContent-Type:\x20text/plain;\x20charset=utf-8\r\nConnection:\x20close
+SF:\r\n\r\n400\x20Bad\x20Request")%r(RTSPRequest,67,"HTTP/1\.1\x20400\x20B
+SF:ad\x20Request\r\nContent-Type:\x20text/plain;\x20charset=utf-8\r\nConne
+SF:ction:\x20close\r\n\r\n400\x20Bad\x20Request")%r(Help,67,"HTTP/1\.1\x20
+SF:400\x20Bad\x20Request\r\nContent-Type:\x20text/plain;\x20charset=utf-8\
+SF:r\nConnection:\x20close\r\n\r\n400\x20Bad\x20Request")%r(SSLSessionReq,
+SF:67,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nContent-Type:\x20text/plain;\
+SF:x20charset=utf-8\r\nConnection:\x20close\r\n\r\n400\x20Bad\x20Request")
+SF:%r(LPDString,67,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nContent-Type:\x2
+SF:0text/plain;\x20charset=utf-8\r\nConnection:\x20close\r\n\r\n400\x20Bad
+SF:\x20Request")%r(SIPOptions,67,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nCo
+SF:ntent-Type:\x20text/plain;\x20charset=utf-8\r\nConnection:\x20close\r\n
+SF:\r\n400\x20Bad\x20Request")%r(Socks5,67,"HTTP/1\.1\x20400\x20Bad\x20Req
+SF:uest\r\nContent-Type:\x20text/plain;\x20charset=utf-8\r\nConnection:\x2
+SF:0close\r\n\r\n400\x20Bad\x20Request")%r(OfficeScan,A3,"HTTP/1\.1\x20400
+SF:\x20Bad\x20Request:\x20missing\x20required\x20Host\x20header\r\nContent
+SF:-Type:\x20text/plain;\x20charset=utf-8\r\nConnection:\x20close\r\n\r\n4
+SF:00\x20Bad\x20Request:\x20missing\x20required\x20Host\x20header");
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Sun Oct 26 16:33:52 2025 -- 1 IP address (1 host up) scanned in 43.22 seconds

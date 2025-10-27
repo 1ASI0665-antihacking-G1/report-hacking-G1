@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.95 scan initiated Sat Oct 25 02:18:09 2025 as: /usr/lib/nmap/nmap -&#45;privileged -Pn -p- -T4 -sV -O -oA evidence/scans/nmap_full tutormatch-server-test.netlify.app -->
+<nmaprun scanner="nmap" args="/usr/lib/nmap/nmap -&#45;privileged -Pn -p- -T4 -sV -O -oA evidence/scans/nmap_full tutormatch-server-test.netlify.app" start="1761373089" startstr="Sat Oct 25 02:18:09 2025" version="7.95" xmloutputversion="1.05">
+<scaninfo type="syn" protocol="tcp" numservices="65535" services="1-65535"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1761373089" endtime="1761373611"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="54.232.119.62" addrtype="ipv4"/>
+<hostnames>
+<hostname name="tutormatch-server-test.netlify.app" type="user"/>
+<hostname name="ec2-54-232-119-62.sa-east-1.compute.amazonaws.com" type="PTR"/>
+</hostnames>
+<ports><extraports state="filtered" count="65533">
+<extrareasons reason="no-response" count="65533" proto="tcp" ports="1-79,81-442,444-65535"/>
+</extraports>
+<port protocol="tcp" portid="80"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="http" product="Golang net/http server" servicefp="SF-Port80-TCP:V=7.95%I=7%D=10/25%Time=68FC6D81%P=x86_64-pc-linux-gnu%r(GetRequest,92,&quot;HTTP/1\.0\x20400\x20Bad\x20Request\r\nDate:\x20Sat,\x2025\x20Oct\x202025\x2006:26:09\x20GMT\r\nServer:\x20Netlify\r\nX-Nf-Request-Id:\x2001K8D0QGGD4FVJ9YGME3V5TJ61\r\nContent-Length:\x200\r\n\r\n&quot;)%r(HTTPOptions,92,&quot;HTTP/1\.0\x20400\x20Bad\x20Request\r\nDate:\x20Sat,\x2025\x20Oct\x202025\x2006:26:09\x20GMT\r\nServer:\x20Netlify\r\nX-Nf-Request-Id:\x2001K8D0QGQKHS2ZYP8VMG6SZ34J\r\nContent-Length:\x200\r\n\r\n&quot;)%r(RTSPRequest,67,&quot;HTTP/1\.1\x20400\x20Bad\x20Request\r\nContent-Type:\x20text/plain;\x20charset=utf-8\r\nConnection:\x20close\r\n\r\n400\x20Bad\x20Request&quot;)%r(FourOhFourRequest,92,&quot;HTTP/1\.0\x20400\x20Bad\x20Request\r\nDate:\x20Sat,\x2025\x20Oct\x202025\x2006:26:10\x20GMT\r\nServer:\x20Netlify\r\nX-Nf-Request-Id:\x2001K8D0QH622Y4XNTNPXMXPYGGR\r\nContent-Length:\x200\r\n\r\n&quot;)%r(GenericLines,67,&quot;HTTP/1\.1\x20400\x20Bad\x20Request\r\nContent-Type:\x20text/plain;\x20charset=utf-8\r\nConnection:\x20close\r\n\r\n400\x20Bad\x20Request&quot;)%r(Help,67,&quot;HTTP/1\.1\x20400\x20Bad\x20Request\r\nContent-Type:\x20text/plain;\x20charset=utf-8\r\nConnection:\x20close\r\n\r\n400\x20Bad\x20Request&quot;)%r(SSLSessionReq,67,&quot;HTTP/1\.1\x20400\x20Bad\x20Request\r\nContent-Type:\x20text/plain;\x20charset=utf-8\r\nConnection:\x20close\r\n\r\n400\x20Bad\x20Request&quot;)%r(LPDString,67,&quot;HTTP/1\.1\x20400\x20Bad\x20Request\r\nContent-Type:\x20text/plain;\x20charset=utf-8\r\nConnection:\x20close\r\n\r\n400\x20Bad\x20Request&quot;)%r(SIPOptions,67,&quot;HTTP/1\.1\x20400\x20Bad\x20Request\r\nContent-Type:\x20text/plain;\x20charset=utf-8\r\nConnection:\x20close\r\n\r\n400\x20Bad\x20Request&quot;)%r(Socks5,67,&quot;HTTP/1\.1\x20400\x20Bad\x20Request\r\nContent-Type:\x20text/plain;\x20charset=utf-8\r\nConnection:\x20close\r\n\r\n400\x20Bad\x20Request&quot;)%r(OfficeScan,A3,&quot;HTTP/1\.1\x20400\x20Bad\x20Request:\x20missing\x20required\x20Host\x20header\r\nContent-Type:\x20text/plain;\x20charset=utf-8\r\nConnection:\x20close\r\n\r\n400\x20Bad\x20Request:\x20missing\x20required\x20Host\x20header&quot;);" method="probed" conf="10"><cpe>cpe:/a:golang:go</cpe></service></port>
+<port protocol="tcp" portid="443"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="http" product="Golang net/http server" servicefp="SF-Port443-TCP:V=7.95%T=SSL%I=7%D=10/25%Time=68FC6D87%P=x86_64-pc-linux-gnu%r(GetRequest,92,&quot;HTTP/1\.0\x20400\x20Bad\x20Request\r\nDate:\x20Sat,\x2025\x20Oct\x202025\x2006:26:15\x20GMT\r\nServer:\x20Netlify\r\nX-Nf-Request-Id:\x2001K8D0QP1JNDB0688F4X3JKH53\r\nContent-Length:\x200\r\n\r\n&quot;)%r(HTTPOptions,92,&quot;HTTP/1\.0\x20400\x20Bad\x20Request\r\nDate:\x20Sat,\x2025\x20Oct\x202025\x2006:26:15\x20GMT\r\nServer:\x20Netlify\r\nX-Nf-Request-Id:\x2001K8D0QPC4AD0378TYMEHQZ17T\r\nContent-Length:\x200\r\n\r\n&quot;)%r(FourOhFourRequest,92,&quot;HTTP/1\.0\x20400\x20Bad\x20Request\r\nDate:\x20Sat,\x2025\x20Oct\x202025\x2006:26:15\x20GMT\r\nServer:\x20Netlify\r\nX-Nf-Request-Id:\x2001K8D0QPPG5ZKCGWEY9W096B4E\r\nContent-Length:\x200\r\n\r\n&quot;)%r(GenericLines,67,&quot;HTTP/1\.1\x20400\x20Bad\x20Request\r\nContent-Type:\x20text/plain;\x20charset=utf-8\r\nConnection:\x20close\r\n\r\n400\x20Bad\x20Request&quot;)%r(RTSPRequest,67,&quot;HTTP/1\.1\x20400\x20Bad\x20Request\r\nContent-Type:\x20text/plain;\x20charset=utf-8\r\nConnection:\x20close\r\n\r\n400\x20Bad\x20Request&quot;)%r(Help,67,&quot;HTTP/1\.1\x20400\x20Bad\x20Request\r\nContent-Type:\x20text/plain;\x20charset=utf-8\r\nConnection:\x20close\r\n\r\n400\x20Bad\x20Request&quot;)%r(SSLSessionReq,67,&quot;HTTP/1\.1\x20400\x20Bad\x20Request\r\nContent-Type:\x20text/plain;\x20charset=utf-8\r\nConnection:\x20close\r\n\r\n400\x20Bad\x20Request&quot;)%r(LPDString,67,&quot;HTTP/1\.1\x20400\x20Bad\x20Request\r\nContent-Type:\x20text/plain;\x20charset=utf-8\r\nConnection:\x20close\r\n\r\n400\x20Bad\x20Request&quot;)%r(SIPOptions,67,&quot;HTTP/1\.1\x20400\x20Bad\x20Request\r\nContent-Type:\x20text/plain;\x20charset=utf-8\r\nConnection:\x20close\r\n\r\n400\x20Bad\x20Request&quot;)%r(Socks5,67,&quot;HTTP/1\.1\x20400\x20Bad\x20Request\r\nContent-Type:\x20text/plain;\x20charset=utf-8\r\nConnection:\x20close\r\n\r\n400\x20Bad\x20Request&quot;)%r(OfficeScan,A3,&quot;HTTP/1\.1\x20400\x20Bad\x20Request:\x20missing\x20required\x20Host\x20header\r\nContent-Type:\x20text/plain;\x20charset=utf-8\r\nConnection:\x20close\r\n\r\n400\x20Bad\x20Request:\x20missing\x20required\x20Host\x20header&quot;);" tunnel="ssl" method="probed" conf="10"><cpe>cpe:/a:golang:go</cpe></service></port>
+</ports>
+<os><portused state="open" proto="tcp" portid="80"/>
+<osmatch name="Oracle Virtualbox Slirp NAT bridge" accuracy="98" line="98665">
+<osclass type="bridge" vendor="Oracle" osfamily="Virtualbox" accuracy="98"><cpe>cpe:/o:oracle:virtualbox</cpe></osclass>
+<osclass type="bridge" vendor="Slirp" osfamily="Slirp" accuracy="98"><cpe>cpe:/a:danny_gasparovski:slirp</cpe></osclass>
+</osmatch>
+<osmatch name="AT&amp;T BGW210 voice gateway" accuracy="95" line="9785">
+<osclass type="VoIP adapter" vendor="AT&amp;T" osfamily="embedded" accuracy="95"/>
+</osmatch>
+<osmatch name="QEMU user mode network gateway" accuracy="94" line="100506">
+<osclass type="general purpose" vendor="QEMU" osfamily="QEMU" accuracy="94"><cpe>cpe:/a:qemu:qemu</cpe></osclass>
+</osmatch>
+</os>
+<tcpsequence index="17" difficulty="Good luck!" values="C0A0801,C0BFC01,C0CF601,C0DF001,C0EEA01,C0FE401"/>
+<ipidsequence class="Incremental" values="1FF7,1FF8,1FF9,1FFA,1FFB,1FFC"/>
+<tcptssequence class="none returned (unsupported)"/>
+<times srtt="43662" rttvar="49928" to="243374"/>
+</host>
+<runstats><finished time="1761373611" timestr="Sat Oct 25 02:26:51 2025" summary="Nmap done at Sat Oct 25 02:26:51 2025; 1 IP address (1 host up) scanned in 522.02 seconds" elapsed="522.02" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>

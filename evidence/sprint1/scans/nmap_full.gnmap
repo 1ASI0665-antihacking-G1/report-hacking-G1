@@ -1,0 +1,4 @@
+# Nmap 7.95 scan initiated Sat Oct 25 02:18:09 2025 as: /usr/lib/nmap/nmap --privileged -Pn -p- -T4 -sV -O -oA evidence/scans/nmap_full tutormatch-server-test.netlify.app
+Host: 54.232.119.62 (ec2-54-232-119-62.sa-east-1.compute.amazonaws.com)	Status: Up
+Host: 54.232.119.62 (ec2-54-232-119-62.sa-east-1.compute.amazonaws.com)	Ports: 80/open/tcp//http//Golang net|http server/, 443/open/tcp//ssl|http//Golang net|http server/	Ignored State: filtered (65533)	Seq Index: 17	IP ID Seq: Incremental
+# Nmap done at Sat Oct 25 02:26:51 2025 -- 1 IP address (1 host up) scanned in 522.02 seconds

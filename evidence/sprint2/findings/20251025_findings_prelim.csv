@@ -1,0 +1,4 @@
+id,severity,cvss_base,vector,endpoint,params,proof_short,evidence_file,status,assigned_to,date_found,priority,suggested_fix
+VULN-001,High,6.1,Reflected XSS,GET /search,q,"Payload reflejado en HTML sin escape (sanitizado)","xss_pocs/20251025_poc_reflected_xss_search.html",Open,Leonardo,2025-10-25,P0,Escape/encodear la salida; CSP
+VULN-002,Medium,6.5,Auth rate-limit missing,POST /api/v1/auth/login,username/password,"No 429/Retry-After observado tras intentos controlados","manual_tests/20251025_sqli_test_login.txt",Open,Leonardo,2025-10-25,P0,Implementar rate-limit + bloqueo temporal
+VULN-003,Low,4.2,Directory Indexing,GET /uploads/,n/a,"Listado de archivos accesible públicamente","nikto/20251025_nikto_tutormatch.netlify.app.txt",Open,Piero,2025-10-25,P1,Deshabilitar directory listing; aplicar control de acceso

@@ -1,0 +1,6 @@
+# Nmap 7.95 scan initiated Sat Oct 25 02:16:21 2025 as: /usr/lib/nmap/nmap --privileged -Pn -sn -oN evidence/discovery/nmap_ping_scan.txt tutormatch-server-test.netlify.app
+Nmap scan report for tutormatch-server-test.netlify.app (54.232.119.62)
+Host is up.
+Other addresses for tutormatch-server-test.netlify.app (not scanned): 2600:1f1e:7c1:c300::258
+rDNS record for 54.232.119.62: ec2-54-232-119-62.sa-east-1.compute.amazonaws.com
+# Nmap done at Sat Oct 25 02:16:21 2025 -- 1 IP address (1 host up) scanned in 0.42 seconds
