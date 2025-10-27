@@ -893,7 +893,15 @@ Los hallazgos identificados durante las pruebas representan riesgos relevantes p
 
 # Capítulo VI: Conclusiones y Recomendaciones
 
-- Conclusiones y recomendaciones del equipo  
+Conclusiones y recomendaciones del equipo
+El proyecto de auditoría y pentesting realizado sobre la plataforma TutorMatch permitió aplicar de forma práctica la metodología ágil y los marcos de referencia de seguridad (Scrum, PTES y OWASP) en un entorno web real. A través de las fases de reconocimiento, enumeración, explotación controlada y análisis de resultados, se logró identificar vulnerabilidades con distintos niveles de severidad que podrían afectar la confidencialidad, integridad y disponibilidad de los datos.
+
+Los hallazgos más relevantes se concentraron en la exposición de endpoints y APIs sin controles de acceso adecuados, la presencia de un XSS reflejado en el frontend, la exposición de archivos sensibles del servidor y la falta de cabeceras y configuraciones TLS seguras. Estas vulnerabilidades evidencian la necesidad de fortalecer los mecanismos de autenticación, sanitización de entradas y políticas de seguridad web para garantizar un entorno más robusto.
+
+El trabajo en equipo bajo un enfoque ágil permitió distribuir responsabilidades, planificar actividades por sprints y documentar cada etapa con evidencias técnicas claras. Este proceso favoreció no solo la identificación de riesgos, sino también la generación de recomendaciones viables que podrían incorporarse en el ciclo de desarrollo de la aplicación, alineándose con la filosofía DevSecOps.
+
+En conclusión, el proyecto demostró la importancia de integrar la seguridad desde las primeras fases del desarrollo, realizar evaluaciones periódicas de vulnerabilidades y mantener prácticas de mejora continua. Con la implementación de las medidas propuestas, TutorMatch podrá reducir significativamente su superficie de ataque, fortalecer la confianza de sus usuarios y sentar las bases para un modelo de gestión de seguridad sostenible en el tiempo.
+
 - Lecciones aprendidas en metodología ágil  
 - Relación con Student Outcome 2  
 - Video “About-the-Team”  
