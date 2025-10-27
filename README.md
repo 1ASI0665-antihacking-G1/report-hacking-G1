@@ -103,10 +103,10 @@ A través de commits, revisiones y coordinación mediante GitHub, se garantizó 
 <img src="assets/evidence_collaboration/TP1/contributors_graph.PNG" alt="Contributors Graph"/>
 
 ### Historial de commits y mensajes 
-<img src="assets/evidence_collaboration/TP1/commit1.PNG" alt="Commit 1"/>
-<img src="assets/evidence_collaboration/TP1/commit2.PNG" alt="Commit 2"/>
-<img src="assets/evidence_collaboration/TP1/commit3.PNG" alt="Commit 3"/>
-<img src="assets/evidence_collaboration/TP1/commit4.PNG" alt="Commit 4"/>
+<img src="assets/evidence_collaboration/TP1/commit1.png" alt="Commit 1"/>
+<img src="assets/evidence_collaboration/TP1/commit2.png" alt="Commit 2"/>
+<img src="assets/evidence_collaboration/TP1/commit3.png" alt="Commit 3"/>
+<img src="assets/evidence_collaboration/TP1/commit4.png" alt="Commit 4"/>
 
 ---
 
