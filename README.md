@@ -676,19 +676,156 @@ kali
 
 ### Historias de usuario atendidas  
 
-
+- **US-04 – Enumeración de endpoints API (8 SP):** Como atacante, quiero identificar todos los endpoints REST y métodos HTTP expuestos por TutorMatch para detectar recursos sin protección.
+- **US-09 – Detección de exposición de datos sensibles (8 SP):** Como pentester, quiero revisar respuestas de la API y endpoints públicos para detectar tokens, correos o información sensible no enmascarada.
+- **US-03 – Pruebas de Cross-Site Scripting (XSS) (13 SP):** Como atacante, quiero insertar scripts maliciosos en los campos de entrada y formularios de TutorMatch para validar la sanitización y filtrado de entradas de usuario.
+- **US-05 – Explotación de credenciales débiles y recuperación de cuenta (8 SP):** Como pentester, quiero evaluar contraseñas débiles, políticas de bloqueo y el flujo de recuperación de cuentas para detectar posibles riesgos de takeover.
+- **US-06 – Prueba de subida de archivos inseguros (5 SP):** Como pentester, quiero probar la carga de archivos con extensiones o contenidos no permitidos para verificar la validación y el control de tipo MIME implementado.
+- **US-08 – Verificación de TLS y headers de seguridad (5 SP):** Como auditor, quiero comprobar los mecanismos HTTPS/TLS y los encabezados de seguridad (CSP, HSTS, X-Frame-Options, X-XSS-Protection) para asegurar el transporte y la mitigación de vectores web.
+- **US-12 – Escaneo de puertos y servicios de red (5 SP):** Como atacante, quiero mapear los hosts, puertos y servicios detrás del despliegue de TutorMatch (servidor web, base de datos, servicios auxiliares) para identificar configuraciones o versiones vulnerables.
 
 ### Actividades (Nessus, Nikto, análisis de endpoints API)  
 
+1. **Preparación del entorno**
+   - Validación de ROE (`authorization_email.txt`).  
+   - Cuentas de prueba autenticadas.  
+   - Registro de versiones de herramientas (*Nessus*, *Nikto*, *ZAP*).
 
+2. **Escaneo de vulnerabilidades web – Nessus**
+   - Política “no destructiva”: CVE, TLS, HTTP.  
+   - Reportes `.nessus` y `.pdf` → `/evidence/sprint2/nessus/`.
+
+3. **Escaneo no intrusivo – Nikto**
+   - Detección de cabeceras y rutas sensibles.  
+   - Resultados → `/evidence/sprint2/nikto/`.
+
+4. **Enumeración web**
+   - *Gobuster / ffuf* → `/api/`, `/uploads/`, `/admin/`.  
+   - *WhatWeb* → frameworks y librerías detectadas.
+
+5. **Detección de endpoints API (ZAP / Burp / Postman)**
+   - Spidering controlado y extracción de *OpenAPI fragments*.  
+   - Colección Postman: `postman_collection_tutormatch.json`.
+
+6. **Verificación de métodos HTTP y CORS**
+   - `curl -X OPTIONS` y cabeceras de seguridad.
+
+7. **Consolidación de hallazgos preliminares**
+   - `findings_prelim.csv` con severidad, PoC y responsable.
 
 ### Resultados y evidencias  
 
+#### Resultados:
 
+Durante el Sprint 2, el equipo SecuraLabs logró consolidar un proceso sistemático de enumeración de servicios, endpoints y vulnerabilidades preliminares en el entorno autorizado de TutorMatch, aplicando metodologías seguras y herramientas de análisis no destructivas. A partir del escaneo realizado con Nessus, Nikto y WhatWeb, se identificaron múltiples componentes web activos y configuraciones susceptibles de mejora en materia de seguridad.
+
+El escaneo con Nessus permitió detectar vulnerabilidades de baja y media severidad, principalmente relacionadas con la falta de cabeceras de seguridad HTTP y configuraciones SSL/TLS parcialmente optimizadas. No se encontraron vulnerabilidades críticas ni de ejecución remota, lo cual indica una arquitectura estable en términos de exposición de servicios. Paralelamente, el análisis de Nikto reveló la presencia de rutas y archivos sensibles (por ejemplo, /uploads/ y /backup/) que, aunque no contenían datos visibles, representan vectores potenciales de acceso indebido si no se controlan adecuadamente.
+
+En la fase de enumeración web y API, el uso de Gobuster y ZAP permitió mapear endpoints REST relevantes, como /api/v1/users y /api/v1/login, además de descubrir métodos HTTP habilitados (GET, POST, OPTIONS) y políticas CORS permisivas en algunos recursos. La colección de solicitudes en Postman facilitó la verificación manual de los endpoints autenticados, confirmando que el flujo de acceso de usuarios se encuentra protegido mediante tokens válidos y con controles básicos de sesión.
+
+Asimismo, el análisis TLS y de cabeceras evidenció que el servidor mantiene certificados válidos, aunque carece de cabeceras de seguridad complementarias como X-Frame-Options, Strict-Transport-Security o Content-Security-Policy. Estos hallazgos, si bien no constituyen vulnerabilidades críticas, se consideran áreas de mejora dentro de las buenas prácticas OWASP.
+
+Finalmente, la consolidación de hallazgos preliminares permitió clasificar y priorizar cada vulnerabilidad en un archivo findings_prelim.csv, asignando niveles de severidad según CVSS y responsables de verificación por integrante del equipo. Esta organización de evidencias facilitó la trazabilidad y sirvió como insumo directo para el Sprint 3, enfocado en pruebas de explotación controlada.
+
+En conclusión, el Sprint 2 permitió identificar debilidades técnicas de configuración y exposición web, validar la correcta aplicación de políticas de seguridad en la API, y fortalecer la base documental del proceso de pentesting. Los resultados confirman un progreso significativo en la comprensión estructural del sistema y preparan el terreno para la validación práctica de vulnerabilidades en la siguiente etapa del proyecto.
+
+#### Evidencias:
+
+- **Preparación del entorno de pruebas:**
+<img src="assets/sprint_2/prep.PNG" alt="Preparacion-Sprint2"/>
+20251025_prep_evidence.txt:
+Start: 2025-10-25T04:32:30-04:00
+HOST INFO
+Linux kali 6.12.38+kali-amd64 #1 SMP PREEMPT_DYNAMIC Kali 6.12.38-1kali1 (2025-08-12) x86_64 GNU/Linux
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host noprefixroute 
+       valid_lft forever preferred_lft forever
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:bd:33:13 brd ff:ff:ff:ff:ff:ff
+    inet 10.0.2.15/24 brd 10.0.2.255 scope global dynamic noprefixroute eth0
+       valid_lft 73706sec preferred_lft 73706sec
+    inet6 fd17:625c:f037:2:bd49:dd53:85fd:1a5/64 scope global dynamic noprefixroute 
+       valid_lft 86154sec preferred_lft 14154sec
+    inet6 fe80::3db5:fa19:bff:d25f/64 scope link noprefixroute 
+       valid_lft forever preferred_lft forever
+3: eth1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:54:e2:11 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.194.101/24 brd 192.168.194.255 scope global dynamic noprefixroute eth1
+       valid_lft 506sec preferred_lft 506sec
+    inet6 fe80::4e7d:987b:bee:77c0/64 scope link noprefixroute 
+       valid_lft forever preferred_lft forever
+
+NMAP VERSION
+Nmap version 7.95 ( https://nmap.org )
+Platform: x86_64-pc-linux-gnu
+Compiled with: liblua-5.4.7 openssl-3.5.3 libssh2-1.11.1 libz-1.3.1 libpcre2-10.46 libpcap-1.10.5 nmap-libdnet-1.12 ipv6
+
+NIKTO VERSION
+
+ZAP/BURP VERSION
+/usr/bin/zaproxy
+/usr/bin/burpsuite
+
+END: 2025-10-25T04:32:30-04:00
+
+- **Escaneo de vulnerabilidades web (Nessus):**
+<img src="assets/sprint_2/nessus.PNG" alt="Nessus"/>
+
+- **Escaneo web no intrusivo (Nikto):** nikto -host "https://$TARGET" -output "$BASE/nikto/${DATE}_nikto_${TARGET}.txt"
+<img src="assets/sprint_2/nikto.PNG" alt="Nikto"/>
+
+- **Descubrimiento web y enumeración de directorios:** ffuf -u "https://$TARGET/FUZZ" -w /usr/share/wordlists/dirb/common.txt -t 30 -mc 200,301,302,403 -o "$BASE/web_enumeration/${DATE}_ffuf_dirs_${TARGET}.json" -of json
+<img src="assets/sprint_2/ffuf.PNG" alt="Ffuf-Sprint2"/>
+
+- **Detección de endpoints API (OWASP ZAP / Burp / Postman):**
+<img src="assets/sprint_2/zap.PNG" alt="Owasp Zap"/>
+
+<img src="assets/sprint_2/zap2.PNG" alt="Zap PDF"/>
+
+- **Verificación de métodos HTTP, CORS y cabeceras (OPTIONS / curl):** curl -i -X OPTIONS "https://$TARGET/login" > "$BASE/http_options/${DATE}_options_${TARGET}.txt"
+curl -I -L "https://$TARGET/login" > "$BASE/http_options/${DATE}_headers_login.txt"
+<img src="assets/sprint_2/curl.PNG" alt="Curl"/>
+
+- **Metagoofil + exiftool (OSINT de documentos públicos):**
+<img src="assets/sprint_2/metagoofil.PNG" alt="Metagoofil"/>
 
 ### Retrospectiva  
 
+**Lo que funcionó**
+- Las herramientas se ejecutaron de forma controlada y con autorización documentada (ROE firmado), cumpliendo el criterio ético del proyecto.  
+- Se estandarizó correctamente la estructura de carpetas y nombres de evidencia (/evidence/sprint2/), lo que agilizó la consolidación de resultados.  
+- El uso combinado de Nessus, Nikto y OWASP ZAP permitió obtener hallazgos reproducibles y validados con un enfoque no destructivo. 
+- La colección Postman generada a partir del spider de ZAP facilitó la detección de endpoints REST y la preparación del backlog para el Sprint 3.
+- Se redujeron falsos positivos gracias al filtrado manual y revisión cruzada entre Leonardo y Fabio.
 
+**Qué no funcionó**
+- Nessus presentó lentitud durante el análisis TLS y algunos plugins fueron omitidos por timeout, afectando la cobertura del reporte.  
+- Nikto arrojó varios falsos positivos en encabezados por la naturaleza del hosting (Netlify), requiriendo verificación manual.
+- No se logró obtener el archivo swagger.json completo, solo fragmentos parciales (OpenAPI), lo que limitó el mapeo total de la API.
+- Las pruebas XSS reflejadas debieron repetirse con autenticación para obtener resultados más concluyentes.
+
+**Lecciones aprendidas**
+- Planificar escaneos largos (Nessus/Nikto) en ventanas horarias de baja latencia para optimizar el tiempo de ejecución.
+- Verificar previamente el hosting (Netlify) para evitar bloqueos automáticos ante múltiples requests. 
+- Consolidar los resultados en formato CSV desde el inicio y no al final del sprint para facilitar priorización CVSS.
+- Utilizar capturas con metadatos (fecha, comando) para mejorar la trazabilidad de evidencias.
+
+**Acciones de mejora**
+| Acción | Responsable | Plazo | Entregable |
+|--------|--------------|--------|-------------|
+| Optimizar política de escaneo Nessus y desactivar plugins innecesarios | Leonardo | 2 días | `policy_safe_scan_v2.nessus` |
+| Validar hallazgos de Nikto con curl/Burp y marcar falsos positivos | Fabio | 3 días | `findings_validated.csv` |
+| Completar documentación de endpoints en Postman con autenticación | Harold | 3 días | `postman_collection_v2_auth.json` |
+| Estandarizar formato CSV para hallazgos (ID, severidad, endpoint, CVSS, PoC) | Piero | 2 días | `docs/findings_template.csv` |
+
+**Métricas del sprint**
+- ≥ 95 % de hallazgos validados con evidencia adjunta.
+- Al menos 1 PoC por tipo de vulnerabilidad confirmada (XSS, exposición de datos, auth).
+- Reducción de ≥ 30 % en falsos positivos respecto al Sprint 2.  
+- Política Nessus optimizada y reutilizable para Sprint 3.
 
 ## Sprint 3 – Explotación
 - Historias de usuario atendidas  
