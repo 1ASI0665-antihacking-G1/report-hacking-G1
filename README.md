@@ -93,7 +93,20 @@ Repositorio oficial: [https://github.com/1ASI0665-antihacking-G1/report-hacking-
 
 ## Evidencia de colaboración
 
-asdas
+La evidencia de colaboración refleja la participación activa de todos los integrantes del equipo **SecuraLabs** en el repositorio oficial del proyecto.  
+A través de commits, revisiones y coordinación mediante GitHub, se garantizó la trazabilidad y transparencia del desarrollo.
+
+### Actividad general del repositorio (*Pulse*)
+<img src="assets/evidence_collaboration/TP1/pulse_summary.PNG" alt="Pulse Summary"/>
+
+### Gráfico de contribuciones por integrante
+<img src="assets/evidence_collaboration/TP1/contributors_graph.PNG" alt="Contributors Graph"/>
+
+### Historial de commits y mensajes 
+<img src="assets/evidence_collaboration/TP1/commit1.PNG" alt="Commit 1"/>
+<img src="assets/evidence_collaboration/TP1/commit2.PNG" alt="Commit 2"/>
+<img src="assets/evidence_collaboration/TP1/commit3.PNG" alt="Commit 3"/>
+<img src="assets/evidence_collaboration/TP1/commit4.PNG" alt="Commit 4"/>
 
 ---
 
