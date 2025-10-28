@@ -584,30 +584,7 @@ En general, el sprint permitió establecer las bases técnicas del pentest, gene
 - **Preparación del entorno de pruebas:**
 <img src="assets/sprint_1/preparacion.PNG" alt="preparacion-sprint1"/>
 **archivo prep_evidence.txt:**
-kali
-Sat Oct 25 01:03:54 AM EDT 2025
-1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
-    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
-    inet 127.0.0.1/8 scope host lo
-       valid_lft forever preferred_lft forever
-    inet6 ::1/128 scope host noprefixroute 
-       valid_lft forever preferred_lft forever
-2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
-    link/ether 08:00:27:bd:33:13 brd ff:ff:ff:ff:ff:ff
-    inet 10.0.2.15/24 brd 10.0.2.255 scope global dynamic noprefixroute eth0
-       valid_lft 86222sec preferred_lft 86222sec
-    inet6 fd17:625c:f037:2:bd49:dd53:85fd:1a5/64 scope global dynamic noprefixroute 
-       valid_lft 86223sec preferred_lft 14223sec
-    inet6 fe80::3db5:fa19:bff:d25f/64 scope link noprefixroute 
-       valid_lft forever preferred_lft forever
-3: eth1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
-    link/ether 08:00:27:54:e2:11 brd ff:ff:ff:ff:ff:ff
-    inet 192.168.194.101/24 brd 192.168.194.255 scope global dynamic noprefixroute eth1
-       valid_lft 422sec preferred_lft 422sec
-    inet6 fe80::4e7d:987b:bee:77c0/64 scope link noprefixroute 
-       valid_lft forever preferred_lft forever
-Linux kali 6.12.38+kali-amd64 #1 SMP PREEMPT_DYNAMIC Kali 6.12.38-1kali1 (2025-08-12) x86_64 GNU/Linux
-kali
+<img src="assets/sprint_1/preptxt.PNG" alt="preparacion-TXT"/>
 
 - **OSINT para TutorMatch:**
   - theHarvester:
@@ -746,43 +723,7 @@ En conclusión, el Sprint 2 permitió identificar debilidades técnicas de confi
 
 - **Preparación del entorno de pruebas:**
 <img src="assets/sprint_2/prep.PNG" alt="Preparacion-Sprint2"/>
-20251025_prep_evidence.txt:
-Start: 2025-10-25T04:32:30-04:00
-HOST INFO
-Linux kali 6.12.38+kali-amd64 #1 SMP PREEMPT_DYNAMIC Kali 6.12.38-1kali1 (2025-08-12) x86_64 GNU/Linux
-1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
-    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
-    inet 127.0.0.1/8 scope host lo
-       valid_lft forever preferred_lft forever
-    inet6 ::1/128 scope host noprefixroute 
-       valid_lft forever preferred_lft forever
-2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
-    link/ether 08:00:27:bd:33:13 brd ff:ff:ff:ff:ff:ff
-    inet 10.0.2.15/24 brd 10.0.2.255 scope global dynamic noprefixroute eth0
-       valid_lft 73706sec preferred_lft 73706sec
-    inet6 fd17:625c:f037:2:bd49:dd53:85fd:1a5/64 scope global dynamic noprefixroute 
-       valid_lft 86154sec preferred_lft 14154sec
-    inet6 fe80::3db5:fa19:bff:d25f/64 scope link noprefixroute 
-       valid_lft forever preferred_lft forever
-3: eth1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
-    link/ether 08:00:27:54:e2:11 brd ff:ff:ff:ff:ff:ff
-    inet 192.168.194.101/24 brd 192.168.194.255 scope global dynamic noprefixroute eth1
-       valid_lft 506sec preferred_lft 506sec
-    inet6 fe80::4e7d:987b:bee:77c0/64 scope link noprefixroute 
-       valid_lft forever preferred_lft forever
-
-NMAP VERSION
-Nmap version 7.95 ( https://nmap.org )
-Platform: x86_64-pc-linux-gnu
-Compiled with: liblua-5.4.7 openssl-3.5.3 libssh2-1.11.1 libz-1.3.1 libpcre2-10.46 libpcap-1.10.5 nmap-libdnet-1.12 ipv6
-
-NIKTO VERSION
-
-ZAP/BURP VERSION
-/usr/bin/zaproxy
-/usr/bin/burpsuite
-
-END: 2025-10-25T04:32:30-04:00
+<img src="assets/sprint_2/preptxt.PNG" alt="Preparacion-TXT"/>
 
 - **Escaneo de vulnerabilidades web (Nessus):**
 <img src="assets/sprint_2/nessus.PNG" alt="Nessus"/>
