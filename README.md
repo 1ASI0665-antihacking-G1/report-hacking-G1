@@ -902,14 +902,19 @@ El trabajo en equipo bajo un enfoque ágil permitió distribuir responsabilidade
 
 En conclusión, el proyecto demostró la importancia de integrar la seguridad desde las primeras fases del desarrollo, realizar evaluaciones periódicas de vulnerabilidades y mantener prácticas de mejora continua. Con la implementación de las medidas propuestas, TutorMatch podrá reducir significativamente su superficie de ataque, fortalecer la confianza de sus usuarios y sentar las bases para un modelo de gestión de seguridad sostenible en el tiempo.
 
-- Lecciones aprendidas en metodología ágil  
-- Relación con Student Outcome 2  
-- Video “About-the-Team”  
-
 ---
 
 # Bibliografía
-- Formato APA  
+
+OffSec Services Limited. (s. f.). nmap — Kali Linux Tools. Recuperado el 25 de octubre de 2025, de https://www.kali.org/tools/nmap/
+
+OffSec Services Limited. (s. f.). gobuster — Kali Linux Tools. Recuperado el 25 de octubre de 2025, de https://www.kali.org/tools/gobuster/
+
+OffSec Services Limited. (s. f.). ffuf — Kali Linux Tools. Recuperado el 25 de octubre de 2025, de https://www.kali.org/tools/ffuf/
+
+OffSec Services Limited. (s. f.). hydra — Kali Linux Tools. Recuperado el 25 de octubre de 2025, de https://www.kali.org/tools/hydra/
+
+OffSec Services Limited. (s. f.). nikto — Kali Linux Tools. Recuperado el 25 de octubre de 2025, de https://www.kali.org/tools/nikto/
 
 ---
 
