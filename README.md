@@ -809,7 +809,7 @@ Este análisis permitió identificar nuevos vectores de ataque internos no visib
 | VULN-02 | Cabeceras de seguridad ausentes (HSTS, CSP, X-Frame-Options) | Media | <img src="auditoria_safeguard/sprint_2/imgs/nikto_head.png" alt="Missing Headers" width="600"/> |
 | VULN-03 | Exposición de credenciales en texto plano (credentials.bak) | Crítica | <img src="auditoria_safeguard/sprint_2/imgs/Screenshot_3.png" alt="Credentials Exposed" width="600"/> |
 | VULN-04 | Divulgación de versión de Apache | Baja | <img src="auditoria_safeguard/sprint_2/imgs/Screenshot_4.png" alt="Apache Version" width="600"/> |
-| VULN-05 | Archivo db_connection_test.log accesible | Crítica | <img src="auditoria_safeguard/sprint_2/imgs/Screenshot_1.png" alt="DB Log Access" width="600"/> |
+| VULN-05 | Archivo db_connection_test.log accesible | Crítica | <img src="auditoria_safeguard/sprint_3/imgs/Screenshot_1.png" alt="DB Log Access" width="600"/> |
 
 ### Retrospectiva
 
