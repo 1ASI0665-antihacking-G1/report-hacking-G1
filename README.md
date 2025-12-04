@@ -156,7 +156,9 @@ A través de commits, revisiones y coordinación mediante GitHub, se garantizó 
 ### Descripción de la PyME 
 
 SafeGuard Coffee es una pequeña empresa peruana dedicada a la selección, tostado y comercialización de cafés especiales de alta calidad. Desde su fundación en 2010, la empresa ha recorrido diversas regiones cafeteras del mundo en busca de granos excepcionales, trabajando de manera directa con agricultores que comparten su compromiso con la sostenibilidad, el comercio justo y la excelencia en cada etapa del proceso. </br>
+
 La empresa forma parte del sector Agroindustrial, un rubro que combina prácticas agrícolas tradicionales con procesos modernos de trazabilidad, control de calidad y experiencia sensorial. Su principal propuesta de valor es ofrecer cafés de origen cuidadosamente seleccionados, provenientes de zonas de alta montaña garantizando una experiencia auténtica y única en cada taza. </br>
+
 SafeGuard Coffee basa su modelo de negocio en la venta de café tostado, productos complementarios y experiencias relacionadas con el consumo del café, todo respaldado por un ecosistema digital que permite una gestión eficiente de clientes, ventas y operaciones.
 
 
@@ -179,6 +181,7 @@ El mercado objetivo de SafeGuard Coffee está compuesto por consumidores interes
 ### Expectativas del cliente  
 
 Las expectativas del cliente se centran en recibir una evaluación de ciberseguridad clara, práctica y orientada a la acción, que permita identificar y priorizar amenazas reales dentro del ecosistema digital de SafeGuard Coffee. El cliente espera que el análisis detecte vulnerabilidades que puedan afectar la integridad del flujo de compra, la disponibilidad del sistema, la confidencialidad de los datos de clientes o la seguridad de las transacciones en línea. Esto incluye fallas en controles de autenticación, configuraciones inseguras, exposición de información sensible, riesgos de acceso no autorizado al inventario o al backend, y cualquier debilidad que pueda facilitar ataques como inyección, secuestro de sesión o escalación de privilegios. </br>
+
 Asimismo, el cliente espera un informe técnico exhaustivo con hallazgos reproducibles y evidencia verificable (logs, capturas, payloads y pasos de explotación), acompañado de un plan de remediación priorizado que detalle mitigaciones concretas, estimación de esfuerzo y nivel de criticidad de cada vulnerabilidad. También valora un resumen ejecutivo orientado a personal no técnico, así como recomendaciones para fortalecer sus prácticas de seguridad, mejorar su postura de defensa y establecer lineamientos sostenibles de ciberseguridad en sus operaciones digitales.
 
 
@@ -206,28 +209,37 @@ Nuestra misión es ayudar a las organizaciones a descubrir y mitigar vulnerabili
 ## 1.3 Solution Profile
 ### Antecedentes y problemática  
 
-Las startups de tecnología educativa, como TutorMatch, están altamente expuestas a riesgos de seguridad informática debido al manejo de grandes volúmenes de datos sensibles (credenciales, historiales académicos, etc.) a través de plataformas, webs y aplicaciones móviles. TutorMatch, en su fase de desarrollo, es un objetivo atractivo para ciberatacantes que buscan explotar vulnerabilidades en sistemas emergentes. El análisis preliminar de su entorno ha revelado múltiples deficiencias de seguridad que amplían su superficie de ataque, incluyendo la carencia de controles robustos de autenticación y gestión de sesiones, la potencial exposición de APIs, validación insuficiente de entradas de usuario (formularios, chat) y archivos subidos. Adicionalmente, se detectaron fallos en la configuración de seguridad (TLS, encabezados HTTP) y en la gestión de credenciales, lo que justifica de manera urgente la realización de una auditoría de seguridad ofensiva.
+Las pequeñas y medianas empresas que operan en entornos digitales como Safeguard Coffee, dedicada a la venta de productos y servicios a través de plataformas web, se encuentran cada vez más expuestas a riesgos de seguridad informática. La adopción de sistemas basados en comercio electrónico, formularios de contacto, pasarelas de pago, bases de datos en la nube y APIs incrementa su superficie de ataque, convirtiéndolas en objetivos atractivos para actores maliciosos que buscan vulnerar sistemas poco protegidos. </br>
 
-Ante el contexto de ataques recientes en plataformas educativas similares, que han resultado en filtraciones masivas por la explotación de vulnerabilidades como inyecciones SQL o XSS, SkillSwap Inc. reconoce la necesidad crítica de actuar proactivamente. El objetivo principal es llevar a cabo una evaluación integral de ciberseguridad para TutorMatch. Esto permitirá identificar las brechas de seguridad más críticas, fortalecer la protección de los activos digitales de la plataforma y establecer un plan de mejora continua que siga las mejores prácticas de seguridad ofensiva.
+Durante un análisis preliminar del sitio web de Safeguard Coffee (https://safeguard-coffee.ngrok.app/), se identificaron posibles deficiencias típicas de plataformas emergentes, tales como:
+
+- Controles insuficientes de validación y sanitización de entradas.
+- Exposición potencial de endpoints accesibles públicamente.
+- Configuraciones inadecuadas de seguridad web (cabeceras HTTP, políticas de contenido, configuración TLS/SSL).
+- Falta de mecanismos robustos para la protección de datos y autenticación.
+
+Estas condiciones aumentan la probabilidad de ataques comunes como inyección SQL, XSS, secuestro de sesiones, scraping automatizado, fuerza bruta y exploración no autorizada de recursos internos. La empresa, ante el crecimiento de su presencia digital, reconoce la necesidad de una auditoría de seguridad ofensiva que evalúe de forma realista su postura actual de ciberseguridad. </br>
+
+Asimismo, incidentes recientes en otras empresas similares del sector, donde se han reportado filtraciones de información por vulnerabilidades no corregidas, refuerzan la urgencia de actuar de manera preventiva. Por ello, Safeguard Coffee Co. ha solicitado la realización de una evaluación integral de seguridad ofensiva, con el objetivo de identificar brechas críticas, fortalecer sus activos digitales y establecer un plan de mejora continua basado en las mejores prácticas del marco OWASP y estándares internacionales de pentesting.
 
 ### Objetivos del pentesting (General y específicos)  
 
 **Objetivo general**
 
-Realizar una evaluación integral de seguridad ofensiva (pentesting) sobre las plataformas web, backend y aplicación móvil de TutorMatch, con el fin de identificar vulnerabilidades técnicas, riesgos de exposición de datos y configuraciones inseguras, proporcionando un informe técnico y un plan de remediación que permitan fortalecer la postura de seguridad y la resiliencia del sistema ante potenciales ataques.
+Realizar una evaluación integral de seguridad ofensiva (pentesting) sobre el sitio web de Safeguard Coffee, con el fin de identificar vulnerabilidades técnicas, riesgos de exposición de datos y configuraciones inseguras. La evaluación permitirá elaborar un informe técnico y un plan de remediación que fortalezcan la postura de seguridad y reduzcan la probabilidad de explotación por parte de actores maliciosos.
 
 **Objetivos específicos**
-1.	Identificar vulnerabilidades críticas en los componentes principales de TutorMatch (frontend, APIs, backend y app móvil) mediante la ejecución de pruebas de inyección, validación de entradas y análisis de permisos.
+1.	**Identificar vulnerabilidades críticas en los componentes principales del sitio web de SafeGuard Coffee** (frontend, endpoints, formularios y servicios asociados), mediante la ejecución de pruebas de inyección, validación de entradas y análisis de permisos.
 
-2.	Evaluar la robustez de los mecanismos de autenticación, gestión de sesiones y recuperación de cuentas, comprobando la resistencia del sistema frente a ataques de fuerza bruta y suplantación de identidad.
+2.	**Evaluar la robustez de los mecanismos de autenticación, gestión de sesiones y recuperación de cuentas**, comprobando la resistencia del sistema frente a ataques de fuerza bruta, enumeración de usuarios y suplantación de identidad, en caso de que la plataforma implemente dichos mecanismos.
 
-3.	Detectar exposición de información sensible (tokens, correos, datos personales o claves embebidas) en las respuestas del sistema, repositorios de código y pipelines de integración continua.
+3.	**Detectar exposición de información sensible** (tokens, correos electrónicos, metadatos, claves embebidas o datos personales) en las respuestas del servidor, archivos públicos, librerías utilizadas o configuraciones del sitio.
 
-4.	Analizar la configuración de seguridad de la infraestructura y servicios asociados, incluyendo protocolos de cifrado (TLS/HTTPS), encabezados de seguridad HTTP y políticas de acceso a servidores y bases de datos.
+4.	**Analizar la configuración de seguridad de la infraestructura y servicios asociados**, incluyendo protocolos de cifrado (TLS/HTTPS), encabezados de seguridad HTTP, políticas de cookies, uso de librerías desactualizadas y posibles puntos de acceso no controlados.
 
-5.	Ejecutar pruebas de explotación controlada (Proof of Concept) sobre las vulnerabilidades encontradas, validando su impacto y nivel de riesgo de acuerdo con metodologías OWASP y CVSS.
+5.	**Ejecutar pruebas de explotación controlada (Proof of Concept)** sobre las vulnerabilidades encontradas, validando su impacto y nivel de riesgo de acuerdo con metodologías OWASP y CVSS.
 
-6.	Elaborar un informe técnico detallado y un plan de remediación, priorizando las acciones correctivas y recomendaciones para mitigar riesgos y fortalecer la seguridad del ciclo de desarrollo (DevSecOps).
+Finalmente, una vez cumplidos todos los objetivos, elaborar un informe técnico detallado y un plan de remediación, priorizando las acciones correctivas y recomendaciones para mitigar riesgos y fortalecer la seguridad del ciclo de desarrollo bajo prácticas DevSecOps.
 
 
 ## 1.4 Aceptación del Servicio de Pentesting (Rules of Engagement)
