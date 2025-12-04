@@ -244,7 +244,7 @@ Finalmente, una vez cumplidos todos los objetivos, elaborar un informe técnico 
 
 ## 1.4 Aceptación del Servicio de Pentesting (Rules of Engagement)
 
-<img src="assets/rules_of_engagement.jpg" alt="Rules_of_Engagement" width="1240"/>
+<img src="assets/rules_of_engagement.png" alt="Rules_of_Engagement" width="1240"/>
 
 # Capítulo II: Metodología Ágil y de Pentesting
 
