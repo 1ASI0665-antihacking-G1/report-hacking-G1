@@ -646,289 +646,494 @@ Durante la ejecución del proyecto se empleó un conjunto de herramientas de uso
 
 # Capítulo III: Desarrollo del Proyecto por Sprints
 
-## Sprint 1 – Reconocimiento y Escaneo
-### Objetivos del sprint  
+## Sprint 1 - Reconocimiento y Escaneo
+
+### Objetivos del sprint
+Identificar la superficie de ataque inicial, descubrir servicios expuestos, recolectar información pública mediante técnicas OSINT y detectar rutas críticas del sistema web que permitan establecer los primeros vectores de ataque para los sprints posteriores.
+
+### Historias de usuario atendidas
+
+| ID | Historia de Usuario | Criterios de Aceptación | Story Points |
+|:--:|:--|:--|:--:|
+| US-01 | Como atacante externo quiero identificar los servicios expuestos | Reporte de puertos abiertos y versiones | 3 |
+| US-02 | Como atacante quiero descubrir directorios ocultos | Listado de rutas accesibles (HTTP 200/301) | 5 |
+| US-03 | Como atacante quiero obtener información pública (OSINT) | Identificación de correos, usuarios o tecnologías | 5 |
+| US-04 | Como atacante quiero validar la seguridad de los túneles | Confirmación de accesibilidad a dominios | 2 |
+
+**Total del Sprint 1:** 15 Story Points
+
+### Actividades realizadas
+
+#### 3.3.1 Preparación del Entorno
+Se preparó la estructura de trabajo en Kali Linux para el almacenamiento organizado de evidencias de escaneo, OSINT y enumeración.
+Se creó la siguiente jerarquía de carpetas:
+- `/auditoria_safeguard/sprint_1/nmap`
+- `/auditoria_safeguard/sprint_1/osint`
+- `/auditoria_safeguard/sprint_1/gobuster`
+
+#### 3.3.2 Recolección de Información Pública (OSINT)
+Se aplicaron técnicas pasivas para identificar información pública del objetivo sin interacción directa con los servicios internos:
+
+**a) Google Dorks:**
+- Búsqueda de archivos PHP expuestos.
+- Detección de “index of”.
+- Búsqueda de posibles credenciales filtradas.
+
+**b) Recolección de correos y subdominios con theHarvester:**
+Se identificaron correos corporativos y hosts asociados al dominio.
+**Resultado:**
+- Correos encontrados: `contacto@safeguard.coffee`, `admin@safeguard.coffee`
+- Hosts: `www.safeguard.coffee`, `mail.safeguard.coffee`
+
+**c) Análisis de cabeceras HTTP:**
+Se identificaron:
+- Servidor: Apache 2.4.65 (Debian)
+- Backend: PHP 8.2
+- Ausencia de cabeceras de seguridad (HSTS, X-Frame-Options)
+
+**d) Análisis del sitemap:**
+Se identificaron las rutas:
+- `/login.php`
+- `/admin.php`
+- `/problems.php`
+
+#### 3.3.3 Descubrimiento de Servicios y Puertos
+Debido a las restricciones propias del túnel Ngrok, el escaneo agresivo fue limitado. Se validaron manualmente los servicios activos mediante conectividad directa a los puertos HTTP (80) y HTTPS (443).
+**Resultado:**
+- Puerto 80: Abierto
+- Puerto 443: Abierto
+
+#### 3.3.4 Enumeración de Directorios – Fase Raíz
+Se realizó enumeración de directorios en la raíz del dominio usando un script Bash con curl debido a bloqueos por rate-limit.
+**Hallazgos:**
+- `/login.php` → 200
+- `/admin.php` → 302
+- `/backup` → 301 (Directorio crítico)
+- `/api` → 301
+
+#### 3.3.5 Enumeración de Directorios – Fase Recursiva (/backup)
+Se enumeró el contenido del directorio `/backup`, encontrándose:
+- `/backup/credentials.bak` → 200 (Hallazgo crítico)
+
+Posteriormente, se descargó el archivo y se identificaron credenciales válidas de acceso administrativo:
+- **Usuario:** `carlos.mendez@safeguard.coffee`
+- **Contraseña:** `Coff33@Secure2024!`
+- **Rol:** Administrator
+
+### Resultados y evidencias
+**Resumen de Hallazgos del Sprint 1**
+
+| ID | Hallazgo | Severidad | Evidencia |
+|:--:|:--|:--|:--|
+| FIND-01 | Servicios web activos en puerto 443 | Informativa | <img src="auditoria_safeguard/sprint_1/imgs/HeadersOsint.png" alt="Headers OSINT" width="600"/> |
+| FIND-02 | Directorio /backup accesible | Alta | <img src="auditoria_safeguard/sprint_1/imgs/gobuster backup.png" alt="Gobuster Backup" width="600"/> |
+| FIND-03 | Archivo credentials.bak expuesto | Crítica | <img src="auditoria_safeguard/sprint_1/imgs/credentials.png" alt="Credentials Bak" width="600"/> |
+| FIND-04 | Directory Listing habilitado | Media | <img src="auditoria_safeguard/sprint_1/imgs/gobuster general.png" alt="Directory Listing" width="600"/> |
+
+### Retrospectiva del sprint
+
+**Aspectos Positivos**
+- El uso de un diccionario personalizado permitió descubrir rápidamente el directorio `/backup`.
+- La obtención del archivo `credentials.bak` generó un vector de acceso directo para el Sprint 2.
+- Las técnicas OSINT permitieron recolectar información sin generar alertas de seguridad.
+
+**Oportunidades de Mejora**
+- El escaneo con herramientas automáticas se vio limitado por el túnel Ngrok.
+- Es recomendable priorizar técnicas de enumeración a nivel de aplicación (capa 7).
+
+**Estado del Sprint:** ✅ COMPLETADO
+
+---
+
+## Sprint 2 - Enumeración y Vulnerabilidades
+
+### Historias de Usuario Atendidas
 
-Identificar y documentar de manera reproducible la superficie de ataque pública del cliente **TutorMatch** (entorno de staging o host/VM autorizado), incluyendo dominios, subdominios, hosts, puertos, servicios y endpoints de autenticación.  
-Generar un inventario que guíe la fase de enumeración en el siguiente sprint y garantizar el cumplimiento de las **Rules of Engagement (ROE)** antes de cualquier explotación.
+| ID | Historia de Usuario | Criterios de Aceptación | Story Points |
+|:--:|:--|:--|:--:|
+| US-05 | Como pentester necesito enumerar endpoints del sitio web | Identificar todos los archivos .php accesibles | 5 |
+| US-06 | Como pentester necesito validar credenciales web | Login exitoso con carlos.mendez@safeguard.coffee | 3 |
+| US-07 | Como pentester necesito analizar vulnerabilidades web básicas | Identificar headers inseguros, XSS y SQLi | 8 |
+| US-08 | Como pentester necesito documentar la superficie de ataque | Listar formularios, parámetros GET/POST y cookies | 8 |
+
+**Total del Sprint 2:** 24 Story Points
+
+### Actividades (OWASP ZAP, análisis de endpoints API)
+
+#### 3.8.1 Preparación del Entorno
+Se creó la estructura de carpetas para el almacenamiento organizado de resultados del Sprint 2:
+- `/auditoria_safeguard/sprint_2/zap`
+- `/auditoria_safeguard/sprint_2/headers`
+- `/auditoria_safeguard/sprint_2/web_enum`
+
+#### 3.8.2 Escaneo de Vulnerabilidades Web con OWASP ZAP
+**Objetivo:** Identificar configuraciones inseguras y archivos peligrosos en el servidor web Apache.
+**Resultados principales:**
+- Servidor identificado: Apache 2.4.65 (Debian).
+- Cabeceras de seguridad ausentes:
+    - X-Frame-Options
+    - X-Content-Type-Options
+- Directory Listing habilitado en `/backup`.
+
+Este escaneo permitió validar configuraciones débiles del servidor web visibles desde el exterior.
+
+#### 3.8.3 Análisis de Cabeceras de Seguridad (Headers HTTP)
+Se analizaron manualmente las cabeceras de respuesta del servidor web para verificar mecanismos básicos de protección.
+**Hallazgos:**
+- Ausencia de Strict-Transport-Security (HSTS).
+- Ausencia de Content-Security-Policy (CSP).
+- Exposición directa de la versión exacta del servidor web.
+
+#### 3.8.4 Validación de Credenciales Web
+Se utilizaron las credenciales obtenidas en el Sprint 1 para validar el acceso al sistema:
+- **Usuario:** `carlos.mendez@safeguard.coffee`
+- **Contraseña:** `Coff33@Secure2024!`
+
+**Resultado:**
+Se logró el acceso exitoso al panel administrativo, confirmando la validez de las credenciales filtradas.
+
+#### 3.8.5 Enumeración del Panel Administrativo (Análisis de Endpoints API y Rutas Internas)
+Una vez autenticado, se procedió a la enumeración de rutas internas, parámetros y recursos ocultos del panel administrativo.
+**Hallazgos relevantes:**
+- Acceso a `/admin/logs/` con Directory Listing habilitado.
+- Descubrimiento del archivo `db_connection_test.log`.
+
+Este análisis permitió identificar nuevos vectores de ataque internos no visibles desde el exterior.
+
+### Resultados y evidencias
+**Matriz de Vulnerabilidades Preliminares – Sprint 2**
+
+| ID | Vulnerabilidad | Severidad | Evidencia |
+|:--:|:--|:--|:--|
+| VULN-01 | Directory Listing habilitado en /backup y /admin/logs | Alta | <img src="auditoria_safeguard/sprint_2/imgs/Screenshot_1.png" alt="Directory Listing Admin" width="600"/> |
+| VULN-02 | Cabeceras de seguridad ausentes (HSTS, CSP, X-Frame-Options) | Media | <img src="auditoria_safeguard/sprint_2/imgs/Screenshot_2.png" alt="Missing Headers" width="600"/> |
+| VULN-03 | Exposición de credenciales en texto plano (credentials.bak) | Crítica | <img src="auditoria_safeguard/sprint_2/imgs/Screenshot_3.png" alt="Credentials Exposed" width="600"/> |
+| VULN-04 | Divulgación de versión de Apache | Baja | <img src="auditoria_safeguard/sprint_2/imgs/Screenshot_4.png" alt="Apache Version" width="600"/> |
+| VULN-05 | Archivo db_connection_test.log accesible | Crítica | <img src="auditoria_safeguard/sprint_2/imgs/Screenshot_1.png" alt="DB Log Access" width="600"/> |
+
+### Retrospectiva
+
+**Aspectos Positivos**
+- Las credenciales obtenidas en el Sprint 1 resultaron completamente funcionales.
+- El acceso autenticado permitió descubrir archivos internos críticos que no eran visibles públicamente.
+- La combinación de análisis manual y herramientas automáticas permitió confirmar vulnerabilidades con mayor precisión.
+
+**Oportunidades de Mejora**
+- La enumeración autenticada requiere mayor control de sesiones y cookies para evitar bloqueos.
+- Es recomendable automatizar parte del crawling autenticado mediante scripts más avanzados.
+
+**Estado del Sprint:** ✅ COMPLETADO
+
+---
+
+## Sprint 3 - Explotación
+
+### Objetivo del Sprint 3
+Explotar de forma controlada las vulnerabilidades identificadas en el Sprint 2 para obtener acceso a la base de datos y al servidor mediante SSH, validando el impacto real de los hallazgos sobre la confidencialidad, integridad y disponibilidad del sistema.
+
+### Historias de Usuario Atendidas
+
+| ID | Historia de Usuario | Criterios de Aceptación | Story Points |
+|:--:|:--|:--|:--:|
+| US-09 | Como atacante quiero acceder a los logs del sistema | Descarga de archivos de log internos | 3 |
+| US-10 | Como atacante quiero obtener credenciales de infraestructura | Identificación de usuarios y contraseñas de DB y SSH | 8 |
+| US-11 | Como atacante quiero extraer información de la base de datos | Dump de tablas de clientes y empleados | 8 |
+| US-12 | Como atacante quiero obtener acceso remoto al servidor | Conexión SSH exitosa | 5 |
+
+**Total del Sprint 3:** 24 Story Points
+
+### Actividades Realizadas
+
+#### 3.13.1 Preparación del Entorno
+Se generó la estructura de directorios para el almacenamiento de resultados de explotación:
+- `/auditoria_safeguard/sprint_3/logs`
+- `/auditoria_safeguard/sprint_3/db_dump`
+
+#### 3.13.2 Análisis de Logs Internos
+Se descargó y analizó el archivo `db_connection_test.log` ubicado en `/admin/logs/`, identificado previamente en el Sprint 2.
+**Información crítica obtenida del log:**
+- **Host MySQL:** `0.tcp.sa.ngrok.io`
+- **Puerto MySQL:** `17679`
+- **Usuario MySQL:** `app_safeguard`
+- **Contraseña MySQL:** `DBPass_S3cur3#2024`
+- **Usuario SSH:** `sysadmin`
+- **Contraseña SSH:** `SysAdmin#2024!Secure`
+- **Puerto SSH:** `14936`
+
+Este archivo contenía credenciales hardcodeadas en texto plano, lo que representa una vulnerabilidad crítica de impacto total.
+
+#### 3.13.3 Evaluación de Inyección SQL (Validación Manual)
+Se realizó el análisis de parámetros previamente identificados en el panel administrativo para verificar vulnerabilidades de inyección SQL.
+**Resultados:**
+- Se confirmó la inyección SQL explotable en formularios con parámetros GET y POST.
+- Se validó que el backend utilizaba MySQL/MariaDB.
+- Se determinó que la explotación avanzada no era necesaria debido a la exposición directa de credenciales desde los logs.
+
+#### 3.13.4 Interceptación de Peticiones (Validación Manual)
+Se utilizaron herramientas de desarrollo del navegador y proxies locales para:
+- Interceptar peticiones autenticadas al panel administrativo.
+- Validar envío de sesiones mediante cookies.
+- Verificar exposición de parámetros sensibles.
+- Confirmar ausencia de protecciones ante ataques de replay y manipulación de parámetros.
+
+Esto permitió confirmar la debilidad en el control de sesiones y validación del lado del servidor.
+
+#### 3.13.5 Explotación de Base de Datos (MySQL)
+Utilizando las credenciales obtenidas desde los logs, se logró conectar exitosamente a la base de datos productiva.
+**Acceso logrado a:**
+- Base de datos: `safeguard_production`
+- Tablas: `clientes`, `trabajadores`
+
+**Información comprometida:**
+- DNI de clientes.
+- Correos electrónicos.
+- Teléfonos.
+- Direcciones domiciliarias.
+- Salarios y cargos de trabajadores.
+
+Este acceso evidencia una filtración masiva de datos personales y sensibles (PII).
+
+#### 3.13.6 Acceso Remoto al Servidor con SSH
+Se utilizó la credencial del usuario `sysadmin` para conectarse remotamente al servidor.
+**Resultados de verificación de acceso:**
+- **Usuario autenticado:** `sysadmin`
+- **Host:** `safeguard-server`
+- **Pertenencia al grupo sudo.**
+
+Esto confirma un compromiso total del servidor con posibilidad real de escalamiento de privilegios.
+
+### Resultados y PoC (Proof of Concept)
+
+| ID | Impacto Validado | Evidencia |
+|:--:|:--|:--|
+| PoC-01 | Acceso completo a la base de datos MySQL | <img src="auditoria_safeguard/sprint_3/imgs/Screenshot_1.png" alt="MySQL Access" width="600"/> |
+| PoC-02 | Extracción de datos de clientes | <img src="auditoria_safeguard/sprint_3/imgs/Screenshot_2.png" alt="Clients Dump" width="600"/> |
+| PoC-03 | Extracción de datos de trabajadores | <img src="auditoria_safeguard/sprint_3/imgs/Screenshot_3.png" alt="Workers Dump" width="600"/> |
+| PoC-04 | Acceso remoto al servidor por SSH | <img src="auditoria_safeguard/sprint_4/imgs/Screenshot_1.png" alt="SSH Access" width="600"/> |
+| PoC-05 | Sesión autenticada activa en el sistema | <img src="auditoria_safeguard/sprint_2/imgs/Screenshot_1.png" alt="Active Session" width="600"/> |
+
+### Retrospectiva del Sprint 3
+**Aspectos Positivos**
+- Los archivos de log internos contenían credenciales completamente funcionales.
+- La explotación permitió validar el impacto real de las vulnerabilidades detectadas.
+- Se logró acceso tanto a la base de datos como al servidor operativo.
+
+**Oportunidades de Mejora**
+- Los registros de depuración no deben ser accesibles desde entornos productivos.
+- Se requiere segmentación de red para impedir el acceso directo a servicios internos desde Internet.
+- Es crítica la implementación de cifrado de secretos y gestores de credenciales.
 
-### Historias de usuario atendidas  
-
-- **US-01** – *Reconocimiento inicial y mapeo de superficie (2 SP)*  
-  Como atacante externo, quiero identificar dominios/subdominios, rutas de login y formularios públicos de TutorMatch para delimitar la superficie de ataque.
-
-- **US-12** – *Escaneo de puertos y servicios de red (5 SP)*  
-  Como atacante, quiero mapear hosts, puertos y servicios detrás del despliegue de TutorMatch (servidor web, base de datos, servicios auxiliares).
-
-- **US-08** – *Verificación de TLS y headers de seguridad (5 SP)*  
-  Como auditor, quiero comprobar los mecanismos HTTPS/TLS y cabeceras de seguridad para asegurar el transporte y la mitigación de ataques web.
-
-- **US-04** – *Enumeración de endpoints API (8 SP)*  
-  Como atacante, quiero identificar endpoints REST y métodos HTTP expuestos por TutorMatch para detectar recursos sin protección.
-
-### Actividades realizadas  
-
-Todas las actividades se ejecutaron **únicamente en el entorno autorizado** y tras la confirmación del **ROE**.  
-Las salidas sensibles fueron sanitizadas antes de su almacenamiento público.
-
-1. **Preparación del entorno de pruebas**  
-   - Configuración de Kali Linux y estructura de trabajo (`~/securalabs/tutormatch/sprint1/`).
-   - Creación de cuentas de prueba (roles *student* / *tutor*).  
-   - Captura de evidencia (`prep_evidence.txt` con hostname, IP, uname -a).
-
-2. **OSINT para TutorMatch**  
-   - Búsqueda de dominios/subdominios con *theHarvester*, *Google Dorks*, *Archive.org*, *crt.sh*, *whois*.  
-   - Identificación de endpoints externos (landing, api, CDN).  
-   - Evidencias en `evidence/osint/`.
-
-3. **Descubrimiento de red y hosts**  
-   - *netdiscover / arp-scan* (si aplica) y `nmap -sn`.  
-   - Evidencias: `evidence/discovery/discovery.txt`.
-
-4. **Escaneo de puertos y servicios**  
-   - `nmap -p- -T4 <target>` → puertos abiertos.  
-   - `nmap -sV` → versiones y fingerprinting.  
-   - Archivos: `nmap_full_ports.txt`, `nmap_sV.txt`.
-
-5. **Descubrimiento web**
-   - *gobuster* o *ffuf* → rutas públicas.  
-   - *whatweb* → fingerprint tecnológico.  
-   - Resultados en `evidence/web/`.
-
-6. **Verificación TLS y cabeceras HTTP**  
-   - *testssl.sh* + `curl -I`.  
-   - Resultados: `tls_headers.txt`, `testssl_tutormatch.log`.
-
-### Resultados y evidencias  
-
-#### Resultados:
-Durante el Sprint 1 se logró identificar la superficie de ataque inicial del entorno de pruebas de TutorMatch, delimitando los activos expuestos y generando el inventario técnico base para la fase de enumeración.
-Los escaneos OSINT y de red permitieron mapear correctamente los hosts accesibles y reconocer la estructura pública de la aplicación web. A través del uso de herramientas como theHarvester, dnsenum y Google Dorks, se detectaron subdominios válidos y endpoints potenciales asociados al dominio principal tutormatch-server-test.netlify.app, confirmando que el despliegue activo correspondía a una instancia de staging alojada en la infraestructura de Netlify.
-
-El escaneo de red con Nmap reveló la presencia de servicios HTTP/HTTPS activos en los puertos estándar (80 y 443), con respuesta positiva a los paquetes ICMP y detección correcta del sistema operativo basado en Linux. No se evidenciaron servicios adicionales en ejecución ni puertos de bases de datos o servicios internos expuestos públicamente, lo que sugiere una configuración de red básica y relativamente segura.
-
-Mediante el análisis web con WhatWeb y Gobuster, se identificaron directorios accesibles como /api, /login y /uploads, que posteriormente servirán para las pruebas de enumeración y vulnerabilidades del Sprint 2. Los resultados del análisis TLS, realizados con testssl.sh, confirmaron la presencia de certificados válidos y un canal HTTPS funcional, aunque se observaron ausencias de cabeceras de seguridad complementarias (como Content-Security-Policy y X-Frame-Options), que representan vectores de riesgo bajo a medio.
-
-En general, el sprint permitió establecer las bases técnicas del pentest, generando un mapa claro de dominios, servicios y tecnologías utilizadas por la plataforma. Toda la información obtenida se consolidó en la carpeta /evidence/sprint1/, sirviendo como punto de partida para la identificación de vulnerabilidades específicas en el siguiente sprint.
-
-#### Evidencias:
-- **Preparación del entorno de pruebas:**
-<img src="assets/sprint_1/preparacion.PNG" alt="preparacion-sprint1"/>
-**archivo prep_evidence.txt:**
-<img src="assets/sprint_1/preptxt.PNG" alt="preparacion-TXT"/>
-
-- **OSINT para TutorMatch:**
-  - theHarvester:
-  <img src="assets/sprint_1/theHarvester.PNG" alt="theHarvester"/>
-
-  - Dnsenum:
-  <img src="assets/sprint_1/dnsenum.PNG" alt="Dnsenum"/>
-
-- **Descubrimiento de red y hosts:**
-  - netdiscover: Se usa Host por el hecho de que es una web pública y no netdiscover/arp-scan que son para redes locales
-  <img src="assets/sprint_1/host.PNG" alt="Host"/>
-
-  Host_resolution.txt:
-  tutormatch-server-test.netlify.app has address 54.232.119.62
-  tutormatch-server-test.netlify.app has IPv6 address 2600:1f1e:7c1:c300::258
-  tutormatch-server-test.netlify.app has HTTP service bindings 1 . alpn="h2"
-
-- **Escaneo inicial de puertos/servicios:**
-  - Ping / host discovery (útil si objetivo responde ICMP): nmap -Pn -sn -oN evidence/discovery/nmap_ping_scan.txt tutormatch-server-test.netlify.app
-  <img src="assets/sprint_1/nmap.PNG" alt="Nmap"/>
-
-  - Escaneo rápido de puertos (top 1000 + versión): nmap -Pn -sS -T4 --top-ports 1000 -oN evidence/scans/nmap_top1000.txt tutormatch-server-test.netlify.app
-  <img src="assets/sprint_1/nmap2.PNG" alt="Nmap2"/>
-
-  - Escaneo de todos los puertos (más lento) + detección de versiones + OS fingerprint (si aplica): nmap -Pn -p- -T4 -sV -O -oA evidence/scans/nmap_full tutormatch-server-test.netlify.app
-  <img src="assets/sprint_1/nmap3.PNG" alt="Nmap3"/>
-
-- **Descubrimiento web:**
-  - Gobuster (directorios): gobuster dir -u https://tutormatch-server-test.netlify.app -w /usr/share/wordlists/dirb/common.txt -t 50 -o evidence/web/gobuster_dirs.txt
-  <img src="assets/sprint_1/gobuster.PNG" alt="Gobuster"/>
-
-  - ffuf: ffuf -u https://tutormatch-server-test.netlify.app/FUZZ -w /usr/share/wordlists/dirb/common.txt -o evidence/web/ffuf_dirs.json
-  <img src="assets/sprint_1/ffuf.PNG" alt="Ffuf"/>
-
-- **Primera versión TLS/cabeceras HTTP:**
-  - Revisar cabeceras HTTP: curl -I -L https://tutormatch-server-test.netlify.app/login > evidence/web/tls_headers.txt
-  <img src="assets/sprint_1/curl1.PNG" alt="Curl"/>
-
-  - Test TLS: ./testssl.sh --logfile evidence/web/testssl_tutormatch.log https://tutormatch-server-test.netlify.app
-  <img src="assets/sprint_1/testssl.PNG" alt="TestSSL"/>
-
-### Retrospectiva del sprint 
-
-**Lo que funcionó**
-- Preparación del entorno organizada y reproducible.  
-- Cobertura OSINT completa.  
-- Escaneos bien documentados.  
-- Flujo colaborativo entre los miembros vía GitHub.
-
-**Qué no funcionó**
-- Inconsistencia en nombres de archivos.  
-- Dudas sobre el alcance de Netlify.  
-- Formato de evidencia no estandarizado (faltaron XML/CSV).  
-- Escaneos demorados y evidencias visuales desiguales.
-
-**Lecciones aprendidas**
-- Aplicar estrategia escalonada para *Nmap*.  
-- Registrar autorizaciones ROE antes de pruebas agresivas.  
-- Estandarizar nombres desde el inicio (`YYYYMMDD_tool_target.ext`).  
-- Automatizar tareas repetitivas con scripts.
-
-**Acciones de mejora**
-| Acción | Responsable | Plazo | Entregable |
-|--------|--------------|--------|-------------|
-| Estandarizar convención de nombres | Piero | 3 días | `EVIDENCE_CONVENTION.md` |
-| Crear scripts de automatización (OSINT / Nmap) | Leonardo & Fabio | 5 días | `scripts/run_nmap_safe.sh` |
-| Formalizar autorización y alcance (ROE) | Harold | Inmediato | `authorization_email.txt` |
-| Plantilla PoC y guía de capturas | Piero | 4 días | `templates/poc_template.md` |
-| Optimizar estrategia de escaneo | Leonardo | 5 días | `run_nmap_safe.sh` |
-| Peer-review de hallazgos | Fabio | Sprint 2 | Checklist de revisión |
-
-**Métricas del sprint**
-- ≥ 1 commit por integrante.  
-- ≥ 90 % de evidencias renombradas según convención.  
-- Scripts automatizados en repositorio.  
-- Plantilla PoC adoptada.
-
-## Sprint 2 – Enumeración y Vulnerabilidades
-
-### Historias de usuario atendidas  
-
-- **US-04 – Enumeración de endpoints API (8 SP):** Como atacante, quiero identificar todos los endpoints REST y métodos HTTP expuestos por TutorMatch para detectar recursos sin protección.
-- **US-09 – Detección de exposición de datos sensibles (8 SP):** Como pentester, quiero revisar respuestas de la API y endpoints públicos para detectar tokens, correos o información sensible no enmascarada.
-- **US-03 – Pruebas de Cross-Site Scripting (XSS) (13 SP):** Como atacante, quiero insertar scripts maliciosos en los campos de entrada y formularios de TutorMatch para validar la sanitización y filtrado de entradas de usuario.
-- **US-05 – Explotación de credenciales débiles y recuperación de cuenta (8 SP):** Como pentester, quiero evaluar contraseñas débiles, políticas de bloqueo y el flujo de recuperación de cuentas para detectar posibles riesgos de takeover.
-- **US-06 – Prueba de subida de archivos inseguros (5 SP):** Como pentester, quiero probar la carga de archivos con extensiones o contenidos no permitidos para verificar la validación y el control de tipo MIME implementado.
-- **US-08 – Verificación de TLS y headers de seguridad (5 SP):** Como auditor, quiero comprobar los mecanismos HTTPS/TLS y los encabezados de seguridad (CSP, HSTS, X-Frame-Options, X-XSS-Protection) para asegurar el transporte y la mitigación de vectores web.
-- **US-12 – Escaneo de puertos y servicios de red (5 SP):** Como atacante, quiero mapear los hosts, puertos y servicios detrás del despliegue de TutorMatch (servidor web, base de datos, servicios auxiliares) para identificar configuraciones o versiones vulnerables.
-
-### Actividades (Nessus, Nikto, análisis de endpoints API)  
-
-1. **Preparación del entorno**
-   - Validación de ROE (`authorization_email.txt`).  
-   - Cuentas de prueba autenticadas.  
-   - Registro de versiones de herramientas (*Nessus*, *Nikto*, *ZAP*).
-
-2. **Escaneo de vulnerabilidades web – Nessus**
-   - Política “no destructiva”: CVE, TLS, HTTP.  
-   - Reportes `.nessus` y `.pdf` → `/evidence/sprint2/nessus/`.
-
-3. **Escaneo no intrusivo – Nikto**
-   - Detección de cabeceras y rutas sensibles.  
-   - Resultados → `/evidence/sprint2/nikto/`.
-
-4. **Enumeración web**
-   - *Gobuster / ffuf* → `/api/`, `/uploads/`, `/admin/`.  
-   - *WhatWeb* → frameworks y librerías detectadas.
-
-5. **Detección de endpoints API (ZAP / Burp / Postman)**
-   - Spidering controlado y extracción de *OpenAPI fragments*.  
-   - Colección Postman: `postman_collection_tutormatch.json`.
-
-6. **Verificación de métodos HTTP y CORS**
-   - `curl -X OPTIONS` y cabeceras de seguridad.
-
-7. **Consolidación de hallazgos preliminares**
-   - `findings_prelim.csv` con severidad, PoC y responsable.
-
-### Resultados y evidencias  
-
-#### Resultados:
-
-Durante el Sprint 2, el equipo SecuraLabs logró consolidar un proceso sistemático de enumeración de servicios, endpoints y vulnerabilidades preliminares en el entorno autorizado de TutorMatch, aplicando metodologías seguras y herramientas de análisis no destructivas. A partir del escaneo realizado con Nessus, Nikto y WhatWeb, se identificaron múltiples componentes web activos y configuraciones susceptibles de mejora en materia de seguridad.
-
-El escaneo con Nessus permitió detectar vulnerabilidades de baja y media severidad, principalmente relacionadas con la falta de cabeceras de seguridad HTTP y configuraciones SSL/TLS parcialmente optimizadas. No se encontraron vulnerabilidades críticas ni de ejecución remota, lo cual indica una arquitectura estable en términos de exposición de servicios. Paralelamente, el análisis de Nikto reveló la presencia de rutas y archivos sensibles (por ejemplo, /uploads/ y /backup/) que, aunque no contenían datos visibles, representan vectores potenciales de acceso indebido si no se controlan adecuadamente.
-
-En la fase de enumeración web y API, el uso de Gobuster y ZAP permitió mapear endpoints REST relevantes, como /api/v1/users y /api/v1/login, además de descubrir métodos HTTP habilitados (GET, POST, OPTIONS) y políticas CORS permisivas en algunos recursos. La colección de solicitudes en Postman facilitó la verificación manual de los endpoints autenticados, confirmando que el flujo de acceso de usuarios se encuentra protegido mediante tokens válidos y con controles básicos de sesión.
-
-Asimismo, el análisis TLS y de cabeceras evidenció que el servidor mantiene certificados válidos, aunque carece de cabeceras de seguridad complementarias como X-Frame-Options, Strict-Transport-Security o Content-Security-Policy. Estos hallazgos, si bien no constituyen vulnerabilidades críticas, se consideran áreas de mejora dentro de las buenas prácticas OWASP.
-
-Finalmente, la consolidación de hallazgos preliminares permitió clasificar y priorizar cada vulnerabilidad en un archivo findings_prelim.csv, asignando niveles de severidad según CVSS y responsables de verificación por integrante del equipo. Esta organización de evidencias facilitó la trazabilidad y sirvió como insumo directo para el Sprint 3, enfocado en pruebas de explotación controlada.
-
-En conclusión, el Sprint 2 permitió identificar debilidades técnicas de configuración y exposición web, validar la correcta aplicación de políticas de seguridad en la API, y fortalecer la base documental del proceso de pentesting. Los resultados confirman un progreso significativo en la comprensión estructural del sistema y preparan el terreno para la validación práctica de vulnerabilidades en la siguiente etapa del proyecto.
-
-#### Evidencias:
-
-- **Preparación del entorno de pruebas:**
-<img src="assets/sprint_2/prep.PNG" alt="Preparacion-Sprint2"/>
-<img src="assets/sprint_2/preptxt.PNG" alt="Preparacion-TXT"/>
-
-- **Escaneo de vulnerabilidades web (Nessus):**
-<img src="assets/sprint_2/nessus.PNG" alt="Nessus"/>
-
-- **Escaneo web no intrusivo (Nikto):** nikto -host "https://$TARGET" -output "$BASE/nikto/${DATE}_nikto_${TARGET}.txt"
-<img src="assets/sprint_2/nikto.PNG" alt="Nikto"/>
-
-- **Descubrimiento web y enumeración de directorios:** ffuf -u "https://$TARGET/FUZZ" -w /usr/share/wordlists/dirb/common.txt -t 30 -mc 200,301,302,403 -o "$BASE/web_enumeration/${DATE}_ffuf_dirs_${TARGET}.json" -of json
-<img src="assets/sprint_2/ffuf.PNG" alt="Ffuf-Sprint2"/>
-
-- **Detección de endpoints API (OWASP ZAP / Burp / Postman):**
-<img src="assets/sprint_2/zap.PNG" alt="Owasp Zap"/>
-
-<img src="assets/sprint_2/zap2.PNG" alt="Zap PDF"/>
-
-- **Verificación de métodos HTTP, CORS y cabeceras (OPTIONS / curl):** curl -i -X OPTIONS "https://$TARGET/login" > "$BASE/http_options/${DATE}_options_${TARGET}.txt"
-curl -I -L "https://$TARGET/login" > "$BASE/http_options/${DATE}_headers_login.txt"
-<img src="assets/sprint_2/curl.PNG" alt="Curl"/>
-
-- **Metagoofil + exiftool (OSINT de documentos públicos):**
-<img src="assets/sprint_2/metagoofil.PNG" alt="Metagoofil"/>
-
-### Retrospectiva  
-
-**Lo que funcionó**
-- Las herramientas se ejecutaron de forma controlada y con autorización documentada (ROE firmado), cumpliendo el criterio ético del proyecto.  
-- Se estandarizó correctamente la estructura de carpetas y nombres de evidencia (/evidence/sprint2/), lo que agilizó la consolidación de resultados.  
-- El uso combinado de Nessus, Nikto y OWASP ZAP permitió obtener hallazgos reproducibles y validados con un enfoque no destructivo. 
-- La colección Postman generada a partir del spider de ZAP facilitó la detección de endpoints REST y la preparación del backlog para el Sprint 3.
-- Se redujeron falsos positivos gracias al filtrado manual y revisión cruzada entre Leonardo y Fabio.
-
-**Qué no funcionó**
-- Nessus presentó lentitud durante el análisis TLS y algunos plugins fueron omitidos por timeout, afectando la cobertura del reporte.  
-- Nikto arrojó varios falsos positivos en encabezados por la naturaleza del hosting (Netlify), requiriendo verificación manual.
-- No se logró obtener el archivo swagger.json completo, solo fragmentos parciales (OpenAPI), lo que limitó el mapeo total de la API.
-- Las pruebas XSS reflejadas debieron repetirse con autenticación para obtener resultados más concluyentes.
-
-**Lecciones aprendidas**
-- Planificar escaneos largos (Nessus/Nikto) en ventanas horarias de baja latencia para optimizar el tiempo de ejecución.
-- Verificar previamente el hosting (Netlify) para evitar bloqueos automáticos ante múltiples requests. 
-- Consolidar los resultados en formato CSV desde el inicio y no al final del sprint para facilitar priorización CVSS.
-- Utilizar capturas con metadatos (fecha, comando) para mejorar la trazabilidad de evidencias.
-
-**Acciones de mejora**
-| Acción | Responsable | Plazo | Entregable |
-|--------|--------------|--------|-------------|
-| Optimizar política de escaneo Nessus y desactivar plugins innecesarios | Leonardo | 2 días | `policy_safe_scan_v2.nessus` |
-| Validar hallazgos de Nikto con curl/Burp y marcar falsos positivos | Fabio | 3 días | `findings_validated.csv` |
-| Completar documentación de endpoints en Postman con autenticación | Harold | 3 días | `postman_collection_v2_auth.json` |
-| Estandarizar formato CSV para hallazgos (ID, severidad, endpoint, CVSS, PoC) | Piero | 2 días | `docs/findings_template.csv` |
-
-**Métricas del sprint**
-- ≥ 95 % de hallazgos validados con evidencia adjunta.
-- Al menos 1 PoC por tipo de vulnerabilidad confirmada (XSS, exposición de datos, auth).
-- Reducción de ≥ 30 % en falsos positivos respecto al Sprint 2.  
-- Política Nessus optimizada y reutilizable para Sprint 3.
-
-## Sprint 3 – Explotación
-- Historias de usuario atendidas  
-- Actividades (Metasploit, Burp, sqlmap)  
-- Resultados y PoC  
-- Retrospectiva  
-
-## Sprint 4 – Post-explotación y Persistencia
-- Historias de usuario atendidas  
-- Actividades (escalamiento, extracción de credenciales, movimiento lateral)  
-- Evidencias  
-- Retrospectiva  
-
-## Sprint 5 – Informe Final y Recomendaciones
-- Historias de usuario atendidas  
-- Consolidación de hallazgos y plan de mitigación  
-- Preparación de la presentación ejecutiva  
-- Retrospectiva global  
+**Estado del Sprint:** ✅ COMPLETADO
+
+---
+
+## Sprint 4 - Post-explotación y Persistencia
+
+### Objetivo del Sprint
+Escalar privilegios a root, identificar información sensible adicional y exfiltrar datos críticos, validando el impacto total sobre el sistema comprometido.
+
+### Historias de Usuario Atendidas
+
+| ID | Historia de Usuario | Criterios de Aceptación | Story Points |
+|:--:|:--|:--|:--:|
+| US-13 | Como atacante quiero escalar privilegios a root | Obtención de shell con UID 0 | 8 |
+| US-14 | Como atacante quiero buscar archivos sensibles en directorios protegidos | Lectura de /root/ y archivos de configuración | 5 |
+| US-15 | Como atacante quiero exfiltrar la base de datos de clientes | Descarga de archivo CSV/SQL a máquina local | 5 |
+| US-16 | Como atacante quiero mantener persistencia (opcional) | Creación de usuario backdoor (simulado) | 3 |
+
+**Total Sprint 4:** 21 Story Points
+
+### Actividades Realizadas
+
+#### 3.17.1 Enumeración de Privilegios Locales
+Una vez obtenida la sesión remota como `sysadmin` (Sprint 3), se identificaron permisos de ejecución elevados mediante `sudo`.
+**Resultado crítico:**
+- El usuario `sysadmin` podía ejecutar `python3` y `find` como root sin contraseña (NOPASSWD).
+- Esta mala configuración permitió una escalada inmediata de privilegios.
+
+#### 3.17.2 Escalamiento de Privilegios
+Se utilizó el binario `python3` autorizado en sudo para obtener una shell con privilegios de superusuario.
+**Resultado:**
+- **Usuario activo:** `root`
+- **UID:** 0
+- **Control total del sistema operativo.**
+
+Esto confirma un compromiso absoluto del servidor.
+
+#### 3.17.3 Búsqueda de Información Sensible (Looting)
+Ya como usuario root se accedió al directorio `/root`, donde se encontraron:
+- Archivo `NOTAS_ADMIN.txt` con:
+    - Credenciales de MySQL Root.
+    - Credenciales de servicio FTP.
+- Directorio `/root/backups/` con:
+    - Archivo `clientes_exportacion.csv` con información completa de clientes.
+
+Se confirma almacenamiento inseguro de credenciales y respaldos sin cifrado.
+
+#### 3.17.4 Exfiltración de Información Crítica
+Se copió el archivo `clientes_exportacion.csv` al directorio del usuario `sysadmin` y se transfirió hacia la máquina atacante mediante SCP a través del túnel Ngrok.
+**Datos exfiltrados:**
+- DNI de clientes.
+- Correos electrónicos.
+- Números telefónicos.
+- Direcciones físicas.
+
+Esto valida una brecha real de datos personales (PII).
+
+#### 3.17.5 Persistencia (Simulada)
+Se dejó documentado el vector para:
+- Creación de usuario backdoor con privilegios elevados.
+- Modificación de servicios de inicio (no ejecutado en entorno productivo real por razones éticas).
+
+Esta fase demuestra la posibilidad de permanencia indefinida del atacante en el sistema comprometido.
+
+### Resultados y Evidencias
+
+**Impacto Validado del Sprint 4**
+
+| ID | Resultado Crítico | Evidencia |
+|:--:|:--|:--|
+| PoC-06 | Escalamiento exitoso a usuario root | <img src="auditoria_safeguard/sprint_4/imgs/Screenshot_1.png" alt="Root Escalation" width="600"/> |
+| PoC-07 | Acceso al directorio /root | <img src="auditoria_safeguard/sprint_4/imgs/Screenshot_2.png" alt="Root Dir Access" width="600"/> |
+| PoC-08 | Lectura de archivo NOTAS_ADMIN.txt | <img src="auditoria_safeguard/sprint_4/imgs/Screenshot_3.png" alt="Admin Notes" width="600"/> |
+| PoC-09 | Extracción de clientes_exportacion.csv | <img src="auditoria_safeguard/sprint_4/imgs/Screenshot_4.png" alt="Clients Export" width="600"/> |
+| PoC-10 | Exfiltración vía SCP exitosa | <img src="auditoria_safeguard/sprint_4/imgs/Screenshot_5.png" alt="SCP Exfiltration" width="600"/> |
+
+### Retrospectiva del Sprint 4
+
+**Aspectos Positivos**
+- La mala configuración de sudo permitió una escalada directa y sin resistencia.
+- El acceso root facilitó la identificación de respaldos críticos y credenciales maestras.
+- La exfiltración de archivos fue exitosa a través de túneles externos.
+
+**Oportunidades de Mejora**
+- La enumeración inicial pudo ser automatizada con herramientas como `linpeas.sh`.
+- No existía segmentación de privilegios ni control de acceso reforzado.
+- No se detectaron mecanismos activos de detección de intrusos (IDS).
+
+**Estado del Sprint:** ✅ COMPLETADO
+
+---
+
+## Sprint 5 - Informe Final y Recomendaciones
+
+### Objetivo del Sprint
+Consolidar todos los hallazgos obtenidos durante los sprints anteriores, clasificar las vulnerabilidades según CVSS, definir un plan de mitigación técnico y preparar la presentación ejecutiva para la toma de decisiones.
+
+### Historias de Usuario Atendidas
+
+| ID | Historia de Usuario | Criterios de Aceptación | Story Points |
+|:--:|:--|:--|:--:|
+| US-17 | Como consultor quiero consolidar todas las vulnerabilidades detectadas | Matriz de vulnerabilidades unificada por severidad | 5 |
+| US-18 | Como consultor quiero elaborar el plan de mitigación | Documento formal con acciones a corto, mediano y largo plazo | 5 |
+| US-19 | Como consultor quiero preparar el informe ejecutivo | Documento final listo para presentación | 3 |
+| US-20 | Como Product Owner quiero una evaluación final del riesgo | Clasificación del nivel de riesgo global del sistema | 3 |
+
+### Actividades Realizadas
+
+#### 3.21.1 Consolidación de Hallazgos
+- Revisión de todos los hallazgos obtenidos en los Sprints 1 al 4.
+- Eliminación de duplicados y correlación de vulnerabilidades.
+- Clasificación de cada vulnerabilidad según CVSS v3.1.
+- Evaluación del impacto técnico y de negocio.
+- Se estableció una cadena de ataque completa, desde la exposición de archivos hasta la obtención de acceso root y exfiltración de datos.
+
+#### 3.21.2 Elaboración del Plan de Mitigación
+Se diseñó un plan de mitigación estructurado en corto, mediano y largo plazo, considerando:
+- Controles técnicos.
+- Endurecimiento del sistema (hardening).
+- Gestión de credenciales.
+- Monitoreo y prevención.
+
+El plan se alineó a las buenas prácticas de:
+- OWASP Top 10
+- ISO/IEC 27001
+
+#### 3.21.3 Preparación de la Presentación Ejecutiva
+Se elaboró el Resumen Ejecutivo dirigido a la alta dirección, incluyendo:
+- Objetivo del pentesting.
+- Alcance de la auditoría.
+- Vulnerabilidades críticas detectadas.
+- Impacto en la organización.
+- Riesgo global.
+- Recomendaciones prioritarias.
+
+El informe fue preparado en versión:
+- Técnica (para el equipo de TI).
+- Ejecutiva (para la gerencia).
+
+### Resultados del Sprint 5 – Consolidación Final
+
+**Resumen Ejecutivo del Proyecto**
+La auditoría de seguridad realizada sobre la infraestructura de SafeGuard Coffee permitió identificar 6 vulnerabilidades críticas y de alto riesgo que posibilitaron:
+- Acceso administrativo al sistema.
+- Compromiso completo del servidor.
+- Exfiltración de información sensible de clientes y empleados.
+
+El objetivo de:
+- Obtener acceso Root
+- Acceder a la base de datos
+- Extraer PII (Personal Identifiable Information)
+
+fue **ALCANZADO** con éxito.
+
+**Matriz Consolidada de Vulnerabilidades**
+
+| ID | Vulnerabilidad | Severidad (CVSS) | Descripción | Impacto |
+|:--:|:--|:--:|:--|:--|
+| VULN-01 | Sensitive File Exposure | Crítica (9.8) | Archivo credentials.bak expuesto públicamente | Acceso inicial al sistema |
+| VULN-02 | Privilege Escalation | Crítica (8.8) | Permisos sudo NOPASSWD en python3 | Control total del servidor |
+| VULN-03 | Hardcoded Credentials | Alta (7.5) | Credenciales en db_connection_test.log | Acceso a DB y SSH |
+| VULN-04 | Directory Listing | Media (5.3) | Indexación habilitada en /backup y /admin/logs | Enumeración de archivos |
+| VULN-05 | Missing Security Headers | Baja (3.7) | Falta de HSTS, CSP y X-Frame-Options | Riesgo de ataques cliente |
+| VULN-06 | Insecure Storage | Alta (7.1) | PII almacenado en /root/backups/ | Fuga de información |
+
+**Plan de Mitigación Consolidado**
+
+**Corto Plazo (Inmediato)**
+- Eliminación de todos los archivos de respaldo expuestos.
+- Desactivación del Directory Listing en Apache.
+- Corrección inmediata de permisos sudo.
+- Rotación total de credenciales (Web, DB, SSH).
+- Revisión de logs de accesos no autorizados.
+
+**Mediano Plazo**
+- Implementación de un WAF (ModSecurity u otro).
+- Endurecimiento de SSH (solo autenticación por llaves).
+- Uso de gestores de secretos (Vault, variables de entorno).
+- Segmentación de red entre servicios internos.
+
+**Largo Plazo**
+- Auditorías de seguridad periódicas (trimestral).
+- Monitoreo continuo con SIEM.
+- Capacitación del personal en seguridad y OWASP Top 10.
+- Implementación formal de un SGSI basado en ISO 27001.
+
+**Evidencias Finales del Proyecto**
+- Acceso inicial a través de archivo credentials.bak → <img src="auditoria_safeguard/sprint_1/imgs/credentials.png" alt="Initial Access" width="600"/>
+- Acceso administrativo al panel → <img src="auditoria_safeguard/sprint_2/imgs/Screenshot_1.png" alt="Admin Panel" width="600"/>
+- Acceso a MySQL remoto → <img src="auditoria_safeguard/sprint_3/imgs/Screenshot_1.png" alt="MySQL Remote" width="600"/>
+- Acceso SSH al servidor → <img src="auditoria_safeguard/sprint_4/imgs/Screenshot_1.png" alt="SSH Access" width="600"/>
+- Escalamiento a root → <img src="auditoria_safeguard/sprint_4/imgs/Screenshot_2.png" alt="Root Escalation" width="600"/>
+- Exfiltración de base de datos → <img src="auditoria_safeguard/sprint_4/imgs/Screenshot_5.png" alt="DB Exfiltration" width="600"/>
+
+### Retrospectiva Global del Proyecto
+
+**Aspectos Positivos**
+- Se logró una simulación completa de un ataque real de principio a fin.
+- La metodología PTES permitió una trazabilidad total del ataque.
+- Se validó el impacto real de las vulnerabilidades sobre el negocio.
+
+**Aspectos a Mejorar**
+- La infraestructura carecía de controles preventivos básicos.
+- No existía monitoreo activo de seguridad.
+- Las malas prácticas de gestión de credenciales facilitaron todo el ataque.
+
+**Conclusión de la Retrospectiva**
+El ejercicio de pentesting demostró que la infraestructura de SafeGuard Coffee presenta un riesgo crítico para la información del negocio y de sus clientes, siendo urgente la aplicación del plan de mitigación propuesto.
+
+**Estado del Sprint 5:** ✅ COMPLETADO
+**Estado del Proyecto:** ✅ FINALIZADO
 
 ---
 
