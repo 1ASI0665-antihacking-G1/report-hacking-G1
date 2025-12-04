@@ -805,8 +805,8 @@ Este análisis permitió identificar nuevos vectores de ataque internos no visib
 
 | ID | Vulnerabilidad | Severidad | Evidencia |
 |:--:|:--|:--|:--|
-| VULN-01 | Directory Listing habilitado en /backup y /admin/logs | Alta | <img src="auditoria_safeguard/sprint_2/imgs/Screenshot_1.png" alt="Directory Listing Admin" width="600"/> |
-| VULN-02 | Cabeceras de seguridad ausentes (HSTS, CSP, X-Frame-Options) | Media | <img src="auditoria_safeguard/sprint_2/imgs/Screenshot_2.png" alt="Missing Headers" width="600"/> |
+| VULN-01 | Directory Listing habilitado en /backup y /admin/logs | Alta | <img src="auditoria_safeguard/sprint_1/imgs/gobuster backup.png" alt="Directory Listing Admin" width="600"/> |
+| VULN-02 | Cabeceras de seguridad ausentes (HSTS, CSP, X-Frame-Options) | Media | <img src="auditoria_safeguard/sprint_2/imgs/nikto_head.png" alt="Missing Headers" width="600"/> |
 | VULN-03 | Exposición de credenciales en texto plano (credentials.bak) | Crítica | <img src="auditoria_safeguard/sprint_2/imgs/Screenshot_3.png" alt="Credentials Exposed" width="600"/> |
 | VULN-04 | Divulgación de versión de Apache | Baja | <img src="auditoria_safeguard/sprint_2/imgs/Screenshot_4.png" alt="Apache Version" width="600"/> |
 | VULN-05 | Archivo db_connection_test.log accesible | Crítica | <img src="auditoria_safeguard/sprint_2/imgs/Screenshot_1.png" alt="DB Log Access" width="600"/> |
@@ -910,7 +910,7 @@ Esto confirma un compromiso total del servidor con posibilidad real de escalamie
 | PoC-02 | Extracción de datos de clientes | <img src="auditoria_safeguard/sprint_3/imgs/Screenshot_2.png" alt="Clients Dump" width="600"/> |
 | PoC-03 | Extracción de datos de trabajadores | <img src="auditoria_safeguard/sprint_3/imgs/Screenshot_3.png" alt="Workers Dump" width="600"/> |
 | PoC-04 | Acceso remoto al servidor por SSH | <img src="auditoria_safeguard/sprint_4/imgs/Screenshot_1.png" alt="SSH Access" width="600"/> |
-| PoC-05 | Sesión autenticada activa en el sistema | <img src="auditoria_safeguard/sprint_2/imgs/Screenshot_1.png" alt="Active Session" width="600"/> |
+| PoC-05 | Sesión autenticada activa en el sistema | <img src="auditoria_safeguard/sprint_2/imgs/Screenshot_2.png" alt="Active Session" width="600"/> |
 
 ### Retrospectiva del Sprint 3
 **Aspectos Positivos**
