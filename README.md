@@ -343,6 +343,7 @@ Antes de iniciar las pruebas se definieron las **ROE (Rules of Engagement)** con
 - **Extracción de datos:** solo evidencia mínima necesaria (PoC).
 - **Ventanas de ejecución:** fuera de horarios productivos.
 
+---
 
 ### Sprint 1: Reconocimiento & Escaneo inicial
 
@@ -351,8 +352,6 @@ Antes de iniciar las pruebas se definieron las **ROE (Rules of Engagement)** con
 **Metodología:** PTES – Fase 1 (Intelligence Gathering)
 
 **Objetivo:** Identificar y documentar la superficie de ataque pública de SafeGuard Coffee: dominio, servicios, rutas web y posibles vectores iniciales de acceso.
-
----
 
 **Sprint Backlog 1**
 
@@ -441,133 +440,156 @@ Documento de **inventario inicial de superficie de ataque**.
 
 ### Sprint 2: Enumeración y vulnerabilidades preliminares
 
+**Duración:** Semana 3 – 4
+
+**Metodología:** PTES – Fase 2 (Vulnerability Analysis) + OWASP Testing Guide
+
+**Objetivo del Sprint:**
+Enumerar en profundidad las funcionalidades del sitio web de SafeGuard Coffee, validar las credenciales obtenidas en el Sprint 1 e identificar vulnerabilidades preliminares de forma no destructiva.
+
+
 **Sprint Backlog 2**
 
 | User Story Id | User Story Title | Work Item Id | Work Item Title | Description | Estimation | Assigned To | Status |
 |---:|---|---:|---|---|:--:|:--|:--|
-| US-04 | Escaneo y enumeración de endpoints API | 2.1 | Nmap avanzado & Scripting | `nmap -p- -sS -sV -O --script=vuln <target>`, generar `nmap_full.txt`. | (2h) | Leonardo | Done |
-| US-04 | Escaneo y enumeración de endpoints API | 2.2 | Reconocimiento web profundo | `whatweb -v`, `gobuster dir -u <url> -w common.txt` (gobuster outputs). | (1h) | Leonardo | Done |
-| US-02 | Pruebas de inyección SQL | 2.3 | Identificación de parámetros vulnerables (no explotación) | Búsqueda manual de parámetros y pruebas ligeras (no destructivas) para marcar candidatos SQLi. | (1h) | Leonardo | Done |
-| US-03 | Pruebas de XSS | 2.4 | Pruebas XSS preliminares | Payloads reflejados simples, validación/sanitización en campos chat/comentarios. | (1h) | Leonardo | Done |
-| US-08 | Verificación de TLS y headers | 2.5 | Confirmación y listado de cabeceras | Verificar HSTS, CSP, X-Frame-Options, X-XSS-Protection en endpoints críticos. | (1h) | Piero / Leonardo | Done |
-| US-13 | Auditoría de repositorios y pipelines | 2.6 | Revisión SCA / CI | `npm audit`, `mvn dependency:tree`, revisión rápida de pipelines por secretos. | (1h) | Fabio / Leonardo | Done |
-| US-04 | Escaneo y enumeración de endpoints API | 2.7 | Generar ZAP report & colección Postman | OWASP ZAP spider + scan → `ZAP_report.html`; construir colección Postman/Burp. | (1h) | Leonardo / Piero | Done |
-| US-01 | Reconocimiento inicial y mapeo de superficie | 2.8 | Filtrado y documentación | Filtrar falsos positivos, documentar hallazgos preliminares con CVSS estimado. | (1h) | Piero | Done |
+| US-05 | Enumeración de endpoints web | 2.1 | Preparación del entorno Sprint 2 | Creación de estructura de carpetas para Nikto, headers y enumeración web. | (1h) | Harold | Done |
+| US-07 | Análisis de vulnerabilidades web | 2.2 | Escaneo Nikto | Identificación de configuraciones inseguras y directorios peligrosos. | (2h) | Harold | Done |
+| US-07 | Análisis de vulnerabilidades web | 2.3 | Análisis de cabeceras HTTP | Verificación manual de HSTS, CSP, X-Frame-Options. | (1h) | Harold | Done |
+| US-06 | Validación de credenciales | 2.4 | Login con credenciales filtradas | Autenticación en panel administrativo usando credenciales de `credentials.bak.` | (1h) | Harold | Done |
+| US-05 | Enumeración de endpoints web | 2.5 | Enumeración autenticada | Descubrimiento de rutas internas usando cookies de sesión válidas. | (2h) | Harold | Done |
+| US-08 | Documentación de superficie de ataque | 2.6 | Registro de evidencias y matriz de vulnerabilidades | Clasificación de vulnerabilidades preliminares con severidad. | (1h) | Piero | Done |
 
 **Objetivo:**  
-Enumerar en detalle servicios, versiones y endpoints API/WEB de TutorMatch; identificar vulnerabilidades de superficie (OWASP Top 10) en modo no destructivo y priorizar hallazgos.
+Enumerar en profundidad los endpoints web públicos y autenticados de SafeGuard Coffee, validar las credenciales obtenidas en el Sprint 1 y detectar vulnerabilidades preliminares a nivel de configuración, cabeceras de seguridad y exposición de información sensible, bajo un enfoque no destructivo.
 
 **Actividades técnicas**
-- Escaneo Nmap avanzado: `nmap -p- -sS -sV -O --script=vuln <target>` para identificar servicios, versiones y scripts de vulnerabilidad.
-- Reconocimiento web profundo: `whatweb -v`, `gobuster dir -u <url> -w /usr/share/wordlists/dirb/common.txt` para encontrar directorios y recursos (uploads, admin, api).
-- Escaneo automático de web/API: OWASP ZAP para spider + scan, generar `ZAP_report.html`.
-- Detección de endpoints API: buscar swagger/openapi, endpoints JSON, y construir colección Postman/Burp.
-- Pruebas preliminares no destructivas: payloads de XSS reflejado simple, pruebas básicas de SQLi con payloads manuales (no extracción), verificación de métodos HTTP permitidos (`OPTIONS`), comprobación de CORS y cabeceras.
-- Revisión SCA superficial si hay acceso al repo: `npm audit`, `mvn dependency:tree` o reportes automáticos.
+- Preparación del entorno de trabajo para el Sprint 2 y organización de carpetas de evidencias.
+- Escaneo automático de vulnerabilidades web mediante Nikto.
+- Análisis manual de cabeceras HTTP para verificación de políticas de seguridad.
+- Validación de credenciales obtenidas en el Sprint 1 mediante autenticación real en el sistema.
+- Enumeración autenticada de directorios y funciones internas del panel administrativo.
+- Identificación de rutas internas, archivos de log y posibles vectores de ataque adicionales.
+- Documentación de la superficie de ataque autenticada (formularios, parámetros, sesiones, cookies).
 
 **Entregables**
-- `nmap_full.txt`, `whatweb_<IP>.txt`, `gobuster_<IP>.txt`.
-- `ZAP_report.html`.
-- Colección Postman/Burp con endpoints descubiertos.
-- Lista priorizada de hallazgos preliminares con CVSS estimado y PoC mínimo (errores o respuesta anómala).
-
-**Criterio de finalización**  
-Hallazgos preliminares documentados y validados (falsos positivos filtrados); backlog priorizado con historias asignadas para explotación.
+- Carpeta del Sprint 2 con estructura organizada (nikto, headers, web_enum).
+- Reporte de escaneo Nikto.
+- Archivo de cabeceras HTTP capturadas.
+- Evidencias de autenticación exitosa en el sistema.
+- Evidencias de enumeración autenticada.
+- Listado de vulnerabilidades preliminares detectadas.
+- Registro de la superficie de ataque autenticada.
 
 ---
 
-# Sprint 3: Explotación controlada (web, APIs)
+### Sprint 3: Explotación controlada (web, APIs)
+
+**Duración:** Semana 5 – 6
+
+**Metodología:** PTES – Fase 3 (Exploitation)
+
+**Objetivo del Sprint:**
+Explotar de manera controlada las vulnerabilidades críticas identificadas en los sprints previos para acceder a los logs internos del sistema, obtener credenciales de infraestructura, extraer información de la base de datos y lograr acceso remoto al servidor mediante SSH, respetando las reglas de compromiso (ROE).
 
 **Sprint Backlog 3**
 
 | User Story Id | User Story Title | Work Item Id | Work Item Title | Description | Estimation | Assigned To | Status |
 |---:|---|---:|---|---|:--:|:--|:--|
-| US-02 | Pruebas de inyección SQL en APIs y formularios | 3.1 | SQLi controlado (PoC) | Ejecutar `sqlmap` con flags limitantes en parámetros identificados; capturar error/metadata si ROE lo exige. | (2h) | Leonardo | Done |
-| US-03 | Pruebas de Cross-Site Scripting (XSS) | 3.2 | Confirmación XSS & PoC | Confirmar XSS (reflejado/almacenado) con Burp Repeater; grabar GIF/video ≤30s. | (1h) | Leonardo | Done |
-| US-06 | Prueba de subida de archivos inseguros | 3.3 | File upload testing (PoC) | Subir archivos renombrados (.php rename) y verificar acceso/ejecución. | (2h) | Leonardo | Done |
-| US-10 | Pruebas CSRF en acciones críticas | 3.4 | Verificación CSRF | Probar tokens, endpoints state-changing y construir PoC si aplica. | (1h) | Leonardo / Piero | Done |
-| US-04 | Escaneo y enumeración de endpoints API | 3.5 | Explotación de endpoints API | Probar IDOR, parámetros y controles de autorización en APIs (usar cuentas de prueba). | (2h) | Leonardo | Done |
-| US-02 | Pruebas de inyección SQL en APIs y formularios | 3.6 | Documentación PoC | Capturas, comandos reproducibles, colecciones y matrices CVSS. | (1h) | Piero | Done |
+| US-09 | Acceso a logs del sistema | 3.1 | Descarga de logs internos | Descarga y análisis del archivo `db_connection_test.log` desde `/admin/logs/`. | (2h) | Leonardo | Planned |
+| US-10 | Obtención de credenciales de infraestructura | 3.2 | Extracción de credenciales | Identificación de usuarios y contraseñas de DB y SSH desde los logs internos. | (2h) | Harold | Planned |
+| US-11 | Extracción de información de base de datos | 3.3 | Acceso y dump de BD | Conexión remota a MySQL y consulta de tablas de clientes y empleados. | (3h) | Leonardo | Planned |
+| US-12 | Acceso remoto al servidor | 3.4 | Conexión SSH al servidor | Acceso remoto mediante SSH con credenciales obtenidas y verificación de privilegios. | (2h) | Leonardo | Planned |
 
 **Objetivo:**  
-Explotar de forma controlada las vulnerabilidades prioritarias identificadas en Sprint 2 (por ejemplo SQLi, XSS, IDOR, credenciales), usando cuentas y datos de prueba y respetando ROE.
+Explotar de forma controlada las vulnerabilidades críticas identificadas en los sprints anteriores para obtener acceso a los logs internos del sistema, credenciales de infraestructura, información sensible de la base de datos y acceso remoto al servidor mediante SSH, respetando en todo momento las reglas de compromiso (ROE).
 
 **Actividades técnicas**
-- SQL Injection controlado: `sqlmap` en parámetros detectados con flags limitantes; si ROE prohíbe exfiltración, capturar error SQL o metadata en lugar de datos sensibles. Documentar comando exacto y outputs.
-- Cross-Site Scripting: confirmar XSS (reflejado/almacenado) usando Burp Repeater y navegador; grabar PoC (GIF/short video) mostrando contexto en TutorMatch (p. ej. chat o perfil).
-- Autenticación/Autorización: pruebas de fuerza bruta / credenciales comunes en cuentas de prueba (Hydra/Burp Intruder con rate-limit respetuoso), pruebas de IDOR y escalamiento horizontal/vertical en APIs (cambiar `user_id` en endpoints).
-- File upload testing: subir archivos con contenido malicioso renombrado, revisar si son accesibles/ejecutables (ruta de archivos en TutorMatch).
-- Uso de Burp Suite para interceptar y modificar requests a la API de TutorMatch y documentar payloads.
+- Preparación del entorno de trabajo para actividades de explotación y organización de evidencias.
+- Descarga y análisis de archivos de log internos desde el panel administrativo.
+- Identificación y validación de credenciales de base de datos y acceso remoto obtenidas desde los logs.
+- Conexión remota a la base de datos MySQL mediante credenciales válidas.
+- Enumeración de bases de datos, tablas y extracción controlada de información sensible.
+- Obtención de acceso remoto al servidor mediante conexión SSH.
+- Verificación de privilegios del usuario obtenido en el sistema.
+- Documentación técnica de cada vector de explotación ejecutado.
 
 **Entregables**
-- PoC reproducible para cada vulnerabilidad explotada (capturas, comandos, colecciones).
-- Matriz de impacto con CVSS estimado y recomendaciones inmediatas (prepared/parametrized queries, validar inputs, rate-limits).
-- Videos/GIFs cortos mostrando PoC (máx. 30s cada uno).
-
-**Criterio de finalización**  
-PoC reproducibles y revisados por el responsable del entorno; compromisos/soft-fixes urgentes sugeridos para mitigación.
+- Carpeta del Sprint 3 organizada (logs, db_dump).
+- Evidencias de descarga y análisis de archivos de log internos.
+- Evidencias de conexión exitosa a la base de datos MySQL.
+- Evidencias de extracción de información de tablas críticas.
+- Evidencias de acceso remoto al servidor mediante SSH.
+- Registro de credenciales de infraestructura comprometidas (entorno de laboratorio).
+- Documentación técnica de vectores de explotación utilizados.
+- Matriz de impacto preliminar de la información comprometida.
 
 ---
 
-# Sprint 4: Post-explotación y persistencia
+### Sprint 4: Post-explotación y persistencia
+
+**Duración:** Semana 7 – 8
+
+**Metodología:** PTES – Fase 4 (Post Exploitation)
+
+**Objetivo del Sprint:**
+Escalar privilegios hasta nivel root en el servidor comprometido, localizar información sensible en directorios protegidos, exfiltrar datos críticos de clientes y evaluar mecanismos de persistencia de forma controlada, respetando las reglas de compromiso (ROE).
 
 **Sprint Backlog 4**
 
 | User Story Id | User Story Title | Work Item Id | Work Item Title | Description | Estimation | Assigned To | Status |
 |---:|---|---:|---|---|:--:|:--|:--|
-| US-05 | Explotación de credenciales débiles & recuperación de cuenta | 4.1 | Testing de credenciales & account recovery | Evaluar políticas de contraseña, bloqueo e intentar flujos de reset en cuentas de prueba. | (2h) | Leonardo | Done |
-| US-09 | Detección de exposición de datos sensibles | 4.2 | Revisión de respuestas API para PII | Analizar respuestas por tokens, correos, datos no enmascarados; documentar evidencia. | (2h) | Piero / Leonardo | Done |
-| US-12 | Escaneo de puertos y servicios de red | 4.3 | Re-evaluación de servicios internos | Mapear servicios internos accesibles desde punto de compromiso (teórico). | (2h) | Leonardo | Done |
-| US-02 / US-03 | — | 4.4 | Escalamiento y persistencia (controlado) | Intentar escalamiento local/DB en entornos de prueba y documentar artefactos (metadata). | (2h) | Leonardo | Done |
-| US-08 | Verificación de TLS y headers | 4.5 | Detección / logging | Verificar logs, reglas y alertas; proponer reglas SIEM/IDS. | (1h) | Fabio / Piero | Done |
-| US-09 | Detección de exposición de datos sensibles | 4.6 | Checklist de remediación | Propuestas inmediatas (rotación credenciales prueba, cierre endpoints, permisos). | (2h) | Piero | Done |
+| US-13 | Escalamiento de privilegios a root | 4.1 | Enumeración de privilegios sudo | Verificación de permisos sudo del usuario `sysadmin` para detectar posibles vías de escalamiento. | (2h) | Leonardo | Planned |
+| US-13 | Escalamiento de privilegios a root | 4.2 | Explotación de binario con NOPASSWD | Uso del binario `python3` con sudo para obtener shell con UID 0. | (2h) | Leonardo | Planned |
+| US-14 | Búsqueda de archivos sensibles | 4.3 | Exploración de directorio `/root` | Lectura de archivos de configuración, notas administrativas y backups. | (2h) | Leonardo | Planned |
+| US-15 | Exfiltración de base de datos de clientes | 4.4 | Transferencia de archivo de respaldo | Copia y descarga del archivo `clientes_exportacion.csv` mediante SCP hacia la máquina del atacante. | (2h) | Leonardo | Done |
+| US-16 | Persistencia (simulada) | 4.5 | Evaluación de persistencia | Análisis de posibilidades de creación de usuarios backdoor o tareas programadas (sin ejecución real). | (1h) | Leonardo | Planned |
 
 **Objetivo:**  
-Evaluar el impacto real tras una explotación autorizada sobre TutorMatch (limitado por ROE): comprobar escalamiento, artefactos accesibles, posibilidad de persistencia y mapeo de movimiento lateral teórico; además validar detección/monitoring.
+Realizar post-explotación controlada para escalar privilegios a root, localizar información sensible adicional y evaluar vectores de persistencia y movimiento lateral teórico, entregando recomendaciones de mitigación y detección.
 
 **Actividades técnicas**
-- Escalamiento de privilegios (local/DB-level) usando técnicas seguras y sólo en cuentas/entornos de prueba: intentar obtener mayor acceso mediante fallos detectados (p. ej. vulnerabilidades en consultas SQL que permitan cambiar roles).
-- Revisión de dumps/backups y artefactos accesibles: localizar backups, dumps o endpoints de export (no exfiltrar datos sensibles; capturar solo metadata o hashes).
-- Simulación de movimiento lateral: mapear servicios internos accesibles desde el punto de compromiso (p. ej. servicios internos que la web puede alcanzar) y documentar rutas teóricas de pivot (sin moverse fuera del entorno autorizado).
-- Revisar logging y detección: comprobar si las acciones quedan registradas en logs (aplicación, webserver, DB); capturar logs locales y usar Wireshark/log capture si permiso; verificar si existen alertas/thresholds configurados.
-- Documentar mitigaciones para evitar persistencia: archivos SUID, permisos, rotación de claves, configuración de WAF/IDS y reglas SIEM sugeridas.
+- Enumeración local de privilegios y comprobación de configuraciones sudo / SUID.
+- Explotación segura de vectores de escalamiento (uso controlado de binarios con NOPASSWD, SUID, etc.).
+- Exploración de directorios protegidos (/root, backups) para identificar artefactos y backups (solo metadata cuando ROE lo exija).
+- Transferencia controlada de artefactos de prueba (simulada o con datos no sensibles) y verificación de rutas de exfiltración permitidas.
+- Revisión de logging y mecanismos de detección; comprobación de si acciones quedan registradas.
+- Documentación de técnicas de persistencia posibles (simulación) y propuestas de mitigación operativa y de monitoreo.
 
 **Entregables**
-- Reporte de post-explotación que describa impacto, artefactos accesibles (metadata), y evidencia (capturas de logs, outputs).
-- Recomendaciones para detección (ej.: reglas SIEM, patrones de alerta, logging format).
-- Checklist de remediación inmediata (cambio de permisos, cierre de endpoints, rotación de credenciales de prueba).
-
-**Criterio de finalización**  
-Impacto clasificado (por prioridad), evidencia de las acciones realizadas (sanitizada) y un plan de reversión/mitigación listo para ser aplicado por el equipo de TutorMatch.
+- Carpeta del Sprint 4 organizada (postexp, artifacts).
+- Registro de comandos y scripts de escalamiento y búsqueda (sanitizados).
+- Lista de artefactos accesibles (metadata) y, si procede, archivos de respaldo (sanitizados).
+- Checklist de remediación inmediata (rotación de credenciales, cierre de endpoints, permisos).
+- Recomendaciones de detección (reglas SIEM/IDS, formatos de logging y alertas).
+- Matriz de impacto final y plan de reversión/mitigación priorizado.
 
 ---
 
-# Sprint 5: Informe final y recomendaciones
+### Sprint 5: Informe final y recomendaciones
 
 **Objetivo:**  
-Consolidar todos los hallazgos en un informe técnico y ejecutivo, priorizar vulnerabilidades (CVE/CVSS), entregar evidencia organizada y proponer plan de mitigación y seguimiento.
+Consolidar todos los hallazgos del proceso de pentesting, clasificar las vulnerabilidades mediante CVSS, documentar evidencias técnicas y proponer un plan de mitigación priorizado a corto, mediano y largo plazo para SafeGuard Coffee.
 
 **Actividades técnicas**
-- Consolidar matriz de hallazgos: por cada hallazgo incluir servicio/endpoint, descripción, PoC, CVE (si aplica), CVSS estimado, evidencia y recomendación técnica concreta.
-- Preparar informe en el template del curso (resumen ejecutivo, alcance, metodología PTES/OSSTMM, hallazgos y mitigaciones).
-- Empaquetar evidencias: nmap, theHarvester, whatweb, gobuster, ZAP report, Nessus report, `discovery.txt`, `prep_evidence.txt`, PoCs y capturas en `evidence.zip`.
-- Preparar presentación y video corto (si el curso lo exige) mostrando procesos clave y recomendaciones.
-- Validación final de ética/legal: sanitizar PII en evidencias, comprobar ROE compliance.
+- Consolidación de la **matriz final de vulnerabilidades**, incluyendo descripción, severidad (CVSS), impacto y trazabilidad por cada hallazgo.
+- Elaboración del **informe final** en formato técnico y ejecutivo (resumen ejecutivo, alcance, metodología, resultados y mitigaciones).
+- Organización y empaquetado de **evidencias técnicas**: accesos, explotación, escalamiento de privilegios, exfiltración y pruebas de impacto.
+- Clasificación de vulnerabilidades según **criticidad y prioridad de remediación**.
+- Diseño de la **hoja de ruta de mitigación** (corto, mediano y largo plazo).
+- Sanitización de información sensible (PII) y validación de cumplimiento ético y de ROE.
+- Preparación de **presentación ejecutiva** para exposición final de resultados.
 
 **Entregables**
-- Informe final (Word/PDF) listo para entrega.
-- `evidence.zip` con todos los outputs y PoC (archivos nombrados y con README).
-- Presentación (PPTX) y vídeo resumen (opcional según entrega).
-- Hoja de ruta de remediación priorizada (short/mid/long term fixes).
-
-**Criterio de finalización**  
-Informe y paquete de evidencia entregados y verificados; checklist DoD completo (reproducibilidad, evidencias, recomendaciones priorizadas); aprobación final del Product Owner / Instructor.
-
+- Informe final de auditoría de seguridad (Word/PDF).
+- Matriz consolidada de vulnerabilidades con severidades CVSS.
+- Paquete de evidencias técnicas organizado (`evidence.zip`).
+- Presentación ejecutiva (PPTX).
+- Hoja de ruta de remediación priorizada.
+- Documento de conclusiones y estado final del proyecto.
 
 ## 2.4 Definición de Done (DoD)
 
-La **Definición de Hecho (Definition of Done)** establece los criterios que determinan cuándo una tarea, user story o sprint se considera finalizado de manera satisfactoria.  
-Su aplicación asegura que todos los entregables del proyecto cumplan estándares técnicos, éticos y de documentación coherentes con los objetivos del pentesting.
+La **Definición de Hecho (Definition of Done)** establece los criterios obligatorios que determinan cuándo una historia de usuario se considera completamente finalizada dentro del proyecto de pentesting. Su aplicación garantiza que cada vulnerabilidad identificada cuente con evidencia verificable, pasos reproducibles, documentación formal de la PoC y un análisis claro de impacto, cumpliendo los estándares técnicos, éticos y académicos del proyecto.
 
 | Categoría | Criterio de cumplimiento | Evidencia esperada |
 |------------|--------------------------|--------------------|
