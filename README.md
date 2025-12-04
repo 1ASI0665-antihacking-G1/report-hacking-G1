@@ -165,31 +165,25 @@ SafeGuard Coffee basa su modelo de negocio en la venta de café tostado, product
 
 **Servicios digitales ofrecidos**
 
-La solución TutorMatch está compuesta por un ecosistema tecnológico distribuido en tres capas principales:
-- **Frontend Web:** Portal de acceso principal desarrollado para navegadores, desde el cual los estudiantes pueden registrarse, buscar tutores, agendar sesiones, chatear en tiempo real y acceder a recursos académicos compartidos.
-- **Backend:** API central que gestiona la autenticación de usuarios, el manejo de perfiles, el registro de tutorías, la comunicación en tiempo real y la administración de la base de datos.
-- **Aplicación Móvil:** Complemento multiplataforma que ofrece las mismas funcionalidades del portal web, con un enfoque en la usabilidad y la accesibilidad desde dispositivos móviles.
+Para asegurar una operación moderna y accesible, la empresa cuenta con un ecosistema tecnológico dividido en dos componentes principales:
+- **Frontend Web:** Funciona como el portal principal para clientes y distribuidores, permitiéndoles explorar el catálogo de cafés de especialidad, conocer el origen de cada grano, realizar compras en línea y gestionar sus pedidos, pagos y envíos. Además, brinda acceso a información sobre certificaciones sostenibles y recomendaciones de preparación, todo mediante una interfaz intuitiva y orientada a la experiencia del usuario.
+- **Backend:** El backend actúa como la API central que gestiona las operaciones internas de la empresa, incluyendo el control de inventario, la trazabilidad de lotes, el procesamiento de pedidos y pagos, y la administración de usuarios y perfiles. También coordina la sincronización con sistemas logísticos y la gestión del contenido y la información de productos, garantizando un flujo de datos seguro, eficiente y actualizado.
 
-Estas plataformas integran funcionalidades como videollamadas, chat en tiempo real, transferencia de archivos y gestión de disponibilidad y horarios, lo que permite una experiencia académica fluida y personalizada.
+Ambas plataformas trabajan conjuntamente para brindar una experiencia fluida, segura y confiable, permitiendo que la empresa mantenga un estándar de calidad acorde con su compromiso: llevar a cada cliente un café sostenible, de origen certificado y cuidadosamente seleccionado.
 
 **Misión y visión**
-- **Misión:** Facilitar la conexión entre estudiantes y tutores universitarios, optimizando la experiencia de aprendizaje mediante el uso de tecnologías colaborativas que permitan acceder a apoyo académico en tiempo real, de manera flexible y efectiva.
-- **Visión:** Convertirse en la principal plataforma universitaria de tutorías académicas en un plazo de cinco años, promoviendo una educación más accesible, personalizada y eficiente mediante el uso de herramientas digitales innovadoras que fortalezcan el rendimiento académico y la autonomía del estudiante.
+- **Misión:** Ofrecer cafés de especialidad de origen sostenible, conectando directamente a los consumidores con agricultores comprometidos con la calidad y el comercio justo. Buscamos brindar una experiencia auténtica en cada taza mediante procesos responsables, trazabilidad completa y el uso de tecnologías que faciliten el acceso a nuestros productos artesanales.
+- **Visión:** Consolidarnos en los próximos cinco años como una de las marcas de café de especialidad más reconocidas del país, destacando por nuestra calidad, sostenibilidad y conexión directa con productores de alta montaña. Aspiramos a liderar la transformación digital del sector cafetalero mediante soluciones innovadoras que acerquen la experiencia del café premium a consumidores locales e internacionales.
 
 **Mercado objetivo**
 
-El mercado objetivo de TutorMatch está compuesto principalmente por estudiantes universitarios de la carrera de Ingeniería de Software de la UPC, con proyección de expandirse a otras carreras y universidades del país. La plataforma busca posicionarse como un punto de encuentro confiable y ágil entre tutores y alumnos dentro del entorno académico digital.
+El mercado objetivo de SafeGuard Coffee está compuesto por consumidores interesados en cafés de especialidad, especialmente aquellos que valoran la sostenibilidad, el comercio directo y la trazabilidad del producto. La empresa se orienta tanto a clientes finales como a distribuidores, cafeterías boutique y negocios gastronómicos. A mediano plazo, busca expandir su presencia a nuevos segmentos del sector horeca y consolidarse como un referente dentro del mercado nacional e internacional de cafés de alta calidad.
 
 ### Expectativas del cliente  
 
-<<<<<<< Updated upstream
 Las expectativas del cliente se centran en recibir una evaluación de ciberseguridad clara, práctica y orientada a la acción, que permita identificar y priorizar amenazas reales dentro del ecosistema digital de SafeGuard Coffee. El cliente espera que el análisis detecte vulnerabilidades que puedan afectar la integridad del flujo de compra, la disponibilidad del sistema, la confidencialidad de los datos de clientes o la seguridad de las transacciones en línea. Esto incluye fallas en controles de autenticación, configuraciones inseguras, exposición de información sensible, riesgos de acceso no autorizado al inventario o al backend, y cualquier debilidad que pueda facilitar ataques como inyección, secuestro de sesión o escalación de privilegios. </br>
 
 Asimismo, el cliente espera un informe técnico exhaustivo con hallazgos reproducibles y evidencia verificable (logs, capturas, payloads y pasos de explotación), acompañado de un plan de remediación priorizado que detalle mitigaciones concretas, estimación de esfuerzo y nivel de criticidad de cada vulnerabilidad. También valora un resumen ejecutivo orientado a personal no técnico, así como recomendaciones para fortalecer sus prácticas de seguridad, mejorar su postura de defensa y establecer lineamientos sostenibles de ciberseguridad en sus operaciones digitales.
-
-=======
-Las expectativas del cliente se centran en obtener una evaluación de seguridad práctica y accionable que permita identificar y priorizar riesgos reales para TutorMatch. Específicamente, el cliente espera que el ejercicio de pentesting detecte vulnerabilidades críticas y de alto impacto (riesgo de takeover de cuentas, exposición de datos sensibles, ejecución remota o acceso no autorizado a la base de datos), que se entregue un informe técnico detallado con hallazgos reproducibles y evidencia (pruebas, logs, capturas) y que se proponga un plan de remediación con mitigaciones concretas, estimación de esfuerzo y prioridades para corregir los problemas detectados. Además, el cliente valora recibir un resumen ejecutivo comprensible para áreas no técnicas y recomendaciones para mejorar prácticas de desarrollo seguro (DevSecOps) y políticas operativas.
->>>>>>> Stashed changes
 
 ## 1.2 Consultora de Ciberseguridad (Equipo)
 ### Descripción de la consultora  
