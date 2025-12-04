@@ -1413,26 +1413,52 @@ El desarrollo del proyecto se rigió estrictamente por principios éticos y prof
 - **Integridad:** El proyecto se ejecutó bajo los principios de responsabilidad, confidencialidad e integridad profesional, alineado con el código de ética de la ingeniería.
 
 
+## 6.6 Video About-The-Team
+
+En esta sección se presenta el video "About the Team", donde cada integrante del equipo **SecuraLabs** comparte su experiencia, los roles desempeñados y cómo el desarrollo de este proyecto ha contribuido a su formación profesional y al logro del Student Outcome.
+
+**Enlace al video:** [Ver Video en Canva](https://www.canva.com/design/DAG6gQtzDDU/D0rKL2DbrEs_hVdGVj8Y7w/edit)
+
 ---
 
 # Bibliografía
 
-OffSec Services Limited. (s. f.). nmap — Kali Linux Tools. Recuperado el 25 de octubre de 2025, de https://www.kali.org/tools/nmap/
+**Estándares y Metodologías**
 
-OffSec Services Limited. (s. f.). gobuster — Kali Linux Tools. Recuperado el 25 de octubre de 2025, de https://www.kali.org/tools/gobuster/
+- OWASP Foundation. (2021). *OWASP Top 10: The Ten Most Critical Web Application Security Risks*. Recuperado de https://owasp.org/www-project-top-ten/
+- The Penetration Testing Execution Standard (PTES). (2014). *PTES Technical Guidelines*. Recuperado de http://www.pentest-standard.org/
+- NIST. (2008). *SP 800-115: Technical Guide to Information Security Testing and Assessment*. National Institute of Standards and Technology.
+- MITRE Corporation. (2023). *MITRE ATT&CK Framework*. Recuperado de https://attack.mitre.org/
 
-OffSec Services Limited. (s. f.). ffuf — Kali Linux Tools. Recuperado el 25 de octubre de 2025, de https://www.kali.org/tools/ffuf/
+**Libros y Referencias Técnicas**
 
-OffSec Services Limited. (s. f.). hydra — Kali Linux Tools. Recuperado el 25 de octubre de 2025, de https://www.kali.org/tools/hydra/
+- Kennedy, D., O’Gorman, J., Kearns, D., & Aharoni, M. (2011). *Metasploit: The Penetration Tester’s Guide*. No Starch Press.
+- Engebretson, P. (2013). *The Basics of Hacking and Penetration Testing*. Elsevier.
+- Offensive Security. (2024). *Kali Linux Documentation*. Recuperado de https://www.kali.org/docs/
 
-OffSec Services Limited. (s. f.). nikto — Kali Linux Tools. Recuperado el 25 de octubre de 2025, de https://www.kali.org/tools/nikto/
+**Herramientas Utilizadas**
+
+- PortSwigger. (2024). *Burp Suite Documentation*. Recuperado de https://portswigger.net/burp/documentation
+- Gordon Lyon (Fyodor). (2024). *Nmap Network Scanning*. Recuperado de https://nmap.org/book/
+- OWASP. (2024). *OWASP ZAP – Zed Attack Proxy*. Recuperado de https://www.zaproxy.org/
 
 ---
 
 # Anexos
 
-- Registro de User Stories  
-- Product Backlog y Sprint Backlogs  
-- Evidencias de cada sprint (capturas, reportes de herramientas)  
-- Scripts y código  
-- Registro de retrospectivas  
+## Anexo A: Student Outcome
+El detalle de la contribución al Student Outcome 2 se encuentra desarrollado en la sección inicial de este informe (ver [Student Outcome](#student-outcome)).
+
+## Anexo B: Participant Performance Report
+El reporte de desempeño individual (*Participant Performance Report*) ha sido completado por el Team Leader y se adjunta como documento independiente en formato PDF junto con esta entrega.
+
+## Anexo C: Videos de Exposiciones
+- **Video de Exposición del Proyecto (Sprint Review):** [Enlace pendiente de carga]
+- **Video About-The-Team:** [https://www.canva.com/design/DAG6gQtzDDU/D0rKL2DbrEs_hVdGVj8Y7w/edit](https://www.canva.com/design/DAG6gQtzDDU/D0rKL2DbrEs_hVdGVj8Y7w/edit)
+
+## Anexo D: Documento de Aceptación (ROE)
+El documento de Reglas de Compromiso firmado se encuentra digitalizado en la sección 1.4 de este informe.
+
+## Anexo E: Evidencias Técnicas
+Todas las evidencias técnicas (capturas de pantalla, logs, reportes de herramientas y scripts) se encuentran organizadas en la carpeta `/auditoria_safeguard` del repositorio, estructuradas por Sprint.  
+
