@@ -1352,16 +1352,66 @@ Estrategia y madurez de seguridad.
 3.  **DevSecOps:** Integrar herramientas de análisis estático (SAST) en el ciclo de desarrollo para detectar credenciales hardcodeadas antes del despliegue.
 
 ---
-# Capítulo VI: Conclusiones y Recomendaciones
+# Capítulo VI: Conclusiones
 
-Conclusiones y recomendaciones del equipo
-El proyecto de auditoría y pentesting realizado sobre la plataforma TutorMatch permitió aplicar de forma práctica la metodología ágil y los marcos de referencia de seguridad (Scrum, PTES y OWASP) en un entorno web real. A través de las fases de reconocimiento, enumeración, explotación controlada y análisis de resultados, se logró identificar vulnerabilidades con distintos niveles de severidad que podrían afectar la confidencialidad, integridad y disponibilidad de los datos.
+Este capítulo presenta las conclusiones generales del proyecto, las lecciones aprendidas, su relación con el Student Outcome 2, la ética profesional y la evidencia audiovisual del trabajo realizado.
 
-Los hallazgos más relevantes se concentraron en la exposición de endpoints y APIs sin controles de acceso adecuados, la presencia de un XSS reflejado en el frontend, la exposición de archivos sensibles del servidor y la falta de cabeceras y configuraciones TLS seguras. Estas vulnerabilidades evidencian la necesidad de fortalecer los mecanismos de autenticación, sanitización de entradas y políticas de seguridad web para garantizar un entorno más robusto.
+## 6.1 Conclusiones del Proyecto
 
-El trabajo en equipo bajo un enfoque ágil permitió distribuir responsabilidades, planificar actividades por sprints y documentar cada etapa con evidencias técnicas claras. Este proceso favoreció no solo la identificación de riesgos, sino también la generación de recomendaciones viables que podrían incorporarse en el ciclo de desarrollo de la aplicación, alineándose con la filosofía DevSecOps.
+Tras la ejecución de los cinco sprints planificados, el equipo de **SecuraLabs** ha llegado a las siguientes conclusiones:
 
-En conclusión, el proyecto demostró la importancia de integrar la seguridad desde las primeras fases del desarrollo, realizar evaluaciones periódicas de vulnerabilidades y mantener prácticas de mejora continua. Con la implementación de las medidas propuestas, TutorMatch podrá reducir significativamente su superficie de ataque, fortalecer la confianza de sus usuarios y sentar las bases para un modelo de gestión de seguridad sostenible en el tiempo.
+- **Compromiso Total de la Infraestructura:** Se logró comprometer completamente la infraestructura de **SafeGuard Coffee**, validando la existencia de una cadena de ataque completa (Kill Chain) que inició con una exposición de información y culminó con el control total del servidor.
+- **Gestión Deficiente de Seguridad:** Se evidenció una mala gestión de configuraciones, credenciales y accesos. La presencia de archivos de respaldo públicos (`credentials.bak`) y logs de depuración (`db_connection_test.log`) fueron los vectores principales que facilitaron la intrusión.
+- **Impacto de las Vulnerabilidades:** Las vulnerabilidades críticas identificadas permitieron obtener acceso progresivo a:
+    - La aplicación web (Panel Administrativo).
+    - La base de datos (Extracción de PII).
+    - El sistema operativo con privilegios de **root** (Escalamiento de privilegios).
+- **Cumplimiento de Objetivos:** El objetivo principal del pentesting fue **ALCANZADO EXITOSAMENTE**, demostrando la viabilidad técnica de los ataques planteados en el alcance.
+- **Nivel de Riesgo:** La organización presenta un nivel de riesgo **CRÍTICO** en su estado actual, requiriendo intervención inmediata para proteger la confidencialidad e integridad de su negocio.
+
+## 6.2 Recomendaciones Finales del Equipo
+
+Para mitigar los riesgos detectados y mejorar la postura de seguridad, el equipo recomienda:
+
+- **Implementación Inmediata:** Ejecutar sin demora el plan de mitigación propuesto en el Capítulo V, priorizando las acciones de corto plazo para cerrar las brechas más críticas.
+- **Cultura Proactiva:** Adoptar una cultura de seguridad proactiva y no reactiva, donde la seguridad sea parte integral de los procesos operativos y no solo una respuesta ante incidentes.
+- **Security by Design:** Integrar la seguridad desde el diseño del software y la arquitectura (DevSecOps), asegurando que las nuevas funcionalidades nazcan seguras.
+- **Evaluación Continua:** Realizar pruebas de seguridad y escaneos de vulnerabilidades de forma periódica (trimestral o semestral) para detectar nuevas amenazas a tiempo.
+
+## 6.3 Lecciones Aprendidas en Metodología Ágil
+
+La aplicación del marco de trabajo Scrum adaptado al pentesting generó los siguientes aprendizajes:
+
+- **Trazabilidad:** La organización por sprints permitió una trazabilidad clara de cada fase del ataque, desde el reconocimiento hasta la post-explotación.
+- **Efectividad de Scrum + PTES:** Se comprobó que la integración de metodologías ágiles con estándares técnicos (PTES) resulta en:
+    - Un mejor control de los entregables y tiempos.
+    - Una gestión más ordenada de las evidencias.
+    - Mayor claridad en los objetivos específicos de cada etapa.
+- **Mejora Continua:** Las sesiones de retrospectiva al final de cada sprint ayudaron a identificar cuellos de botella y mejorar continuamente la estrategia de ataque y documentación.
+- **Colaboración:** Se fortaleció el trabajo colaborativo del equipo, permitiendo que los roles de ataque, análisis y documentación se complementaran eficientemente.
+
+## 6.4 Relación con el Student Outcome 2
+
+El presente proyecto cumple satisfactoriamente con el **Student Outcome 2 (Diseño de Ingeniería)**, al demostrar que el estudiante es capaz de:
+
+- **Aplicar Metodologías Formales:** Utilizar estándares de industria como PTES y OWASP para guiar un proceso técnico complejo.
+- **Ejecución Técnica:** Identificar, explotar y documentar vulnerabilidades reales en un entorno controlado, demostrando competencia técnica.
+- **Análisis de Impacto:** Evaluar no solo el fallo técnico, sino su impacto en el negocio (Triada CIA) y en los usuarios (PII), considerando factores de seguridad y bienestar.
+- **Propuesta de Solución:** Diseñar y proponer soluciones viables de mitigación que satisfagan las necesidades de seguridad de la organización.
+- **Comunicación Efectiva:** Comunicar los resultados de manera clara, tanto a nivel técnico (para TI) como ejecutivo (para la gerencia).
+
+## 6.5 Ética en la Práctica Profesional
+
+El desarrollo del proyecto se rigió estrictamente por principios éticos y profesionales:
+
+- **Alcance Autorizado:** Todas las pruebas se realizaron exclusivamente sobre los activos definidos en el alcance y autorizados por el cliente.
+- **Reglas de Compromiso (ROE):** Se respetaron las limitaciones acordadas, operando siempre dentro de las ventanas y condiciones establecidas.
+- **Entorno Controlado:** Las actividades de explotación se llevaron a cabo en un entorno de laboratorio aislado, garantizando que no se afectara la disponibilidad de servicios reales.
+- **No Destructivo:** No se realizaron ataques destructivos (DoS) ni acciones que pudieran dañar la integridad de los sistemas.
+- **Protección de Terceros:** No se vulneraron sistemas de terceros ni se realizaron saltos no autorizados fuera del dominio objetivo.
+- **Sanitización de Datos:** Todos los datos sensibles y personales (PII) mostrados en los reportes fueron debidamente sanitizados o anonimizados.
+- **Integridad:** El proyecto se ejecutó bajo los principios de responsabilidad, confidencialidad e integridad profesional, alineado con el código de ética de la ingeniería.
+
 
 ---
 
