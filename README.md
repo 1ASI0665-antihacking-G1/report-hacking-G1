@@ -1274,16 +1274,84 @@ Se recomienda la aplicación inmediata del plan de mitigación propuesto en el *
 
 # Capítulo V: Recomendaciones y Plan de Mitigación
 
-## 5.1 Recomendaciones técnicas
-- Patching, WAF, hardening  
+Este capítulo presenta las recomendaciones técnicas, organizacionales y de gestión, así como un plan de mitigación priorizado a corto, mediano y largo plazo, orientado a reducir el nivel de riesgo identificado durante el proceso de pentesting en la infraestructura de **SafeGuard Coffee**.
 
-## 5.2 Recomendaciones organizacionales
-- Capacitación, políticas  
+## 5.1 Recomendaciones Técnicas
 
-## 5.3 Priorización por impacto / urgencia
+Las siguientes recomendaciones están directamente relacionadas con las vulnerabilidades identificadas (VULN-01 a VULN-06) y buscan remediar los fallos de seguridad explotados durante la auditoría.
+
+### a) Gestión de Archivos y Permisos
+- **Eliminación de archivos sensibles:** Eliminar inmediatamente del servidor web los archivos `credentials.bak` (ubicado en `/backup`) y `db_connection_test.log` (ubicado en `/admin/logs`), ya que exponen credenciales críticas.
+- **Deshabilitar Directory Listing:** Configurar el servidor web Apache para deshabilitar la opción de listado de directorios (`Options -Indexes`), impidiendo la enumeración de contenidos en rutas como `/backup` y `/admin/logs`.
+- **Permisos restrictivos:** Asegurar que los archivos de respaldo con información personal (PII), como `clientes_exportacion.csv` encontrado en `/root/backups/`, tengan permisos de lectura estrictamente limitados al usuario root (chmod 600) y no sean accesibles por usuarios estándar.
+
+### b) Hardening del Sistema Operativo
+- **Corrección de Sudoers:** Editar el archivo `/etc/sudoers` para eliminar la configuración `NOPASSWD` asociada al binario `/usr/bin/python3` para el usuario `sysadmin`. Esto mitigará la vulnerabilidad de escalada de privilegios (VULN-02).
+- **Principio de Mínimos Privilegios:** Revisar y restringir los permisos de los usuarios de servicio y administradores, asegurando que solo tengan acceso a los recursos estrictamente necesarios para su función.
+- **Deshabilitar servicios innecesarios:** Identificar y detener servicios que no sean esenciales para la operación del negocio para reducir la superficie de ataque.
+
+### c) Seguridad en la Aplicación Web
+- **Implementación de Cabeceras de Seguridad:** Configurar el servidor web para incluir las siguientes cabeceras en todas las respuestas HTTP (VULN-05):
+    - `Strict-Transport-Security` (HSTS)
+    - `Content-Security-Policy` (CSP)
+    - `X-Frame-Options` (DENY o SAMEORIGIN)
+    - `X-Content-Type-Options` (nosniff)
+- **Saneamiento de Logs:** Configurar la aplicación para evitar que datos sensibles (usuarios, contraseñas, tokens) sean escritos en archivos de registro o depuración.
+
+### d) Protección Perimetral y Acceso Remoto
+- **Hardening de SSH:**
+    - Deshabilitar la autenticación por contraseña y exigir el uso exclusivo de llaves criptográficas (SSH Keys).
+    - Restringir el acceso al puerto 22 (o el puerto personalizado usado) únicamente a direcciones IP de gestión autorizadas mediante reglas de firewall (iptables/UFW).
+- **Web Application Firewall (WAF):** Implementar un WAF (como ModSecurity o soluciones en la nube) para detectar y bloquear intentos de escaneo y ataques web comunes.
+
+### e) Gestión de Credenciales
+- **Rotación Inmediata:** Cambiar obligatoriamente todas las contraseñas comprometidas durante el pentest:
+    - Usuario web: `carlos.mendez@safeguard.coffee`
+    - Usuario de base de datos: `app_safeguard`
+    - Usuario del sistema: `sysadmin`
+    - Usuario root.
+- **Gestión de Secretos:** Migrar las credenciales hardcodeadas en archivos de configuración o logs hacia variables de entorno o un gestor de secretos seguro (como HashiCorp Vault).
+
+## 5.2 Recomendaciones Organizacionales
+
+Para asegurar la sostenibilidad de la seguridad en el tiempo y complementar las medidas técnicas, se recomienda:
+
+- **Capacitación y Concientización:**
+    - Capacitar al equipo de desarrollo y TI en prácticas de **Codificación Segura** y **OWASP Top 10** para evitar errores como dejar backups en carpetas públicas.
+    - Realizar talleres sobre manejo de información confidencial y protección de datos personales (PII).
+
+- **Políticas de Seguridad:**
+    - Definir y formalizar una **Política de Control de Accesos** que regule quién puede acceder a los servidores de producción y bajo qué condiciones.
+    - Establecer una **Política de Gestión de Cambios** que prohíba realizar pruebas o dejar archivos de depuración en entornos productivos.
+
+- **Gestión de Incidentes:**
+    - Crear un procedimiento básico de respuesta ante incidentes que defina los pasos a seguir en caso de detección de intrusiones o fuga de datos.
+
+## 5.3 Priorización del Plan de Mitigación
+
+A continuación, se presenta la hoja de ruta para la implementación de las mejoras, priorizada según la criticidad de los hallazgos.
+
+### Corto Plazo (Inmediato: 0 - 48 horas)
+Acciones críticas para detener la exposición actual.
+1.  **Eliminar archivos expuestos:** Borrar `credentials.bak` y `db_connection_test.log` del servidor web.
+2.  **Rotación de credenciales:** Cambiar las contraseñas de `sysadmin`, `root`, `app_safeguard` y el acceso al panel administrativo.
+3.  **Corregir Sudoers:** Eliminar el permiso `NOPASSWD` de `python3` para `sysadmin`.
+4.  **Deshabilitar Directory Listing:** Aplicar `Options -Indexes` en la configuración de Apache.
+
+### Mediano Plazo (1 - 4 semanas)
+Mejoras estructurales y de configuración.
+1.  **Implementar Cabeceras de Seguridad:** Configurar HSTS, CSP, etc.
+2.  **Hardening SSH:** Configurar autenticación por llaves y restricciones de IP.
+3.  **Cifrado de Datos:** Cifrar los respaldos de base de datos que contengan PII.
+4.  **Gestión de Secretos:** Refactorizar la aplicación para usar variables de entorno para las credenciales de BD.
+
+### Largo Plazo (1 - 3 meses)
+Estrategia y madurez de seguridad.
+1.  **Auditorías Periódicas:** Establecer un cronograma de pentesting trimestral o semestral.
+2.  **Monitoreo (SIEM):** Implementar una solución centralizada de logs y alertas para detectar accesos anómalos.
+3.  **DevSecOps:** Integrar herramientas de análisis estático (SAST) en el ciclo de desarrollo para detectar credenciales hardcodeadas antes del despliegue.
 
 ---
-
 # Capítulo VI: Conclusiones y Recomendaciones
 
 Conclusiones y recomendaciones del equipo
