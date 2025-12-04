@@ -1,2 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<magictree class="MtBranchObject"><testdata class="MtBranchObject"><host>54.232.119.62<hostname>https://tutormatch-server-test.netlify.app</hostname></host><fqdn>https://tutormatch-server-test.netlify.app.</fqdn>
