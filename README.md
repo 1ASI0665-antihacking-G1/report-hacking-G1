@@ -593,29 +593,39 @@ La **Definición de Hecho (Definition of Done)** establece los criterios obligat
 
 | Categoría | Criterio de cumplimiento | Evidencia esperada |
 |------------|--------------------------|--------------------|
-| **Técnico** | Las pruebas se ejecutaron en entornos autorizados y con metodologías reproducibles. | Capturas de terminal, logs o PoC controladas. |
-| **Validación** | Cada hallazgo ha sido verificado al menos dos veces y clasificado según CVSS v3. | Registro en matriz de vulnerabilidades con puntaje y nivel de riesgo. |
-| **Documentación** | El resultado de cada sprint está documentado con fecha, responsable y descripción de hallazgos. | Informe parcial y resumen técnico. |
-| **Trazabilidad** | Se conserva el historial de comandos, herramientas y configuraciones usadas. | Carpeta `/evidence` o `/tools_log`. |
-| **Seguridad y ética** | No se realizaron ataques destructivos, DoS ni acceso no autorizado a datos reales. | Declaración de conformidad firmada por el equipo. |
-| **Revisión** | El Product Owner validó que la evidencia sea clara y comprensible. | Comentario o firma de validación. |
+| **Técnico** | La prueba fue ejecutada correctamente en un entorno autorizado siguiendo la metodología definida (PTES/OWASP). | Capturas de terminal, peticiones HTTP, logs del sistema, reportes de herramientas (Nmap, ZAP, Burp, Nessus, etc.). |
+| **Reproducibilidad** | La vulnerabilidad puede ser replicada por otro evaluador siguiendo los mismos pasos. Se documentan requests, payloads, parámetros y condiciones del entorno. | Checklist de reproducción, scripts usados, comandos paso a paso, evidencias antes y después de la explotación. |
+| **Prueba de Concepto (PoC)** | Existe una PoC funcional que demuestra el hallazgo de forma controlada, sin comprometer datos reales. | Evidencia de PoC (capturas, video corto, logs de ejecución, archivos de salida). |
+| **Análisis de Impacto** | Se evalúa el impacto del hallazgo sobre la Confidencialidad, Integridad y Disponibilidad (CIA) y se asigna severidad CVSS. | Valoración CVSS, descripción del impacto en el negocio, nivel de riesgo (Crítico, Alto, Medio, Bajo). |
+| **Documentación** | Cada historia de usuario cuenta con una descripción formal del hallazgo, metodología usada, resultado y conclusiones. | Informe parcial por sprint, matriz de vulnerabilidades, resumen técnico. |
+| **Trazabilidad** | Todos los comandos, herramientas y configuraciones utilizadas quedan registrados y organizados. | Carpeta `evidence/`, `tools_log/`, scripts, reportes exportados. |
+| **Seguridad y Ética** | Las pruebas respetan las reglas de enfrentamiento (ROE). No se realizan ataques destructivos ni exfiltración real sin autorización. | Declaración de cumplimiento ético, evidencias sanitizadas (sin PII real). |
+| **Validación** | El hallazgo es revisado y validado por el responsable técnico o Product Owner. | Firma, comentario de validación o checklist aprobado. |
 
+**Una Historia de Usuario se considera COMPLETA cuando:**
+- Existe evidencia clara del hallazgo.
+- Es totalmente reproducible.
+- Incluye una PoC documentada.
+- Cuenta con su análisis de impacto y severidad CVSS.
+- Está registrada en la matriz de vulnerabilidades.
+- Cumple con las normas éticas y legales del proyecto.
+- Ha sido validada formalmente.
 
 ## 2.5 Herramientas
 
-Durante la ejecución del proyecto se empleará un conjunto de herramientas de uso profesional incluidas en la distribución **Kali Linux**, complementadas con utilitarios especializados para cada fase del pentesting.  
-Estas herramientas fueron seleccionadas conforme a las fases del estándar **PTES** y a las prácticas recomendadas por **OWASP**.
+Durante la ejecución del proyecto se empleó un conjunto de herramientas de uso profesional incluidas en la distribución **Kali Linux**, complementadas con utilitarios del sistema GNU/Linux para conexión remota, análisis de red, explotación controlada y extracción de evidencias. Estas herramientas fueron seleccionadas conforme a las fases del estándar **PTES** y a las prácticas recomendadas por **OWASP**, y corresponden **exclusivamente a las herramientas utilizadas en los Sprints 1 al 5** del proyecto.
 
-| Fase PTES / OWASP | Herramienta | Propósito / Uso principal |
+| Fase PTES / OWASP | Herramienta utilizada | Propósito / Uso principal en el proyecto |
 |--------------------|-------------|---------------------------|
-| **Reconocimiento y mapeo de activos** | `Nmap`, `Netdiscover`, `WhatWeb`, `Wappalyzer` | Identificación de hosts, puertos, servicios y tecnologías en uso. |
-| **Enumeración de recursos y subdominios** | `Gobuster`, `ffuf`, `Dirb`, `Sublist3r` | Descubrimiento de rutas ocultas, endpoints y archivos sensibles. |
-| **Análisis de vulnerabilidades web** | `Burp Suite`, `Nikto`, `OWASP ZAP` | Interceptar peticiones HTTP, detectar fallos de seguridad y validar respuestas. |
-| **Explotación de vulnerabilidades** | `sqlmap`, `Hydra`, `Metasploit Framework` | Pruebas de inyección SQL, fuerza bruta y explotación controlada. |
-| **Tráfico y protocolos** | `Wireshark`, `tcpdump` | Captura y análisis de paquetes de red, validación de cifrado y sesiones. |
-| **Pruebas complementarias / scripts** | `Python`, `curl`, `bash` | Automatización de pruebas, generación de PoC y validación de payloads. |
-| **Gestión de evidencia** | `Obsidian`, `CherryTree`, `Excel/Sheets` | Organización de hallazgos, logs, y generación de reportes intermedios. |
-
+| **Reconocimiento y mapeo de activos** | `Nmap` | Descubrimiento de hosts, escaneo de puertos (HTTP, HTTPS, MySQL, SSH), detección de servicios expuestos y superficie de ataque inicial (Sprints 1 y 2). |
+| **Análisis de vulnerabilidades web** | `Burp Suite` | Interceptación y modificación de peticiones HTTP/HTTPS, validación de parámetros vulnerables, pruebas de autenticación, sesiones, IDOR y XSS (Sprints 2 y 3). |
+| **Explotación de vulnerabilidades** | `sqlmap` | Explotación controlada de inyecciones SQL, enumeración de bases de datos y validación del impacto (Sprint 3). |
+| **Explotación avanzada** | `Metasploit Framework` | Soporte para pruebas de explotación, validación de post-explotación y apoyo en escalamiento de privilegios (Sprint 4). |
+| **Tráfico y protocolos** | `Wireshark` | Análisis de tráfico de red, validación de cifrado, inspección de sesiones y verificación de evidencias de comunicación (Sprint 4). |
+| **Acceso remoto y post-explotación** | `OpenSSH (ssh, scp)` | Conexión remota al servidor comprometido, obtención de shell interactiva, transferencia controlada de archivos exfiltrados (Sprints 3 y 4). |
+| **Base de datos** | `MySQL Client` | Acceso directo a la base de datos comprometida, ejecución de consultas SQL y verificación de exposición de PII (Sprint 3). |
+| **Automatización y soporte** | `bash`, `curl`, `wget` | Descarga de archivos sensibles (logs, backups), ejecución de comandos automatizados y validación de endpoints (Sprints 2 y 3). |
+| **Gestión de evidencia** | Sistema de archivos en Kali Linux | Organización de evidencias por sprint (`/auditoria_safeguard/sprint_X`), almacenamiento de capturas, logs, dumps y PoC (Sprints 1 al 5). |
 
 ---
 
