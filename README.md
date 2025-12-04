@@ -1,5 +1,3 @@
-
-
 <p align="center">
   <img src="assets/UPC_logo.png" alt="Logo UPC" width="140"/>
 </p>
@@ -19,7 +17,7 @@
 
 <h2 align="center">INFORME DEL TRABAJO FINAL</h2>
 <p align="center"><strong>Consultora:</strong> SecuraLabs</p>
-<p align="center"><strong>Empresa:</strong> Tutormatch</p>
+<p align="center"><strong>Empresa:</strong> safeguard coffee</p>
 
 ---
 
