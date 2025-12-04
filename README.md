@@ -247,32 +247,42 @@ Finalmente, una vez cumplidos todos los objetivos, elaborar un informe técnico 
 
 ## 2.1 Marco de referencia
 
-El presente proyecto adopta un enfoque ágil basado en **Scrum**, adaptado al contexto del **pentesting corporativo**. Esta integración permite gestionar de forma iterativa y controlada las actividades técnicas, priorizando la entrega continua de valor en cada sprint y la mejora constante del producto.  
-El marco Scrum, tradicionalmente orientado al desarrollo de software, se ajusta aquí para guiar los ciclos de **planificación, ejecución, validación y documentación** de las pruebas de penetración. El equipo se organiza en roles específicos:  
-- **Product Owner (PO)**: responsable de definir el alcance, objetivos y criterios de aceptación del pentest.  
-- **Scrum Master**: vela por el cumplimiento del marco Scrum, la gestión de impedimentos y la comunicación efectiva del equipo.  
-- **Equipo de Pentesters**: encargados de ejecutar las tareas técnicas, documentar hallazgos y proponer medidas de mitigación.  
+El presente proyecto adopta un enfoque ágil basado en **Scrum**, adaptado al contexto del **pentesting corporativo**. Esta integración permite gestionar de forma iterativa y controlada las actividades técnicas, priorizando la entrega continua de valor en cada sprint y la mejora constante del producto.
+
+El marco Scrum, tradicionalmente orientado al desarrollo de software, se ajusta aquí para guiar los ciclos de **planificación, ejecución, validación y documentación** de las pruebas de penetración. El equipo se organiza en roles específicos:
+
+- **Product Owner (PO):** Responsable de definir el alcance, objetivos y criterios de aceptación del pentest.
+- **Scrum Master:** Vela por el cumplimiento del marco Scrum, la gestión de impedimentos y la comunicación efectiva del equipo.
+- **Equipo de Pentesters:** Encargados de ejecutar las tareas técnicas, documentar hallazgos y proponer medidas de mitigación.
 
 Cada sprint de pentesting está alineado con las fases de los estándares reconocidos en la industria, especialmente **PTES (Penetration Testing Execution Standard)** y **OWASP Testing Guide (v5)**. Estas metodologías proporcionan la estructura técnica sobre la cual Scrum define su dinámica de trabajo. La correspondencia se resume así:
 
 | Fase PTES | Fase OWASP | Sprint Scrum asociado | Objetivo principal |
-|------------|-------------|-----------------------|--------------------|
-| Pre-engagement Interactions | Information Gathering | Sprint 1: Reconocimiento y Escaneo inicial | Identificar el alcance, activos y vectores de ataque |
-| Intelligence Gathering | Threat Modeling | Sprint 2: Enumeración y vulnerabilidades preliminares | Descubrir servicios, endpoints y posibles vulnerabilidades |
-| Vulnerability Analysis | Testing for OWASP Top 10 | Sprint 3: Explotación controlada | Validar vulnerabilidades críticas mediante PoC seguras |
-| Exploitation | Post-Exploitation | Sprint 4: Persistencia y escalamiento controlado | Verificar impacto y acceso a información sensible |
-| Reporting | Remediation Verification | Sprint 5: Informe final y recomendaciones | Documentar hallazgos, riesgos e impactos al negocio |
+|:--|:--|:--|:--|
+| Pre-engagement Interactions | Information Gathering | **Sprint 1:** Reconocimiento y Escaneo inicial | Identificar el alcance, activos y vectores de ataque |
+| Intelligence Gathering | Threat Modeling | **Sprint 2:** Enumeración y vulnerabilidades preliminares | Descubrir servicios, endpoints y posibles vulnerabilidades |
+| Vulnerability Analysis | Testing for OWASP Top 10 | **Sprint 3:** Explotación controlada | Validar vulnerabilidades críticas mediante PoC seguras |
+| Exploitation | Post-Exploitation | **Sprint 4:** Post-explotación y persistencia | Verificar impacto y acceso a información sensible |
+| Reporting | Remediation Verification | **Sprint 5:** Informe final y recomendaciones | Documentar hallazgos, riesgos e impactos al negocio |
 
 Además, se complementa con las guías de:
-- **OSSTMM (Open Source Security Testing Methodology Manual)**: como referencia para la evaluación objetiva de seguridad y métricas.  
-- **NIST SP 800-115**: para estructurar la documentación y trazabilidad de pruebas.  
-- **MITRE ATT&CK Framework**: como apoyo en la identificación de técnicas y tácticas de adversarios reales.
 
-Este marco integrado garantiza que el proceso sea **repetible, medible y verificable**, manteniendo la ética profesional y la conformidad con buenas prácticas internacionales.  
+- **OSSTMM (Open Source Security Testing Methodology Manual):** Como referencia para la evaluación objetiva de seguridad y métricas de rendimiento.
+- **NIST SP 800-115:** Para estructurar la documentación y trazabilidad de pruebas en conformidad con estándares federales estadounidenses.
+- **MITRE ATT&CK Framework:** Como apoyo en la identificación de técnicas y tácticas de adversarios reales, facilitando la correlación de hallazgos con comportamientos de amenazas conocidas.
 
-La ejecución de cada sprint incluye reuniones de **Sprint Planning**, **Daily Scrums**, **Sprint Review** y **Retrospective**, donde se evalúan los avances técnicos, los obstáculos y las oportunidades de mejora.  
+Este marco integrado garantiza que el proceso sea **repetible, medible y verificable**, manteniendo la ética profesional y la conformidad con buenas prácticas internacionales.
+
+La ejecución de cada sprint incluye reuniones de:
+
+- **Sprint Planning:** Selección de historias de usuario, definición de objetivos y estimación de esfuerzo.
+- **Daily Scrums:** Sincronización diaria sobre avances, impedimentos y ajustes de tareas.
+- **Sprint Review:** Validación de criterios de aceptación y demostración de entregables.
+- **Retrospective:** Evaluación de procesos y oportunidades de mejora.
+
 De esta manera, se asegura que cada iteración aporte resultados concretos (evidencias, PoC, registros) y que las decisiones técnicas se documenten oportunamente en función de la evolución del pentest.
 
+---
 
 ## 2.2 Backlog inicial: User Stories de seguridad
 
@@ -296,6 +306,8 @@ Una vez redactadas todas las User Stories (US), es fundamental priorizarlas. El 
 | 14 | US-14 | Búsqueda de archivos sensibles protegidos | Como atacante quiero buscar archivos sensibles en directorios protegidos para leer /root/ y archivos de configuración. | 5 |
 | 15 | US-15 | Exfiltración de base de datos de clientes | Como atacante quiero exfiltrar la base de datos de clientes para descargar un archivo CSV o SQL a mi máquina local. | 5 |
 | 16 | US-16 | Persistencia en el sistema (simulada) | Como atacante quiero mantener persistencia en el sistema para crear un usuario backdoor de manera simulada. | 3 |
+
+---
 
 ## Criterios de aceptación generales y Definition of Done (DoD)
 
@@ -327,10 +339,14 @@ En caso de que el ROE (Rules of Engagement) prohíba la extracción de datos rea
 - Se incluye al menos una recomendación técnica priorizada, con su respectivo horizonte de mitigación.  
 
 - El checklist de reproducción de la vulnerabilidad se encuentra completado y validado.
-  
+
+---
+
 ## 2.3 Planificación de sprints (Sprint Planning)
 
 Todas las actividades técnicas se ejecutaron sobre el proyecto **SafeGuard Coffee**, en un entorno de laboratorio expuesto mediante **Ngrok**, autorizado para fines académicos.
+
+Durante la ceremonia de **Sprint Planning**, el equipo técnico selecciona las Historias de Usuario del Product Backlog y las **descompone en tareas técnicas específicas (Work Items)**. Esto permite asignar responsables, estimar tiempos en horas y asegurar que cada paso técnico (como configurar una herramienta o ejecutar un script) esté cubierto.
 
 Antes de iniciar las pruebas se definieron las **ROE (Rules of Engagement)** considerando:
 
@@ -354,13 +370,13 @@ Antes de iniciar las pruebas se definieron las **ROE (Rules of Engagement)** con
 
 | User Story Id | User Story Title | Work Item Id | Work Item Title | Description | Estimation | Assigned To | Status |
 |---:|---|---:|---|---|:--:|:--|:--|
-| US-01 | Reconocimiento inicial y mapeo de superficie | 1.1 | Preparación del entorno | Configuración de Kali Linux, creación de estructura de carpetas del proyecto y validación del entorno local. | (1h) | Leonardo | Done |
-| US-01 | Reconocimiento inicial y mapeo de superficie | 1.2 | OSINT | Recolección de información pública del dominio mediante Google Dorks, TheHarvester y análisis de sitemap. | (2h) | Leonardo | Done |
-| US-12 | Escaneo de puertos y servicios de red | 1.3 | Validación de servicios expuestos | Verificación manual de conectividad HTTP/HTTPS usando netcat debido a restricciones de Ngrok. | (1h) | Leonardo | Done |
-| US-04 | Descubrimiento web | 1.4 | Enumeración recursiva /backup | Análisis del directorio /backup y detección de archivos sensibles. | (2h) | Leonardo | Done |
-| US-04 | Descubrimiento web | 1.5 | Descubrimiento web | `gobuster`/`ffuf`, `whatweb` para directorios y fingerprinting. | (1h) | Leonardo | Done |
-| US-08 | Verificación de TLS y headers | 1.6 | Fingerprinting HTTP | Identificación de tecnologías backend y cabeceras de seguridad ausentes mediante curl. | (1h) | Leonardo / Piero | Done |
-| US-01 | Documentación de superficie de ataque | 1.7 | Registro de evidencias | Organización de evidencias, outputs y hallazgos críticos del Sprint. | (1h) | Piero | Done |
+| US-01 | Identificación de servicios expuestos | 1.1 | Preparación del entorno | Configuración de Kali Linux, creación de estructura de carpetas del proyecto y validación del entorno local. | (1h) | Leonardo | Done |
+| US-03 | Obtención de información pública (OSINT) | 1.2 | OSINT | Recolección de información pública del dominio mediante Google Dorks, TheHarvester y análisis de sitemap. | (2h) | Leonardo | Done |
+| US-04 | Validación de seguridad de túneles | 1.3 | Validación de servicios expuestos | Verificación manual de conectividad HTTP/HTTPS usando netcat debido a restricciones de Ngrok. | (1h) | Leonardo | Done |
+| US-02 | Descubrimiento de directorios ocultos | 1.4 | Enumeración recursiva /backup | Análisis del directorio /backup y detección de archivos sensibles. | (2h) | Leonardo | Done |
+| US-02 | Descubrimiento de directorios ocultos | 1.5 | Descubrimiento web | `gobuster` para directorios y fingerprinting. | (1h) | Leonardo | Done |
+| US-01 | Identificación de servicios expuestos | 1.6 | Fingerprinting HTTP | Identificación de tecnologías backend y cabeceras de seguridad ausentes mediante curl. | (1h) | Leonardo / Piero | Done |
+| US-08 | Documentación de la superficie de ataque | 1.7 | Registro de evidencias | Organización de evidencias, outputs y hallazgos críticos del Sprint. | (1h) | Piero | Done |
 
 **Objetivo del Sprint:**  
 Identificar y documentar de forma reproducible la superficie de ataque expuesta de SafeGuard Coffee, incluyendo:
@@ -418,7 +434,7 @@ Este inventario guía directamente las actividades de explotación controlada de
 
 **Entregables del Sprint 1**
 
-- Carpeta /osint/ con:
+- Carpeta `/osint/` con:
   - Resultados de Google Dorks.
   - TheHarvester.
   - Sitemap descargado.
@@ -449,19 +465,19 @@ Enumerar en profundidad las funcionalidades del sitio web de SafeGuard Coffee, v
 
 | User Story Id | User Story Title | Work Item Id | Work Item Title | Description | Estimation | Assigned To | Status |
 |---:|---|---:|---|---|:--:|:--|:--|
-| US-05 | Enumeración de endpoints web | 2.1 | Preparación del entorno Sprint 2 | Creación de estructura de carpetas para Nikto, headers y enumeración web. | (1h) | Harold | Done |
-| US-07 | Análisis de vulnerabilidades web | 2.2 | Escaneo Nikto | Identificación de configuraciones inseguras y directorios peligrosos. | (2h) | Harold | Done |
-| US-07 | Análisis de vulnerabilidades web | 2.3 | Análisis de cabeceras HTTP | Verificación manual de HSTS, CSP, X-Frame-Options. | (1h) | Harold | Done |
-| US-06 | Validación de credenciales | 2.4 | Login con credenciales filtradas | Autenticación en panel administrativo usando credenciales de `credentials.bak.` | (1h) | Harold | Done |
+| US-05 | Enumeración de endpoints web | 2.1 | Preparación del entorno Sprint 2 | Creación de estructura de carpetas para OWASP ZAP, headers y enumeración web. | (1h) | Harold | Done |
+| US-07 | Análisis de vulnerabilidades web básicas | 2.2 | Escaneo OWASP ZAP | Identificación de configuraciones inseguras y directorios peligrosos. | (2h) | Harold | Done |
+| US-07 | Análisis de vulnerabilidades web básicas | 2.3 | Análisis de cabeceras HTTP | Verificación manual de HSTS, CSP, X-Frame-Options. | (1h) | Harold | Done |
+| US-06 | Validación de credenciales web | 2.4 | Login con credenciales filtradas | Autenticación en panel administrativo usando credenciales de `credentials.bak.` | (1h) | Harold | Done |
 | US-05 | Enumeración de endpoints web | 2.5 | Enumeración autenticada | Descubrimiento de rutas internas usando cookies de sesión válidas. | (2h) | Harold | Done |
-| US-08 | Documentación de superficie de ataque | 2.6 | Registro de evidencias y matriz de vulnerabilidades | Clasificación de vulnerabilidades preliminares con severidad. | (1h) | Piero | Done |
+| US-08 | Documentación de la superficie de ataque | 2.6 | Registro de evidencias y matriz de vulnerabilidades | Clasificación de vulnerabilidades preliminares con severidad. | (1h) | Piero | Done |
 
 **Objetivo:**  
 Enumerar en profundidad los endpoints web públicos y autenticados de SafeGuard Coffee, validar las credenciales obtenidas en el Sprint 1 y detectar vulnerabilidades preliminares a nivel de configuración, cabeceras de seguridad y exposición de información sensible, bajo un enfoque no destructivo.
 
 **Actividades técnicas**
 - Preparación del entorno de trabajo para el Sprint 2 y organización de carpetas de evidencias.
-- Escaneo automático de vulnerabilidades web mediante Nikto.
+- Escaneo automático de vulnerabilidades web mediante OWASP ZAP.
 - Análisis manual de cabeceras HTTP para verificación de políticas de seguridad.
 - Validación de credenciales obtenidas en el Sprint 1 mediante autenticación real en el sistema.
 - Enumeración autenticada de directorios y funciones internas del panel administrativo.
@@ -469,8 +485,8 @@ Enumerar en profundidad los endpoints web públicos y autenticados de SafeGuard 
 - Documentación de la superficie de ataque autenticada (formularios, parámetros, sesiones, cookies).
 
 **Entregables**
-- Carpeta del Sprint 2 con estructura organizada (nikto, headers, web_enum).
-- Reporte de escaneo Nikto.
+- Carpeta del Sprint 2 con estructura organizada (zap, headers, web_enum).
+- Reporte de escaneo OWASP ZAP.
 - Archivo de cabeceras HTTP capturadas.
 - Evidencias de autenticación exitosa en el sistema.
 - Evidencias de enumeración autenticada.
@@ -494,7 +510,7 @@ Explotar de manera controlada las vulnerabilidades críticas identificadas en lo
 |---:|---|---:|---|---|:--:|:--|:--|
 | US-09 | Acceso a logs del sistema | 3.1 | Descarga de logs internos | Descarga y análisis del archivo `db_connection_test.log` desde `/admin/logs/`. | (2h) | Leonardo | Planned |
 | US-10 | Obtención de credenciales de infraestructura | 3.2 | Extracción de credenciales | Identificación de usuarios y contraseñas de DB y SSH desde los logs internos. | (2h) | Harold | Planned |
-| US-11 | Extracción de información de base de datos | 3.3 | Acceso y dump de BD | Conexión remota a MySQL y consulta de tablas de clientes y empleados. | (3h) | Leonardo | Planned |
+| US-11 | Extracción de información de la base de datos | 3.3 | Acceso y dump de BD | Conexión remota a MySQL y consulta de tablas de clientes y empleados. | (3h) | Leonardo | Planned |
 | US-12 | Acceso remoto al servidor | 3.4 | Conexión SSH al servidor | Acceso remoto mediante SSH con credenciales obtenidas y verificación de privilegios. | (2h) | Leonardo | Planned |
 
 **Objetivo:**  
@@ -579,10 +595,12 @@ Consolidar todos los hallazgos del proceso de pentesting, clasificar las vulnera
 **Entregables**
 - Informe final de auditoría de seguridad (Word/PDF).
 - Matriz consolidada de vulnerabilidades con severidades CVSS.
-- Paquete de evidencias técnicas organizado (`evidence.zip`).
+- Paquete de evidencias técnicas organizado (`auditoria_safeguard.zip`).
 - Presentación ejecutiva (PPTX).
 - Hoja de ruta de remediación priorizada.
 - Documento de conclusiones y estado final del proyecto.
+
+---
 
 ## 2.4 Definición de Done (DoD)
 
@@ -610,19 +628,19 @@ La **Definición de Hecho (Definition of Done)** establece los criterios obligat
 
 ## 2.5 Herramientas
 
-Durante la ejecución del proyecto se empleó un conjunto de herramientas de uso profesional incluidas en la distribución **Kali Linux**, complementadas con utilitarios del sistema GNU/Linux para conexión remota, análisis de red, explotación controlada y extracción de evidencias. Estas herramientas fueron seleccionadas conforme a las fases del estándar **PTES** y a las prácticas recomendadas por **OWASP**, y corresponden **exclusivamente a las herramientas utilizadas en los Sprints 1 al 5** del proyecto.
+Durante la ejecución del proyecto se empleó un conjunto de herramientas de uso profesional incluidas en la distribución **Kali Linux**, complementadas con utilitarios del sistema GNU/Linux para conexión remota, análisis de red y explotación controlada. Estas herramientas fueron seleccionadas conforme a las fases del estándar **PTES** y corresponden **exclusivamente a las utilizadas en los Sprints 1 al 5** del proyecto.
 
 | Fase PTES / OWASP | Herramienta utilizada | Propósito / Uso principal en el proyecto |
 |--------------------|-------------|---------------------------|
-| **Reconocimiento y mapeo de activos** | `Nmap` | Descubrimiento de hosts, escaneo de puertos (HTTP, HTTPS, MySQL, SSH), detección de servicios expuestos y superficie de ataque inicial (Sprints 1 y 2). |
-| **Análisis de vulnerabilidades web** | `Burp Suite` | Interceptación y modificación de peticiones HTTP/HTTPS, validación de parámetros vulnerables, pruebas de autenticación, sesiones, IDOR y XSS (Sprints 2 y 3). |
-| **Explotación de vulnerabilidades** | `sqlmap` | Explotación controlada de inyecciones SQL, enumeración de bases de datos y validación del impacto (Sprint 3). |
-| **Explotación avanzada** | `Metasploit Framework` | Soporte para pruebas de explotación, validación de post-explotación y apoyo en escalamiento de privilegios (Sprint 4). |
-| **Tráfico y protocolos** | `Wireshark` | Análisis de tráfico de red, validación de cifrado, inspección de sesiones y verificación de evidencias de comunicación (Sprint 4). |
-| **Acceso remoto y post-explotación** | `OpenSSH (ssh, scp)` | Conexión remota al servidor comprometido, obtención de shell interactiva, transferencia controlada de archivos exfiltrados (Sprints 3 y 4). |
-| **Base de datos** | `MySQL Client` | Acceso directo a la base de datos comprometida, ejecución de consultas SQL y verificación de exposición de PII (Sprint 3). |
-| **Automatización y soporte** | `bash`, `curl`, `wget` | Descarga de archivos sensibles (logs, backups), ejecución de comandos automatizados y validación de endpoints (Sprints 2 y 3). |
-| **Gestión de evidencia** | Sistema de archivos en Kali Linux | Organización de evidencias por sprint (`/auditoria_safeguard/sprint_X`), almacenamiento de capturas, logs, dumps y PoC (Sprints 1 al 5). |
+| **Reconocimiento y mapeo de activos** | `Nmap` / `Netcat` | Validación de puertos abiertos (HTTP, HTTPS) y conectividad básica debido a restricciones de Ngrok (Sprint 1). |
+| **Inteligencia de Fuentes Abiertas** | `TheHarvester` / `Google Dorks` | Recolección de correos electrónicos, subdominios y archivos expuestos indexados (Sprint 1). |
+| **Enumeración Web** | `Gobuster` | Fuzzing de directorios y archivos para descubrir rutas ocultas como `/backup` y `/admin` (Sprint 1 y 2). |
+| **Análisis de vulnerabilidades** | `OWASP ZAP` | Escaneo automatizado de vulnerabilidades web, detección de cabeceras inseguras y análisis de estructura del sitio (Sprint 2). |
+| **Peticiones y Validación** | `curl` / `Browser DevTools` | Validación manual de cabeceras HTTP, inspección de respuestas y pruebas de LFI en parámetros URL (Sprint 2 y 3). |
+| **Acceso remoto y exfiltración** | `OpenSSH (ssh, scp)` | Conexión remota al servidor comprometido y transferencia segura de archivos de evidencia hacia la máquina atacante (Sprint 3 y 4). |
+| **Base de datos** | `MySQL Client` | Conexión directa a la base de datos comprometida para la extracción controlada de tablas de clientes y empleados (Sprint 3). |
+| **Escalamiento de privilegios** | `Python3` | Ejecución de scripts para escalar privilegios a root aprovechando configuraciones inseguras de `sudo` (Sprint 4). |
+| **Gestión de evidencia** | Sistema de archivos Kali | Organización de evidencias por sprint (`/auditoria_safeguard/sprint_X`), almacenamiento de capturas y logs. |
 
 ---
 
