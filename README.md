@@ -279,7 +279,7 @@ De esta manera, se asegura que cada iteración aporte resultados concretos (evid
 
 ## 2.2 Backlog inicial: User Stories de seguridad
 
-Una vez redactadas todas las User Stories (US), es fundamental priorizarlas. El Product Backlog organiza las historias de usuario de acuerdo con el valor que aportan al proyecto. Para ello, los Story Points se asignaron usando la escala de Fibonacci (1, 2, 3, 5, 8, 13). Las historias con más puntos representan un mayor impacto en la seguridad del sistema.
+Una vez redactadas todas las User Stories (US), es fundamental priorizarlas. El Product Backlog organiza las historias de usuario de acuerdo con su importancia y el valor que aportan al proyecto. Para ello, los Story Points se asignaron usando la escala de Fibonacci (1, 2, 3, 5, 8, 13). Las historias con más puntos se desarrollarán antes, al representar un mayor impacto en la seguridad del sistema.
 
 | Orden | User Story ID | Título | Descripción (Historia de Usuario) | Story Points |
 |:--:|:--:|:--|:--|:--:|
@@ -302,79 +302,144 @@ Una vez redactadas todas las User Stories (US), es fundamental priorizarlas. El 
 
 ## Criterios de aceptación generales y Definition of Done (DoD)
 
-### Criterios generales por historia
+### Criterios de Aceptación Generales por Historia
 
-- **Reproducible:**  
-Cada hallazgo debe incluir los pasos exactos para su reproducción (request, payloads, headers y condiciones del entorno).
+- **Reproducibilidad:**  
+Cada hallazgo debe incluir de forma detallada los pasos exactos para su reproducción, especificando requests, payloads, headers y condiciones del entorno.
 
 - **Evidencia:**  
-Toda vulnerabilidad identificada debe sustentarse con capturas de pantalla, outputs de herramientas  
-*(Burp, sqlmap, nmap, ZAP, Nessus)* o grabaciones breves (máx. 30 s) como PoC.
+Toda vulnerabilidad identificada debe estar sustentada con evidencias claras, tales como capturas de pantalla y salidas de herramientas de análisis (Burp Suite, sqlmap, nmap, OWASP ZAP, Nessus, entre otras).
 
 - **Impacto:**  
-Se debe asignar una clasificación CVSS provisional, indicando el impacto potencial en los datos y en la funcionalidad de TutorMatch.
+Se debe asignar una clasificación CVSS provisional, indicando el impacto potencial sobre la confidencialidad, integridad y disponibilidad de los datos, así como sobre la funcionalidad de la plataforma SafeGuard Coffee.
 
 - **Recomendación:**  
-Por cada hallazgo se debe proponer una mitigación técnica concreta  
+Por cada hallazgo se debe proponer una mitigación técnica concreta, clara y aplicable al entorno evaluado.  
 
 - **Ética / Legal:**  
-Si el ROE (Rules of Engagement) prohíbe la extracción de datos reales, las PoC solo deben demostrar el error o la metadata asociada,  
-sin comprometer información sensible del sistema o de usuarios.
+En caso de que el ROE (Rules of Engagement) prohíba la extracción de datos reales, las Proof of Concept (PoC) únicamente deben demostrar la existencia de la vulnerabilidad o la metadata asociada, sin comprometer información sensible del sistema ni de los usuarios.
 
-### Definition of Done (DoD) por historia
+### Definition of Done (DoD) por Historia de Usuario
 
-La historia está documentada y vinculada al sprint backlog correspondiente.  
+- La historia de usuario se encuentra documentada y vinculada al Sprint Backlog correspondiente.
 
-Las evidencias (screenshots, outputs, colecciones Postman/Burp, reportes ZAP/Nessus) están adjuntas y debidamente nombradas.  
+- Las evidencias (screenshots, outputs de herramientas, colecciones Postman/Burp, reportes de ZAP/Nessus) están adjuntas, ordenadas y correctamente nombradas.  
 
-Cada hallazgo tiene su CVSS estimado, descripción de impacto y priorización de riesgo *(Crítico, Alto, Medio, Bajo)*.  
+- Cada hallazgo cuenta con su descripción de impacto y una priorización de riesgo (Crítico, Alto, Medio, Bajo).  
 
-Se incluye una recomendación técnica priorizada con horizonte de mitigación.  
+- Se incluye al menos una recomendación técnica priorizada, con su respectivo horizonte de mitigación.  
 
-El checklist de reproducción está completado y verificado por un segundo revisor o par técnico.
+- El checklist de reproducción de la vulnerabilidad se encuentra completado y validado.
   
 ## 2.3 Planificación de sprints (Sprint Planning)
 
-Todas estas actividades técnicas se ejecutarán sobre el proyecto TutorMatch (entorno de staging o el host/VM autorizado por el propietario). Antes de cualquier prueba de explotación, se deberá firmar/confirmar el ROE (reglas de compromiso): entornos permitidos, cuentas de prueba, límites de extracción de datos y ventanas de ejecución.
+Todas las actividades técnicas se ejecutaron sobre el proyecto **SafeGuard Coffee**, en un entorno de laboratorio expuesto mediante **Ngrok**, autorizado para fines académicos.
 
-# Sprint 1: Reconocimiento & Escaneo inicial
+Antes de iniciar las pruebas se definieron las **ROE (Rules of Engagement)** considerando:
+
+- **Entorno permitido:** dominio público de laboratorio (*.ngrok.app).
+- **Alcance:** únicamente reconocimiento, enumeración y acceso a archivos expuestos.
+- **Restricciones:** no realizar explotación destructiva ni ataques de denegación de servicio.
+- **Extracción de datos:** solo evidencia mínima necesaria (PoC).
+- **Ventanas de ejecución:** fuera de horarios productivos.
+
+
+### Sprint 1: Reconocimiento & Escaneo inicial
+
+**Duración:** 1 semana
+
+**Metodología:** PTES – Fase 1 (Intelligence Gathering)
+
+**Objetivo:** Identificar y documentar la superficie de ataque pública de SafeGuard Coffee: dominio, servicios, rutas web y posibles vectores iniciales de acceso.
+
+---
 
 **Sprint Backlog 1**
 
 | User Story Id | User Story Title | Work Item Id | Work Item Title | Description | Estimation | Assigned To | Status |
 |---:|---|---:|---|---|:--:|:--|:--|
-| US-01 | Reconocimiento inicial y mapeo de superficie | 1.1 | Preparación del entorno | Configurar Kali, crear cuentas de prueba, capturar hostname / `ip a` / `uname -a`. | (1h) | Leonardo | Done |
-| US-01 | Reconocimiento inicial y mapeo de superficie | 1.2 | OSINT | Búsqueda dominios/subdominios y assets públicos (theHarvester, Google Dorks, Archive.org). | (2h) | Leonardo | Done |
-| US-12 | Escaneo de puertos y servicios de red | 1.3 | Descubrimiento de red | `netdiscover` / `arp-scan`, `nmap -sn` para hosts autorizados. | (1h) | Leonardo | Done |
-| US-12 | Escaneo de puertos y servicios de red | 1.4 | Escaneo inicial de puertos | `nmap -p- -T4 <target>`, `nmap -sV` (inventario de puertos/servicios). | (1h) | Leonardo | Done |
-| US-04 | Escaneo y enumeración de endpoints API | 1.5 | Descubrimiento web | `gobuster`/`ffuf`, `whatweb` para directorios y fingerprinting. | (1h) | Leonardo | Done |
-| US-08 | Verificación de TLS y headers | 1.6 | Revisión TLS / Headers | `testssl.sh` y captura de cabeceras HTTP (primera revisión). | (2h) | Leonardo / Piero | Done |
-| US-01 | Reconocimiento inicial y mapeo de superficie | 1.7 | Documentación inicial | `prep_evidence.txt`, `discovery.txt`, carpeta OSINT, lista endpoints (CSV). | (1h) | Piero | Done |
+| US-01 | Reconocimiento inicial y mapeo de superficie | 1.1 | Preparación del entorno | Configuración de Kali Linux, creación de estructura de carpetas del proyecto y validación del entorno local. | (1h) | Leonardo | Done |
+| US-01 | Reconocimiento inicial y mapeo de superficie | 1.2 | OSINT | Recolección de información pública del dominio mediante Google Dorks, TheHarvester y análisis de sitemap. | (2h) | Leonardo | Done |
+| US-12 | Escaneo de puertos y servicios de red | 1.3 | Validación de servicios expuestos | Verificación manual de conectividad HTTP/HTTPS usando netcat debido a restricciones de Ngrok. | (1h) | Leonardo | Done |
+| US-04 | Descubrimiento web | 1.4 | Enumeración recursiva /backup | Análisis del directorio /backup y detección de archivos sensibles. | (2h) | Leonardo | Done |
+| US-04 | Descubrimiento web | 1.5 | Descubrimiento web | `gobuster`/`ffuf`, `whatweb` para directorios y fingerprinting. | (1h) | Leonardo | Done |
+| US-08 | Verificación de TLS y headers | 1.6 | Fingerprinting HTTP | Identificación de tecnologías backend y cabeceras de seguridad ausentes mediante curl. | (1h) | Leonardo / Piero | Done |
+| US-01 | Documentación de superficie de ataque | 1.7 | Registro de evidencias | Organización de evidencias, outputs y hallazgos críticos del Sprint. | (1h) | Piero | Done |
 
-**Objetivo:**  
-Identificar y documentar la superficie de ataque pública de TutorMatch: dominios, subdominios, hosts, puertos, servicios web y endpoints de autenticación. Generar inventario reproducible que guíe la enumeración.
+**Objetivo del Sprint:**  
+Identificar y documentar de forma reproducible la superficie de ataque expuesta de SafeGuard Coffee, incluyendo:
 
-**Actividades técnicas**
-- Preparación del entorno de pruebas: configurar Kali y ambiente de trabajo, crear cuentas de prueba en TutorMatch (student/tutor) y capturar hostname, `ip a`, `uname -a` (evidencia prep).
-- OSINT para TutorMatch: buscar dominios/subdominios externos y assets públicos (theHarvester, Google Dorks, Archive.org) — identificar posibles endpoints externos (landing, `api.tutormatch`, CDN, etc.).
-- Descubrimiento de red y hosts: `netdiscover` / `arp-scan` (si hay red interna) y `nmap -sn` para descubrir hosts autorizados del entorno de TutorMatch.
-- Escaneo inicial de puertos/servicios: `nmap -p- -T4 <target>` para identificar puertos abiertos; `nmap -sV` para versiones.
-- Descubrimiento web: `gobuster`/`ffuf` para directorios y rutas públicas; `whatweb` para fingerprinting de tecnologías.
-- Primera revisión TLS/headers: test rápido de TLS (`testssl.sh` o similar) y captura de cabeceras HTTP.
+- Dominio público activo.
+- Servicios accesibles (HTTP/HTTPS).
+- Tecnologías backend.
+- Rutas sensibles accesibles.
+- Archivos críticos expuestos.
 
-**Entregables**
-- `prep_evidence.txt` con comandos y salidas básicas (hostname, `ifconfig`/ip, `uname -a`).
-- `discovery.txt` con resultados de `netdiscover`/`nmap -sn`.
-- Carpeta OSINT con outputs (theHarvester, dorks).
-- Lista de URLs/endpoints descubiertos (CSV / Postman collection).
-- Screenshots de las herramientas usadas y outputs principales.
+Este inventario guía directamente las actividades de explotación controlada del Sprint 2.
 
-**Criterio de finalización**  
-Inventario reproducible de hosts y endpoints de TutorMatch; evidencias (outputs y screenshots) subidos; aprobación para pasar a enumeración.
+**Actividades técnicas Ejecutadas**
+
+**1. Preparación del Entorno**
+
+- Configuración de Kali Linux.
+- Creación de estructura de directorios del proyecto.
+- Organización de carpetas OSINT, Nmap y Enumeración.
+
+**2. OSINT para SafeGuard Coffee**
+
+- Google Dorks para:
+  - Archivos PHP expuestos.
+  - Directorios listables.
+  - Posibles credenciales en texto plano.
+- TheHarvester para:
+  - Correos electrónicos.
+  - Subdominios.
+- Descarga e inspección de sitemap.xml.
+
+**3. Validación de Servicios**
+
+- Uso de netcat para validar conectividad en:
+  - Puerto 80 (HTTP).
+  - Puerto 443 (HTTPS).
+- No se ejecutó escaneo agresivo con Nmap por limitaciones del túnel Ngrok.
+
+**4. Enumeración de Directorios**
+
+- Enumeración manual sobre raíz del sitio mediante script Bash con curl.
+- Identificación del directorio crítico: `/backup`
+
+**5. Enumeración Recursiva de `/backup`**
+
+- Análisis recursivo de rutas internas.
+- Descubrimiento del archivo:
+  - credentials.bak (200 OK – Crítico)
+
+**6. Análisis de Archivo Crítico**
+
+- Descarga del archivo.
+- Identificación de credenciales administrativas válidas.
+
+
+**Entregables del Sprint 1**
+
+- Carpeta /osint/ con:
+  - Resultados de Google Dorks.
+  - TheHarvester.
+  - Sitemap descargado.
+- Carpetas:
+  - `/enumeracion/`
+  - `/backup/`
+- Archivo `credentials.bak` como evidencia crítica.
+- Capturas de:
+  - Enumeración de directorios.
+  - Cabeceras HTTP.
+  - Descarga del archivo sensible.
+
+Documento de **inventario inicial de superficie de ataque**.
 
 ---
 
-# Sprint 2: Enumeración y vulnerabilidades preliminares
+### Sprint 2: Enumeración y vulnerabilidades preliminares
 
 **Sprint Backlog 2**
 
