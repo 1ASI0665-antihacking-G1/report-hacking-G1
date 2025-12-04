@@ -66,6 +66,8 @@
 
 # Project Report Collaboration Insights
 
+Durante el desarrollo del proyecto, el equipo SecuraLabs adoptó un enfoque ágil basado en Scrum, distribuyendo los roles de manera clara para garantizar una colaboración efectiva y trazable.
+
 ## Roles Scrum
 - **Product Owner (líder de consultora):**  
   **Harold Miguel Elías Sánchez**  
@@ -161,29 +163,33 @@ La empresa forma parte del sector Agroindustrial, un rubro que combina práctica
 
 SafeGuard Coffee basa su modelo de negocio en la venta de café tostado, productos complementarios y experiencias relacionadas con el consumo del café, todo respaldado por un ecosistema digital que permite una gestión eficiente de clientes, ventas y operaciones.
 
-
 **Servicios digitales ofrecidos**
 
-Para asegurar una operación moderna y accesible, la empresa cuenta con un ecosistema tecnológico dividido en dos componentes principales:
-- **Frontend Web:** Funciona como el portal principal para clientes y distribuidores, permitiéndoles explorar el catálogo de cafés de especialidad, conocer el origen de cada grano, realizar compras en línea y gestionar sus pedidos, pagos y envíos. Además, brinda acceso a información sobre certificaciones sostenibles y recomendaciones de preparación, todo mediante una interfaz intuitiva y orientada a la experiencia del usuario.
-- **Backend:** El backend actúa como la API central que gestiona las operaciones internas de la empresa, incluyendo el control de inventario, la trazabilidad de lotes, el procesamiento de pedidos y pagos, y la administración de usuarios y perfiles. También coordina la sincronización con sistemas logísticos y la gestión del contenido y la información de productos, garantizando un flujo de datos seguro, eficiente y actualizado.
+La solución TutorMatch está compuesta por un ecosistema tecnológico distribuido en tres capas principales:
+- **Frontend Web:** Portal de acceso principal desarrollado para navegadores, desde el cual los estudiantes pueden registrarse, buscar tutores, agendar sesiones, chatear en tiempo real y acceder a recursos académicos compartidos.
+- **Backend:** API central que gestiona la autenticación de usuarios, el manejo de perfiles, el registro de tutorías, la comunicación en tiempo real y la administración de la base de datos.
+- **Aplicación Móvil:** Complemento multiplataforma que ofrece las mismas funcionalidades del portal web, con un enfoque en la usabilidad y la accesibilidad desde dispositivos móviles.
 
-Ambas plataformas trabajan conjuntamente para brindar una experiencia fluida, segura y confiable, permitiendo que la empresa mantenga un estándar de calidad acorde con su compromiso: llevar a cada cliente un café sostenible, de origen certificado y cuidadosamente seleccionado.
+Estas plataformas integran funcionalidades como videollamadas, chat en tiempo real, transferencia de archivos y gestión de disponibilidad y horarios, lo que permite una experiencia académica fluida y personalizada.
 
 **Misión y visión**
-- **Misión:** Ofrecer cafés de especialidad de origen sostenible, conectando directamente a los consumidores con agricultores comprometidos con la calidad y el comercio justo. Buscamos brindar una experiencia auténtica en cada taza mediante procesos responsables, trazabilidad completa y el uso de tecnologías que faciliten el acceso a nuestros productos artesanales.
-- **Visión:** Consolidarnos en los próximos cinco años como una de las marcas de café de especialidad más reconocidas del país, destacando por nuestra calidad, sostenibilidad y conexión directa con productores de alta montaña. Aspiramos a liderar la transformación digital del sector cafetalero mediante soluciones innovadoras que acerquen la experiencia del café premium a consumidores locales e internacionales.
+- **Misión:** Facilitar la conexión entre estudiantes y tutores universitarios, optimizando la experiencia de aprendizaje mediante el uso de tecnologías colaborativas que permitan acceder a apoyo académico en tiempo real, de manera flexible y efectiva.
+- **Visión:** Convertirse en la principal plataforma universitaria de tutorías académicas en un plazo de cinco años, promoviendo una educación más accesible, personalizada y eficiente mediante el uso de herramientas digitales innovadoras que fortalezcan el rendimiento académico y la autonomía del estudiante.
 
 **Mercado objetivo**
 
-El mercado objetivo de SafeGuard Coffee está compuesto por consumidores interesados en cafés de especialidad, especialmente aquellos que valoran la sostenibilidad, el comercio directo y la trazabilidad del producto. La empresa se orienta tanto a clientes finales como a distribuidores, cafeterías boutique y negocios gastronómicos. A mediano plazo, busca expandir su presencia a nuevos segmentos del sector horeca y consolidarse como un referente dentro del mercado nacional e internacional de cafés de alta calidad.
+El mercado objetivo de TutorMatch está compuesto principalmente por estudiantes universitarios de la carrera de Ingeniería de Software de la UPC, con proyección de expandirse a otras carreras y universidades del país. La plataforma busca posicionarse como un punto de encuentro confiable y ágil entre tutores y alumnos dentro del entorno académico digital.
 
 ### Expectativas del cliente  
 
+<<<<<<< Updated upstream
 Las expectativas del cliente se centran en recibir una evaluación de ciberseguridad clara, práctica y orientada a la acción, que permita identificar y priorizar amenazas reales dentro del ecosistema digital de SafeGuard Coffee. El cliente espera que el análisis detecte vulnerabilidades que puedan afectar la integridad del flujo de compra, la disponibilidad del sistema, la confidencialidad de los datos de clientes o la seguridad de las transacciones en línea. Esto incluye fallas en controles de autenticación, configuraciones inseguras, exposición de información sensible, riesgos de acceso no autorizado al inventario o al backend, y cualquier debilidad que pueda facilitar ataques como inyección, secuestro de sesión o escalación de privilegios. </br>
 
 Asimismo, el cliente espera un informe técnico exhaustivo con hallazgos reproducibles y evidencia verificable (logs, capturas, payloads y pasos de explotación), acompañado de un plan de remediación priorizado que detalle mitigaciones concretas, estimación de esfuerzo y nivel de criticidad de cada vulnerabilidad. También valora un resumen ejecutivo orientado a personal no técnico, así como recomendaciones para fortalecer sus prácticas de seguridad, mejorar su postura de defensa y establecer lineamientos sostenibles de ciberseguridad en sus operaciones digitales.
 
+=======
+Las expectativas del cliente se centran en obtener una evaluación de seguridad práctica y accionable que permita identificar y priorizar riesgos reales para TutorMatch. Específicamente, el cliente espera que el ejercicio de pentesting detecte vulnerabilidades críticas y de alto impacto (riesgo de takeover de cuentas, exposición de datos sensibles, ejecución remota o acceso no autorizado a la base de datos), que se entregue un informe técnico detallado con hallazgos reproducibles y evidencia (pruebas, logs, capturas) y que se proponga un plan de remediación con mitigaciones concretas, estimación de esfuerzo y prioridades para corregir los problemas detectados. Además, el cliente valora recibir un resumen ejecutivo comprensible para áreas no técnicas y recomendaciones para mejorar prácticas de desarrollo seguro (DevSecOps) y políticas operativas.
+>>>>>>> Stashed changes
 
 ## 1.2 Consultora de Ciberseguridad (Equipo)
 ### Descripción de la consultora  
@@ -283,18 +289,22 @@ Una vez redactadas todas las User Stories (US), es fundamental priorizarlas. El 
 
 | Orden | User Story ID | Título | Descripción (Historia de Usuario) | Story Points |
 |:--:|:--:|:--|:--|:--:|
-| 01 | US-02 | Pruebas de inyección SQL en APIs y formularios | Como pentester quiero ejecutar pruebas de inyección SQL sobre los endpoints críticos de TutorMatch (login, búsqueda de tutores, consultas de perfil) para identificar accesos o manipulaciones no autorizadas a la base de datos. | 13 |
-| 02 | US-03 | Pruebas de Cross-Site Scripting (XSS) | Como atacante quiero insertar scripts maliciosos en el chat en tiempo real, comentarios y campos de subida para validar la sanitización de entradas en TutorMatch. | 13 |
-| 03 | US-05 | Explotación de credenciales débiles & recuperación de cuenta | Como pentester quiero evaluar contraseñas débiles, políticas de bloqueo y el flujo de recuperación de cuentas (reset) para identificar takeover de cuentas en TutorMatch. | 8 |
-| 04 | US-04 | Escaneo y enumeración de endpoints API | Como atacante quiero identificar todos los endpoints REST (y métodos HTTP) expuestos por TutorMatch para detectar recursos sin protección. | 8 |
-| 05 | US-09 | Detección de exposición de datos sensibles | Como pentester quiero revisar respuestas de la API y endpoints públicos para detectar tokens, correos, PII o información sensible no enmascarada. | 8 |
-| 06 | US-12 | Escaneo de puertos y servicios de red | Como atacante quiero mapear hosts, puertos y servicios detrás del despliegue de TutorMatch (servidor web, DB, servicios auxiliares). | 5 |
-| 07 | US-06 | Prueba de subida de archivos inseguros | Como pentester quiero probar la carga de archivos (documentos, imágenes, .php renombrado) para comprobar validación y riesgo de ejecución en TutorMatch. | 5 |
-| 08 | US-08 | Verificación de TLS y headers de seguridad | Como auditor quiero comprobar HTTPS/TLS y headers (CSP, HSTS, X-Frame-Options, X-XSS-Protection) para asegurar transporte y mitigación de vectores web. | 5 |
-| 09 | US-13 | Auditoría de repositorios y pipelines (DevSecOps) | Como pentester quiero revisar repositorios y pipelines de CI/CD asociados a TutorMatch para detectar secretos expuestos o malas prácticas. | 3 |
-| 10 | US-10 | Pruebas CSRF en acciones críticas | Como atacante quiero comprobar si formularios/state-changing endpoints en TutorMatch protegen contra CSRF. | 3 |
-| 11 | US-11 | Análisis estático de aplicación móvil | Como pentester quiero analizar la app móvil (si existe) para detectar almacenamiento inseguro, claves hardcoded y llamadas inseguras a las APIs de TutorMatch. | 3 |
-| 12 | US-01 | Reconocimiento inicial y mapeo de superficie | Como atacante externo quiero identificar dominios/subdominios, landing pages, rutas de login y formularios públicos de TutorMatch para mapear la superficie de ataque. | 2 |
+| 01 | US-01 | Identificación de servicios expuestos | Como atacante externo quiero identificar los servicios expuestos del sistema para conocer los puertos abiertos y versiones activas. | 3 |
+| 02 | US-02 | Descubrimiento de directorios ocultos | Como atacante quiero descubrir directorios ocultos del servidor web para identificar rutas accesibles con respuesta HTTP 200 o 301. | 5 |
+| 03 | US-03 | Obtención de información pública (OSINT) | Como atacante quiero obtener información pública del sistema para identificar correos, usuarios y tecnologías utilizadas. | 5 |
+| 04 | US-04 | Validación de seguridad de túneles | Como atacante quiero validar la seguridad de los túneles de comunicación para confirmar la accesibilidad a los dominios expuestos. | 2 |
+| 05 | US-05 | Enumeración de endpoints web | Como pentester quiero enumerar los endpoints del sitio web para identificar todos los archivos .php accesibles. | 5 |
+| 06 | US-06 | Validación de credenciales web | Como pentester quiero validar credenciales web para verificar un inicio de sesión exitoso con el usuario carlos.mendez@safeguard.coffee. | 3 |
+| 07 | US-07 | Análisis de vulnerabilidades web básicas | Como pentester quiero analizar vulnerabilidades web básicas para identificar headers inseguros, XSS y SQLi. | 8 |
+| 08 | US-08 | Documentación de la superficie de ataque | Como pentester quiero documentar la superficie de ataque para listar formularios, parámetros GET/POST y cookies. | 8 |
+| 09 | US-09 | Acceso a logs del sistema | Como atacante quiero acceder a los logs internos del sistema para descargar archivos de registro. | 3 |
+| 10 | US-10 | Obtención de credenciales de infraestructura | Como atacante quiero obtener credenciales de infraestructura para identificar usuarios y contraseñas de base de datos y SSH. | 8 |
+| 11 | US-11 | Extracción de información de la base de datos | Como atacante quiero extraer información de la base de datos para obtener un dump de tablas de clientes y empleados. | 8 |
+| 12 | US-12 | Acceso remoto al servidor | Como atacante quiero obtener acceso remoto al servidor para establecer una conexión SSH exitosa. | 5 |
+| 13 | US-13 | Escalamiento de privilegios a root | Como atacante quiero escalar privilegios a nivel root para obtener una shell con UID 0. | 8 |
+| 14 | US-14 | Búsqueda de archivos sensibles protegidos | Como atacante quiero buscar archivos sensibles en directorios protegidos para leer /root/ y archivos de configuración. | 5 |
+| 15 | US-15 | Exfiltración de base de datos de clientes | Como atacante quiero exfiltrar la base de datos de clientes para descargar un archivo CSV o SQL a mi máquina local. | 5 |
+| 16 | US-16 | Persistencia en el sistema (simulada) | Como atacante quiero mantener persistencia en el sistema para crear un usuario backdoor de manera simulada. | 3 |
 
 ## Criterios de aceptación generales y Definition of Done (DoD)
 
