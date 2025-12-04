@@ -69,7 +69,7 @@
 ## Roles Scrum
 - **Product Owner (líder de consultora):**  
   **Harold Miguel Elías Sánchez**  
-  Responsable de definir el alcance del servicio de pentesting, gestionar la comunicación con el cliente (TutorMatch), priorizar el Product Backlog y validar los entregables de cada sprint. Supervisa la aplicación de las reglas del **ROE (Rules of Engagement)** y asegura que las pruebas se desarrollen bajo lineamientos éticos y legales.
+  Responsable de definir el alcance del servicio de pentesting, gestionar la comunicación con el cliente (SafeGuard Coffee), priorizar el Product Backlog y validar los entregables de cada sprint. Supervisa la aplicación de las reglas del **ROE (Rules of Engagement)** y asegura que las pruebas se desarrollen bajo lineamientos éticos y legales.
 
 - **Scrum Master (coordinador de procesos):**  
   **Fabio Maurizio Nicolich Alvis**  
