@@ -1,0 +1,10 @@
+HTTP/2 200 
+accept-ranges: bytes
+content-type: text/html
+date: Thu, 04 Dec 2025 05:22:08 GMT
+etag: "7d63-64475147f1880"
+last-modified: Wed, 26 Nov 2025 01:11:46 GMT
+server: Apache/2.4.65 (Debian)
+vary: Accept-Encoding
+content-length: 32099
+

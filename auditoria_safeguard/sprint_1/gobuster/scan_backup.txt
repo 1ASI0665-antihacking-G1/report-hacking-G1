@@ -1,0 +1,6 @@
+/.htaccess           [33m (Status: 403)[0m [Size: 291]
+/.htaccess.bak       [33m (Status: 403)[0m [Size: 291]
+/.htaccess.sql       [33m (Status: 403)[0m [Size: 291]
+/.htaccess.zip       [33m (Status: 403)[0m [Size: 291]
+/.htaccess.txt       [33m (Status: 403)[0m [Size: 291]
+/credentials.bak     [32m (Status: 200)[0m [Size: 769]

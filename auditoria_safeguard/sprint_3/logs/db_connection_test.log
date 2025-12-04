@@ -1,0 +1,42 @@
+[2024-11-30 14:23:15] ========================================
+[2024-11-30 14:23:15] SafeGuard Coffee - System Diagnostic Log
+[2024-11-30 14:23:15] Testing database connection...
+[2024-11-30 14:23:15] ========================================
+
+[2024-11-30 14:23:16] Connecting to MySQL database...
+[2024-11-30 14:23:16] Host: 0.tcp.sa.ngrok.io
+[2024-11-30 14:23:16] Port: 17679
+[2024-11-30 14:23:16] User: app_safeguard
+[2024-11-30 14:23:16] Pass: DBPass_S3cur3#2024
+[2024-11-30 14:23:17] Database: safeguard_production
+[2024-11-30 14:23:17] Connection Status: SUCCESS ✓
+[2024-11-30 14:23:17] Server Version: MySQL 8.0.40
+[2024-11-30 14:23:18] Tables found: 8 (usuarios, clientes, trabajadores, productos, ordenes, orden_detalle, categorias, logs)
+
+[2024-11-30 14:24:03] ========================================
+[2024-11-30 14:24:03] Testing backup connectivity...
+[2024-11-30 14:24:03] ========================================
+
+[2024-11-30 14:25:03] SSH backup process initiated...
+[2024-11-30 14:25:04] Target: Production Server
+[2024-11-30 14:25:04] SSH Host: 0.tcp.sa.ngrok.io
+[2024-11-30 14:25:04] SSH Port: 14936
+[2024-11-30 14:25:04] SSH User: sysadmin
+[2024-11-30 14:25:04] SSH Pass: SysAdmin#2024!Secure
+[2024-11-30 14:25:05] SSH Connection: ESTABLISHED ✓
+[2024-11-30 14:25:06] Backup Location: /root/backups/
+[2024-11-30 14:25:07] Last Backup: 2024-11-30_02-00-15.tar.gz (45.2 MB)
+[2024-11-30 14:25:08] Backup verification: PASSED ✓
+
+[2024-11-30 14:26:10] ========================================
+[2024-11-30 14:26:10] System Health Check Complete
+[2024-11-30 14:26:10] ========================================
+[2024-11-30 14:26:10] Database: ONLINE
+[2024-11-30 14:26:10] SSH Access: VERIFIED
+[2024-11-30 14:26:10] Backup System: OPERATIONAL
+[2024-11-30 14:26:11] Disk Space: 67% used (23.5 GB available)
+[2024-11-30 14:26:11] Memory: 42% used (4.2 GB available)
+[2024-11-30 14:26:12] CPU Load: 0.45, 0.38, 0.32 (1, 5, 15 min avg)
+
+[2024-11-30 14:26:15] All systems operational. Log session closed.
+[2024-11-30 14:26:15] Next scheduled check: 2024-12-01 14:00:00

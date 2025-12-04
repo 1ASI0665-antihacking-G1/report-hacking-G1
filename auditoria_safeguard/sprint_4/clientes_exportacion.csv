@@ -1,0 +1,6 @@
+id,nombre_completo,dni,email,telefono,direccion,fecha_registro,tipo_cliente,total_compras,tarjeta_ultimos_4,metodo_pago_preferido
+1,"Maria Fernanda Lopez Garcia","45678912","maria.lopez@outlook.com","+51 987 654 321","Av. Javier Prado 2456, Dpto 802, San Isidro, Lima","2024-03-15","premium","S/ 3,450.00","4532","Visa Debito"
+2,"Carlos Alberto Rodriguez Perez","78901234","carlos.rodriguez@gmail.com","+51 998 765 432","Jr. Las Begonias 789, Casa 12, Miraflores, Lima","2024-05-20","regular","S/ 890.00","7821","Yape"
+3,"Ana Lucia Torres Vega","65432109","ana.torres@yahoo.com","+51 976 543 210","Calle Los Olivos 456, Of. 304, Surco, Lima","2024-02-10","corporativo","S/ 5,670.00","6543","Transferencia Bancaria"
+4,"Jose Miguel Huaman Soto","87654321","jose.huaman@hotmail.com","+51 965 432 109","Av. Universitaria 2890, Torre B-501, Los Olivos, Lima","2024-06-08","regular","S/ 1,230.00","3210","Plin"
+5,"Patricia Isabel Ramirez Cruz","12345678","patricia.ramirez@safeguard-corp.com","+51 987 123 456","Av. Arequipa 1245, Piso 15, Lince, Lima","2024-01-22","premium","S/ 4,125.00","9876","Mastercard Credito"

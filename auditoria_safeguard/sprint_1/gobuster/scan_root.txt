@@ -1,0 +1,19 @@
+/logout.php          [36m (Status: 302)[0m [Size: 0][34m [--> index.html][0m
+/backup              [36m (Status: 301)[0m [Size: 341][34m [--> http://safeguard-coffee.ngrok.app/backup/][0m
+/login.php           [32m (Status: 200)[0m [Size: 6220]
+/admin               [36m (Status: 301)[0m [Size: 340][34m [--> http://safeguard-coffee.ngrok.app/admin/][0m
+/api                 [36m (Status: 301)[0m [Size: 338][34m [--> http://safeguard-coffee.ngrok.app/api/][0m
+/admin.php           [36m (Status: 302)[0m [Size: 0][34m [--> login.php][0m
+/css                 [36m (Status: 301)[0m [Size: 338][34m [--> http://safeguard-coffee.ngrok.app/css/][0m
+/js                  [36m (Status: 301)[0m [Size: 337][34m [--> http://safeguard-coffee.ngrok.app/js/][0m
+/img                 [36m (Status: 301)[0m [Size: 338][34m [--> http://safeguard-coffee.ngrok.app/img/][0m
+/.htaccess           [33m (Status: 403)[0m [Size: 291]
+/.htaccess.txt       [33m (Status: 403)[0m [Size: 291]
+/.htaccess.bak       [33m (Status: 403)[0m [Size: 291]
+/.htaccess.sql       [33m (Status: 403)[0m [Size: 291]
+/.htaccess.php       [33m (Status: 403)[0m [Size: 291]
+/.gitignore          [32m (Status: 200)[0m [Size: 715]
+/database            [36m (Status: 301)[0m [Size: 343][34m [--> http://safeguard-coffee.ngrok.app/database/][0m
+/admin               [36m (Status: 301)[0m [Size: 340][34m [--> http://safeguard-coffee.ngrok.app/admin/][0m
+/admin.php           [36m (Status: 302)[0m [Size: 0][34m [--> login.php][0m
+/backup              [36m (Status: 301)[0m [Size: 341][34m [--> http://safeguard-coffee.ngrok.app/backup/][0m

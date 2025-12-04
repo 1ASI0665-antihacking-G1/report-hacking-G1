@@ -1,0 +1,14 @@
+Starting Nmap 7.95 ( https://nmap.org ) at 2025-12-04 00:11 EST
+Nmap scan report for 3.150.82.187
+Host is up (0.11s latency).
+
+PORT    STATE SERVICE    VERSION
+80/tcp  open  http
+443/tcp open  tcpwrapped
+1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+SF-Port80-TCP:V=7.95%I=7%D=12/4%Time=69311820%P=x86_64-pc-linux-gnu%r(NULL
+SF:,5D,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nContent-Length:\x2011\r\nCon
+SF:nection:\x20close\r\nContent-Type:\x20text/plain\r\n\r\n");
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 31.79 seconds

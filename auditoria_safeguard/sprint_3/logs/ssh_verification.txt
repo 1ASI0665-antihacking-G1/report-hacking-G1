@@ -1,0 +1,3 @@
+sysadmin
+017af621c8aa
+uid=1000(sysadmin) gid=1000(sysadmin) groups=1000(sysadmin),27(sudo)

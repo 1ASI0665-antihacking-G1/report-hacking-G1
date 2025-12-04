@@ -1,0 +1,23 @@
+Database
+information_schema
+performance_schema
+safeguard_production
+Tables_in_safeguard_production
+clientes
+orden_detalle
+ordenes
+productos
+trabajadores
+usuarios
+id	nombre_completo	dni	email	telefono	direccion	fecha_registro	tipo_cliente	total_compras	tarjeta_ultimos_4
+1	MarÃ­a Fernanda LÃ³pez GarcÃ­a	45678912	maria.lopez@outlook.com	+51 987 654 321	Av. Javier Prado 2456, San Isidro, Lima	2025-12-03	premium	3450.00	4532
+2	Carlos Alberto RodrÃ­guez PÃ©rez	78901234	carlos.rodriguez@gmail.com	+51 998 765 432	Jr. Las Begonias 789, Miraflores, Lima	2025-12-03	regular	890.00	7821
+3	Ana LucÃ­a Torres Vega	65432109	ana.torres@yahoo.com	+51 976 543 210	Calle Los Olivos 456, Surco, Lima	2025-12-03	corporativo	5670.00	6543
+4	JosÃ© Miguel HuamÃ¡n Soto	87654321	jose.huaman@hotmail.com	+51 965 432 109	Av. Universitaria 2890, Los Olivos, Lima	2025-12-03	regular	1230.00	3210
+5	Patricia Isabel RamÃ­rez Cruz	12345678	patricia.ramirez@safeguard-corp.com	+51 987 123 456	Av. Arequipa 1245, Lince, Lima	2025-12-03	premium	4125.00	9876
+id	nombre_completo	dni	email_corporativo	cargo	salario	fecha_contratacion	area
+1	Carlos Alberto MÃ©ndez Silva	40123456	carlos.mendez@safeguard.coffee	Administrador de Sistemas	4500.00	2023-01-15	IT
+2	Laura Beatriz Santos Flores	45678901	laura.santos@safeguard.coffee	Gerente de Ventas	5200.00	2022-06-10	Ventas
+3	Roberto MartÃ­n VÃ¡squez DÃ­az	78912345	roberto.vasquez@safeguard.coffee	Barista Senior	2800.00	2023-03-20	ProducciÃ³n
+4	SofÃ­a Alejandra GutiÃ©rrez Luna	65498732	sofia.gutierrez@safeguard.coffee	Analista Financiero	3800.00	2023-08-05	Finanzas
+5	Diego Fernando Castillo Rojas	98765432	diego.castillo@safeguard.coffee	Desarrollador Web	4200.00	2024-02-01	IT
