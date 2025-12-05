@@ -306,6 +306,11 @@ Una vez redactadas todas las User Stories (US), es fundamental priorizarlas. El 
 | 14 | US-14 | Búsqueda de archivos sensibles protegidos | Como atacante quiero buscar archivos sensibles en directorios protegidos para leer /root/ y archivos de configuración. | 5 |
 | 15 | US-15 | Exfiltración de base de datos de clientes | Como atacante quiero exfiltrar la base de datos de clientes para descargar un archivo CSV o SQL a mi máquina local. | 5 |
 | 16 | US-16 | Persistencia en el sistema (simulada) | Como atacante quiero mantener persistencia en el sistema para crear un usuario backdoor de manera simulada. | 3 |
+| 17 | US-17 | Consolidación de vulnerabilidades | Como consultor quiero consolidar todas las vulnerabilidades detectadas para generar una matriz unificada. | 5 |
+| 18 | US-18 | Elaboración del plan de mitigación | Como consultor quiero elaborar el plan de mitigación para entregar acciones a corto, mediano y largo plazo. | 5 |
+| 19 | US-19 | Preparación del informe ejecutivo | Como consultor quiero preparar el informe ejecutivo para la presentación final ante la gerencia. | 3 |
+| 20 | US-20 | Evaluación final del riesgo | Como Product Owner quiero una evaluación final del riesgo para determinar el nivel global del sistema. | 3 |
+
 
 ---
 
