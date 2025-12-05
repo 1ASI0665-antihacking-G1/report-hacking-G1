@@ -777,6 +777,8 @@ Se creó la estructura de carpetas para el almacenamiento organizado de resultad
 
 Este escaneo permitió validar configuraciones débiles del servidor web visibles desde el exterior.
 
+Evidencia: <img src="auditoria_safeguard/sprint_2/imgs/zap.png" alt="zap image" width="600"/> 
+
 #### 3.8.3 Análisis de Cabeceras de Seguridad (Headers HTTP)
 Se analizaron manualmente las cabeceras de respuesta del servidor web para verificar mecanismos básicos de protección.
 **Hallazgos:**
