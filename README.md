@@ -1212,7 +1212,7 @@ root
 **Descripción:** Se encontró el archivo `db_connection_test.log` en el directorio de logs, exponiendo credenciales de base de datos y SSH en texto claro.
 
 **Evidencia:**
-<img src="auditoria_safeguard/sprint_2/imgs/Screenshot_1.png" alt="DB Log Access" width="600"/>
+<img src="auditoria_safeguard/sprint_3/imgs/Screenshot_1.png" alt="DB Log Access" width="600"/>
 
 **Output (Contenido extraído del log):**
 ```log
