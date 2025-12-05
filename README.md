@@ -1100,14 +1100,14 @@ fue **ALCANZADO** con éxito.
 
 **Matriz Consolidada de Vulnerabilidades**
 
-| ID | Vulnerabilidad | Severidad (CVSS) | Descripción | Impacto |
-|:--:|:--|:--:|:--|:--|
-| VULN-01 | Sensitive File Exposure | Crítica (9.8) | Archivo credentials.bak expuesto públicamente | Acceso inicial al sistema |
-| VULN-02 | Privilege Escalation | Crítica (8.8) | Permisos sudo NOPASSWD en python3 | Control total del servidor |
-| VULN-03 | Hardcoded Credentials | Alta (7.5) | Credenciales en db_connection_test.log | Acceso a DB y SSH |
-| VULN-04 | Directory Listing | Media (5.3) | Indexación habilitada en /backup y /admin/logs | Enumeración de archivos |
-| VULN-05 | Missing Security Headers | Baja (3.7) | Falta de HSTS, CSP y X-Frame-Options | Riesgo de ataques cliente |
-| VULN-06 | Insecure Storage | Alta (7.1) | PII almacenado en /root/backups/ | Fuga de información |
+| ID | Vulnerabilidad | Descripción | CVSS | Impacto | Recomendación Preliminar |
+|:--:|:--|:--|:--:|:--|:--|
+| VULN-01 | Exposición de archivos sensibles | Archivo `credentials.bak` accesible públicamente desde `/backup/` | 9.8 (Crítica) | Permite acceso inicial al sistema web | Eliminar archivos de respaldo del servidor web y restringir accesos |
+| VULN-02 | Escalada de privilegios | Usuario `sysadmin` con permisos `sudo NOPASSWD` sobre `python3` | 8.8 (Crítica) | Control total del servidor (Root) | Corregir configuración de `/etc/sudoers` |
+| VULN-03 | Credenciales en texto plano | Credenciales de DB y SSH almacenadas en `db_connection_test.log` | 7.5 (Alta) | Acceso a infraestructura interna | Implementar gestión segura de secretos |
+| VULN-04 | Directory Listing habilitado | Listado de contenido en `/backup` y `/admin/logs` | 5.3 (Media) | Facilita la enumeración de archivos sensibles | Deshabilitar `Options Indexes` en Apache |
+| VULN-05 | Falta de cabeceras de seguridad | Ausencia de HSTS, CSP y X-Frame-Options | 3.7 (Baja) | Riesgo de XSS y Clickjacking | Configurar cabeceras de seguridad HTTP |
+| VULN-06 | Almacenamiento inseguro de PII | Archivos con datos personales en `/root/backups/` | 7.1 (Alta) | Exposición de información de clientes y empleados | Cifrar datos sensibles y restringir permisos |
 
 **Plan de Mitigación Consolidado**
 
