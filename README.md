@@ -585,8 +585,22 @@ Realizar post-explotación controlada para escalar privilegios a root, localizar
 
 ### Sprint 5: Informe final y recomendaciones
 
-**Objetivo:**  
+**Duración:** Semana 9 - 10
+
+**Metodología:** PTES – Fase 6 (Reporting)
+
+**Objetivo del Sprint:**
 Consolidar todos los hallazgos del proceso de pentesting, clasificar las vulnerabilidades mediante CVSS, documentar evidencias técnicas y proponer un plan de mitigación priorizado a corto, mediano y largo plazo para SafeGuard Coffee.
+
+**Sprint Backlog 5**
+
+| User Story Id | User Story Title | Work Item Id | Work Item Title | Description | Estimation | Assigned To | Status |
+|---:|---|---:|---|---|:--:|:--|:--|
+| US-17 | Consolidación de vulnerabilidades | 5.1 | Matriz de vulnerabilidades | Unificación y clasificación CVSS de hallazgos. | (2h) | Piero | Done |
+| US-18 | Elaboración del plan de mitigación | 5.2 | Plan de mitigación | Diseño de hoja de ruta a corto, mediano y largo plazo. | (3h) | Leonardo | Done |
+| US-19 | Preparación del informe ejecutivo | 5.3 | Redacción informe final | Elaboración de documento técnico y ejecutivo. | (4h) | Piero | Done |
+| US-19 | Preparación del informe ejecutivo | 5.4 | Presentación ejecutiva | Creación de slides para exposición de resultados. | (2h) | Harold | Done |
+| US-20 | Evaluación final del riesgo | 5.5 | Evaluación de riesgo | Análisis global de impacto y conclusiones. | (1h) | Fabio | Done |
 
 **Actividades técnicas**
 - Consolidación de la **matriz final de vulnerabilidades**, incluyendo descripción, severidad (CVSS), impacto y trazabilidad por cada hallazgo.
