@@ -1348,29 +1348,35 @@ Para asegurar la sostenibilidad de la seguridad en el tiempo y complementar las 
 - **Gestión de Incidentes:**
     - Crear un procedimiento básico de respuesta ante incidentes que defina los pasos a seguir en caso de detección de intrusiones o fuga de datos.
 
-## 5.3 Priorización del Plan de Mitigación
+## 5.3 Priorización del Plan de Mitigación y Recursos
 
-A continuación, se presenta la hoja de ruta para la implementación de las mejoras, priorizada según la criticidad de los hallazgos.
+A continuación, se presenta la hoja de ruta para la implementación de las mejoras, priorizada según la criticidad de los hallazgos, detallando los recursos necesarios y el cronograma estimado.
 
-### Corto Plazo (Inmediato: 0 - 48 horas)
-Acciones críticas para detener la exposición actual.
-1.  **Eliminar archivos expuestos:** Borrar `credentials.bak` y `db_connection_test.log` del servidor web.
-2.  **Rotación de credenciales:** Cambiar las contraseñas de `sysadmin`, `root`, `app_safeguard` y el acceso al panel administrativo.
-3.  **Corregir Sudoers:** Eliminar el permiso `NOPASSWD` de `python3` para `sysadmin`.
-4.  **Deshabilitar Directory Listing:** Aplicar `Options -Indexes` en la configuración de Apache.
+### Matriz de Plan de Acción
 
-### Mediano Plazo (1 - 4 semanas)
-Mejoras estructurales y de configuración.
-1.  **Implementar Cabeceras de Seguridad:** Configurar HSTS, CSP, etc.
-2.  **Hardening SSH:** Configurar autenticación por llaves y restricciones de IP.
-3.  **Cifrado de Datos:** Cifrar los respaldos de base de datos que contengan PII.
-4.  **Gestión de Secretos:** Refactorizar la aplicación para usar variables de entorno para las credenciales de BD.
+| Etapa | Acciones Clave | Plazo Estimado | Recursos Humanos Requeridos | Recursos Económicos |
+| :--- | :--- | :--- | :--- | :--- |
+| **Corto Plazo**<br>(Inmediato) | • Eliminación de archivos expuestos (`credentials.bak`, logs)<br>• Rotación total de credenciales (Sysadmin, DB, Web)<br>• Corrección de permisos Sudoers<br>• Deshabilitar Directory Listing | **0 - 48 horas** | • Equipo de SysAdmin (Interno)<br>• Líder Técnico | **Bajo**<br>(Horas hombre operativas, sin inversión adicional) |
+| **Mediano Plazo**<br>(Táctico) | • Implementación de Cabeceras de Seguridad (HSTS, CSP)<br>• Hardening de servicio SSH (Keys only)<br>• Cifrado de respaldos con PII<br>• Gestión de secretos (Variables de entorno) | **1 - 4 semanas** | • Arquitecto de Seguridad<br>• Equipo de Desarrollo<br>• DevOps | **Medio**<br>(Posible consultoría externa puntual, horas de desarrollo) |
+| **Largo Plazo**<br>(Estratégico) | • Auditorías de seguridad periódicas (Pentesting)<br>• Implementación de monitoreo centralizado (SIEM)<br>• Integración DevSecOps (SAST/DAST)<br>• Certificación en normas (ISO 27001) | **1 - 3 meses+** | • CISO / Oficial de Seguridad<br>• Auditores externos certificados<br>• Equipo de Operaciones | **Alto**<br>(Licencias de software SIEM, contratos de auditoría, capacitación) |
 
-### Largo Plazo (1 - 3 meses)
-Estrategia y madurez de seguridad.
-1.  **Auditorías Periódicas:** Establecer un cronograma de pentesting trimestral o semestral.
-2.  **Monitoreo (SIEM):** Implementar una solución centralizada de logs y alertas para detectar accesos anómalos.
-3.  **DevSecOps:** Integrar herramientas de análisis estático (SAST) en el ciclo de desarrollo para detectar credenciales hardcodeadas antes del despliegue.
+### Calendario de Implementación (Cronograma)
+
+Para asegurar el cumplimiento de este plan, se propone el siguiente calendario de ejecución:
+
+- **Semana 1 (Días 1-2): Fase de Contención**
+    - Ejecución inmediata de acciones de Corto Plazo.
+    - Validación de cierre de brechas críticas (VULN-01, VULN-02, VULN-03).
+
+- **Semana 2-4: Fase de Fortalecimiento**
+    - Configuración de servidores y hardening (Mediano Plazo).
+    - Refactorización de código para gestión de secretos.
+    - Pruebas de regresión para asegurar operatividad.
+
+- **Mes 2 en adelante: Fase de Mejora Continua**
+    - Despliegue de herramientas de monitoreo (SIEM).
+    - Inicio de ciclo de auditorías trimestrales.
+    - Capacitación continua del personal.
 
 ---
 # Capítulo VI: Conclusiones
