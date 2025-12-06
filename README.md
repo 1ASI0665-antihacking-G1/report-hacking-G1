@@ -1354,11 +1354,11 @@ A continuación, se presenta la hoja de ruta para la implementación de las mejo
 
 ### Matriz de Plan de Acción
 
-| Etapa | Acciones Clave | Plazo Estimado | Recursos Humanos Requeridos | Recursos Económicos |
+| Etapa | Acciones Clave | Plazo Estimado | Recursos Humanos Requeridos | Recursos Económicos (Estimado) |
 | :--- | :--- | :--- | :--- | :--- |
-| **Corto Plazo**<br>(Inmediato) | • Eliminación de archivos expuestos (`credentials.bak`, logs)<br>• Rotación total de credenciales (Sysadmin, DB, Web)<br>• Corrección de permisos Sudoers<br>• Deshabilitar Directory Listing | **0 - 48 horas** | • Equipo de SysAdmin (Interno)<br>• Líder Técnico | **Bajo**<br>(Horas hombre operativas, sin inversión adicional) |
-| **Mediano Plazo**<br>(Táctico) | • Implementación de Cabeceras de Seguridad (HSTS, CSP)<br>• Hardening de servicio SSH (Keys only)<br>• Cifrado de respaldos con PII<br>• Gestión de secretos (Variables de entorno) | **1 - 4 semanas** | • Arquitecto de Seguridad<br>• Equipo de Desarrollo<br>• DevOps | **Medio**<br>(Posible consultoría externa puntual, horas de desarrollo) |
-| **Largo Plazo**<br>(Estratégico) | • Auditorías de seguridad periódicas (Pentesting)<br>• Implementación de monitoreo centralizado (SIEM)<br>• Integración DevSecOps (SAST/DAST)<br>• Certificación en normas (ISO 27001) | **1 - 3 meses+** | • CISO / Oficial de Seguridad<br>• Auditores externos certificados<br>• Equipo de Operaciones | **Alto**<br>(Licencias de software SIEM, contratos de auditoría, capacitación) |
+| **Corto Plazo**<br>(Inmediato) | • Eliminación de archivos expuestos (`credentials.bak`, logs)<br>• Rotación total de credenciales (Sysadmin, DB, Web)<br>• Corrección de permisos Sudoers<br>• Deshabilitar Directory Listing | **0 - 48 horas** | • Equipo de SysAdmin (Interno)<br>• Líder Técnico | **S/ 0.00**<br>(Costo operativo cubierto por planilla actual) |
+| **Mediano Plazo**<br>(Táctico) | • Implementación de Cabeceras de Seguridad (HSTS, CSP)<br>• Hardening de servicio SSH (Keys only)<br>• Cifrado de respaldos con PII<br>• Gestión de secretos (Variables de entorno) | **1 - 4 semanas** | • Arquitecto de Seguridad<br>• Equipo de Desarrollo<br>• DevOps | **S/ 2,500 - S/ 4,000**<br>(Consultoría puntual o horas extra de desarrollo) |
+| **Largo Plazo**<br>(Estratégico) | • Auditorías de seguridad periódicas (Pentesting)<br>• Implementación de monitoreo centralizado (SIEM Open Source)<br>• Integración DevSecOps (SAST/DAST)<br>• Capacitación de personal | **1 - 3 meses+** | • CISO / Oficial de Seguridad<br>• Auditores externos certificados<br>• Equipo de Operaciones | **S/ 8,000 - S/ 12,000 anuales**<br>(Auditorías semestrales y capacitación especializada) |
 
 ### Calendario de Implementación (Cronograma)
 
